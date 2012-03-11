@@ -1,13 +1,17 @@
 <?php
 
-class Core_Config_JSON implements Core_Config_Interface {
-
-  protected $_config;
+class Core_Config_JSON extends Core_Object implements Core_Config_Interface {
 
   public function load( $file ){
-	$this->_config =  json_decode( file_get_contents($file), true );
+	$this->setData(json_decode( file_get_contents($file), true ));
+	$this->_hasDataChanges = false;
+  }
+  
+  public function getConfig( $uri ){
+	return $this->getData( $uri );
   }
 
+  /*
   protected function _recursivelyGetConfig( $uri, $config ){
 	$uri_parts = explode("/", $uri );
 	if( $uri == "" ){
@@ -36,7 +40,7 @@ class Core_Config_JSON implements Core_Config_Interface {
 
 	return $this;
   }
-
+  */
 
   protected function _recursivelySetConfig( $uri, $value, &$config ){
 	$uri_parts = explode("/", $uri );
@@ -58,9 +62,10 @@ class Core_Config_JSON implements Core_Config_Interface {
 
   public function setConfig( $uri, $value ){
 	if( $uri == "/" ){
-	  $this->_config = $value;
+	  $this->_data = $value;
 	} else {
-	  $foo = $this->_recursivelySetConfig( $uri, $value, $this->_config );
+	  $this->_recursivelySetConfig( $uri, $value, $this->_data );
+	  $this->_hasDataChanges = true;
 	}
 
 	return $this;
