@@ -1,0 +1,61 @@
+{
+
+	"credentials" : {
+		"username" : "",
+		"password" : ""
+	},
+
+	"defaults" : {
+		"headers" : [ "Accept: application/xml" ],
+		"url" : "www.assembla.com"
+	},
+
+	"services" : {
+
+		"list_of_milestones" : {
+			"uri" : "spaces/${space_id}/milestones/",
+			"type" : "GET"
+		},
+
+		"show_milestone" : {
+			"uri" : "spaces/${space_id}/milestones/${milestone_id}",
+			"type" : "GET"
+		},
+
+		"my_spaces_list" : {
+			"uri" : "spaces/my_spaces",
+			"type" : "GET"
+		},
+
+		"show_space_by_id" : {
+			"uri" : "spaces/${id}",
+			"type" : "GET"
+		},
+
+		"show_space_by_wiki_name" : {
+			"uri" : "spaces/${wiki_name}",
+			"type" : "GET"
+		},
+
+		"list_of_tickets" : {
+			"uri" : "spaces/${space_id}/tickets/",
+			"type" : "GET"
+		},
+   
+		"ticket_report" : {
+			"uri" : "spaces/${space_id}/tickets/report/${report_id}",
+			"type" : "GET"
+		},
+
+		"custom_ticket_report" : {
+			"uri" : "spaces/${space_id}/tickets/custom_report/${report_id}",
+			"type" : "GET"
+		},
+
+		"ticket_by_number" :  {
+			"uri" : "spaces/${space_id}/tickets/${ticket_number}",
+			"type" : "GET"
+		}
+	}
+
+}
