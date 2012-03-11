@@ -11,36 +11,6 @@ class Core_Config_JSON extends Core_Object implements Core_Config_Interface {
 	return $this->getData( $uri );
   }
 
-  /*
-  protected function _recursivelyGetConfig( $uri, $config ){
-	$uri_parts = explode("/", $uri );
-	if( $uri == "" ){
-	  return $config;
-	} else {
-	  $_key = array_shift( $uri_parts );
-	  if( is_array($config) && array_key_exists( $_key, $config ) ){
-		return $this->_recursivelyGetConfig( implode( "/", $uri_parts), $config[$_key]);
-	  } else {
-		throw new Exception( $_key );
-	  }
-	}
-
-  }
-
-  public function getConfig( $uri ){
-	if( $uri == "/" ){
-	  return $this->_config;
-	} else {
-	  try {
-		return $this->_recursivelyGetConfig( $uri, $this->_config );
-	  } catch (Exception  $e ){
-		throw new Exception( "The key " . $e->getMessage() . " does not exist in config uri " . $uri );
-	  }
-	}
-
-	return $this;
-  }
-  */
 
   protected function _recursivelySetConfig( $uri, $value, &$config ){
 	$uri_parts = explode("/", $uri );
