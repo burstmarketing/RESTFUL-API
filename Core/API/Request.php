@@ -1,42 +1,44 @@
 <?php
 
-class Core_API_Request extends Core_Object {
+abstract class Core_API_Request extends Core_Object {
 
+  public function send( array $args = array() ){
+	
+	if( $this->_useCache() && $this->_getCache($this->_getCacheKey()) ) {
+	  return $this->_getCache( $this->_getCacheKey() );
+	} else {
+	  if( $this->getUrl() != '' ) {
+		$ch = curl_init( $this->getUrl() );
+		
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		
+		if( is_array($this->getHeaders()) && ! empty( $this->getHeaders() )):
+		  curl_setopt($ch, CURLOPT_HTTPHEADER, array_values($this->getHeaders()));
+		endif;
 
-  protected function _parseVars( $uri, $args = array() ){
-
-	if( empty($args) ):
-	  return $uri;
-	endif;          
-
-	$callback = function($matches) use ($args) {
-	  $propertyName = $matches[1];
-	  if ( !array_key_exists( $propertyName, $args)) {
-		throw new Exception( $propertyName . " not passed into _parseVars function. ");
-	  }
-	  
-	  $propertyValue = $args[$propertyName];
-	  
-	  if (is_bool($propertyValue)) {
-		if ($propertyValue === true) {
-		  $propertyValue = "true";
+		$out = curl_exec ($ch);
+		
+		if( $out !== false ){
+		  $this->_setCache( $this->_getCacheKey( $ch ), $out );
+		  curl_close($ch);	  
 		} else {
-		  $propertyValue = "false";
-		}
-	  }	  
-	  return $propertyValue;	  
-	};
-
-
-	while (strpos($uri, '${') !== false) {
-	  $uri = preg_replace_callback('/\$\{([^\$}]+)\}/', $callback, $uri);
+		  $out = $this->_curlError($ch);
+		}                  
+		return $out;	  
+		
+	  } else {
+		throw new Exception( 'No url was set on the Request Object!' ); 
+	  }
 	}
-	return $uri;
-
   }
-
-  public function send(){
-
+  
+  protected function _curlFailure( $ch ){
+	throw new Exception( 'curl_exec failed with: ' . curl_error( $ch ) ); 
   }
+  
+  abstract protected function _useCache();
+  abstract protected function _setCache( $key, $value );
+  abstract protected function _getCache( $key );
+  abstract protected function _getCacheKey();
 
 ?>
