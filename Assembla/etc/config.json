@@ -6,8 +6,7 @@
 	},
 
 	"defaults" : {
-		"headers" : [ "Accept: application/xml" ],
-		"url" : "www.assembla.com"
+		"url" : "www.assembla.com",
 	},
 
 	"services" : {

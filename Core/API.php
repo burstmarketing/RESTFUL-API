@@ -1,7 +1,7 @@
 <?php
 
 
-class Core_API {
+abstract class Core_API {
   protected $_config;
   protected $_config_base_type;
 
@@ -21,7 +21,11 @@ class Core_API {
   }
 
   public function getConfig( $uri ){
-	return $this->_config->getConfig( $uri );
+	try {
+	  return $this->_config->getConfig( $uri );
+	} catch (Exception $e ) {
+	  return false;
+	}
   }
 
   public function setConfig( $uri, $value ){
@@ -29,6 +33,13 @@ class Core_API {
 	return $this;
   }
 
+
+
+
+
+  protected function _underscore($name) {
+	return strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $name));
+  }
 
   protected function _parseUri( $uri, $args = array() ){
 
@@ -62,7 +73,30 @@ class Core_API {
 	
   }
 
+  public function __call($method, $args){
+
+	if(substr($method, 0, 4) == "load"){
+	  $key = $this->_underscore(substr($method,4));
+	  try {
+		
+		if( $this->getConfig( 'services/' . $key ) !== false ){
+		  
+		  
+		  $request = $this->_processRequest( $this->_getRequest() );
+		  $response = $request->send();
 
 
+		} else {
+		  throw new Exception( 'no service set at: services/' . $key );
+		}
+
+	  } catch (Exception $e){
+		throw $e;
+	  }
+	}
+  }
+
+  abstract protected function _getRequest();
+  abstract protected function _processRequest( Core_API_Request $request );
 
   }

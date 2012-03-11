@@ -3,8 +3,12 @@
 class Core_Config_JSON extends Core_Object implements Core_Config_Interface {
 
   public function load( $file ){
-	$this->setData(json_decode( file_get_contents($file), true ));
-	$this->_hasDataChanges = false;
+	if( ( $config = json_decode( file_get_contents($file), true ) ) !== null ){
+	  $this->setData($config);
+	  $this->_hasDataChanges = false;
+	} else {
+	  throw new Exception('Could not load config located at: ' . $file);
+	}
   }
   
   public function getConfig( $uri ){

@@ -2,6 +2,20 @@
 
 abstract class Core_API_Request extends Core_Object {
 
+  public function addHeader( $header ){
+	if( $headers = $this->getHeaders() ){
+	  if( is_array( $headers ) ){
+		if( !in_array( $header, $headers ) ){
+		  $headers[] = $header;
+		  $this->setHeaders( $headers );
+		}
+	  }
+	} else {
+	  $this->setHeaders( array( $header ) );
+	}
+  }
+
+
   public function send( array $args = array() ){
 	
 	if( $this->_useCache() && $this->_getCache($this->_getCacheKey()) ) {
@@ -11,10 +25,11 @@ abstract class Core_API_Request extends Core_Object {
 		$ch = curl_init( $this->getUrl() );
 		
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		
-		if( is_array($this->getHeaders()) && ! empty( $this->getHeaders() )):
-		  curl_setopt($ch, CURLOPT_HTTPHEADER, array_values($this->getHeaders()));
-		endif;
+
+		$headers = $this->getHeaders();
+		if( is_array($headers) && ! empty($headers)){
+		  curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		}
 
 		$out = curl_exec ($ch);
 		
@@ -41,4 +56,5 @@ abstract class Core_API_Request extends Core_Object {
   abstract protected function _getCache( $key );
   abstract protected function _getCacheKey();
 
+  }
 ?>
