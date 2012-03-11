@@ -35,13 +35,17 @@ abstract class Core_API {
 
 
 
-
+  //NOTE: all of this stuff should probably be refactored into
+  //      a Core_RESTFUL_API class so we can use the rest of the framework
+  //      for stuff like SOAP APIs. __call will have to be changed to call
+  //      an abstract function so we set up the meat of the current function
+  //      in our new Core_RESTFUL_API class.
 
   protected function _underscore($name) {
 	return strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $name));
   }
 
-  protected function _parseUri( $uri, $args = array() ){
+  protected function _processURI( $uri, $args = array() ){
 
 	if( empty($args) ):
 	  return $uri;
@@ -73,18 +77,67 @@ abstract class Core_API {
 	
   }
 
+  protected function _getURIArgs( $uri, $args ){
+	$matches = array();
+	preg_match_all('/\$\{([^\$}]+)\}/', $uri, $matches);
+
+	if( isset($matches[1]) ){
+	  $vals = array_slice( $args, 0, count($matches[1]) );
+	  return array_combine( $matches[1], $vals );
+	}
+
+	return array(); 
+  }
+
+
+  // NOTE: getConfig( 'service' . $key )  should probably be a function
+  //       like getService( $key ) which returns a Core_Config_Service object
+  //       which we can get all this info from instead of requiring this be
+  //       returned as an array.
+
   public function __call($method, $args){
 
 	if(substr($method, 0, 4) == "load"){
 	  $key = $this->_underscore(substr($method,4));
 	  try {
 		
-		if( $this->getConfig( 'services/' . $key ) !== false ){
-		  
-		  
-		  $request = $this->_processRequest( $this->_getRequest() );
+		if( ($service = $this->getConfig( 'services/' . $key )) !== null ){
+
+		  $request = $this->_getRequest();
+
+		  $request = $this->_preProcessRequest($request);
+
+		  if( $this->getConfig("defaults/url") ){
+			$request->setUrl( $this->getConfig("defaults/url") );
+		  }
+
+		  if( is_array($service) ){
+			if( array_key_exists( 'uri', $service ) ){
+			  if( is_array( $args[0] ) ){
+				$_args = $args[0];
+			  } else {
+				$_args =  $this->_getURIArgs( $service['uri'], $args );
+			  }
+			  
+			  $request->setUri( $this->_processURI( $service['uri'], $_args ) );
+
+			} else {
+			  throw new Exception("could not find 'uri' in service: " . $key );
+			}
+			
+			if( array_key_exists('type', $service ) ){
+			  $request->setType($service['type']);
+			} else {
+			  throw new Exception("type is not defined in service: " . $key );
+			}
+		  } else {
+			throw new Exception("service: " . $key . "is not an array!");
+		  }
+
+		  $request = $this->_postProcessRequest( $request );
 		  $response = $request->send();
 
+		  return $response;
 
 		} else {
 		  throw new Exception( 'no service set at: services/' . $key );
@@ -97,6 +150,7 @@ abstract class Core_API {
   }
 
   abstract protected function _getRequest();
-  abstract protected function _processRequest( Core_API_Request $request );
+  abstract protected function _preProcessRequest( Core_API_Request $request );
+  abstract protected function _postProcessRequest( Core_API_Request $request);
 
   }

@@ -53,7 +53,6 @@ class Core_Object {
         return $this;
     }
 
-
     public function getData($key='', $index=null)
     {
         if (''===$key) {
@@ -75,7 +74,7 @@ class Core_Object {
                         return $default;
                     }
                     $data = $data[$k];
-                } elseif ($data instanceof Core_Object) {
+                } elseif ($data instanceof Varien_Object) {
                     $data = $data->getData($k);
                 } else {
                     return $default;
@@ -83,8 +82,14 @@ class Core_Object {
             }
             return $data;
         }
-    }
 
+        // legacy functionality for $index
+        if (isset($this->_data[$key])) {
+		  return $this->_data[$key];
+        }
+
+		return $default;
+    }
 
     protected function _getData($key)
     {

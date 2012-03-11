@@ -21,8 +21,8 @@ abstract class Core_API_Request extends Core_Object {
 	if( $this->_useCache() && $this->_getCache($this->_getCacheKey()) ) {
 	  return $this->_getCache( $this->_getCacheKey() );
 	} else {
-	  if( $this->getUrl() != '' ) {
-		$ch = curl_init( $this->getUrl() );
+	  if( $this->getUrl() != '' && $this->getUri() != '' ) {
+		$ch = curl_init( $this->getUrl() . $this->getUri() );
 		
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
