@@ -51,7 +51,7 @@
 
 		"update_space_by_id" : {
 			"uri" : "spaces/${space_id}",
-			"type" : "PUT"
+			"type" : "PUT",
 			"headers" : ["Content-Type:application/xml"],
 			"classname" : "Assembla_Model_Space"
 		},
