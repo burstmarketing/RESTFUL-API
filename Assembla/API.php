@@ -19,6 +19,10 @@ class Assembla_API extends Core_API {
 	return new Assembla_API_Request;
   }
 
+  protected function _getResponse(){
+	return new Assembla_API_Response;
+  }
+
   protected function _getAPIUrl(){
 
 	if( ! $this->getConfig('credentials/username') ||

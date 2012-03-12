@@ -113,13 +113,26 @@ abstract class Core_API {
 
 		  if( is_array($service) ){
 			if( array_key_exists( 'uri', $service ) ){
-			  if( is_array( $args[0] ) ){
-				$_args = $args[0];
+
+			  // Handle $args - this can be passed in as a 
+			  // single array with key => value pairs to be
+			  // sent to processURI  or $args can just be a
+			  // list of arguments in wich case we add the
+			  // keys to the arguments with _getURIArgs()
+			  // NOTE: this should probably be reworked to simply
+			  //       validate the arguments and set the uri
+			  //       in a protected function.
+			  if( ! empty( $args ) ){
+				if( is_array( $args[0] ) ){
+				  $_args = $args[0];
+				} else {
+				  $_args =  $this->_getURIArgs( $service['uri'], $args );
+				}				
+				$request->setUri( $this->_processURI( $service['uri'], $_args ) );
 			  } else {
-				$_args =  $this->_getURIArgs( $service['uri'], $args );
+				// no arguments,  just set the uri.
+				$request->setUri( $service['uri'] );
 			  }
-			  
-			  $request->setUri( $this->_processURI( $service['uri'], $_args ) );
 
 			} else {
 			  throw new Exception("could not find 'uri' in service: " . $key );
@@ -135,9 +148,14 @@ abstract class Core_API {
 		  }
 
 		  $request = $this->_postProcessRequest( $request );
-		  $response = $request->send();
 
-		  return $response;
+		  $response = $this->_getResponse();
+
+		  if( array_key_exists( 'classname', $service ) ){
+			return $response->processRequest( $request->send(), $service['classname'] );
+		  }		  		  		  
+
+		  return $response->processRequest( $request->send() );
 
 		} else {
 		  throw new Exception( 'no service set at: services/' . $key );
@@ -150,6 +168,7 @@ abstract class Core_API {
   }
 
   abstract protected function _getRequest();
+  abstract protected function _getResponse();
   abstract protected function _preProcessRequest( Core_API_Request $request );
   abstract protected function _postProcessRequest( Core_API_Request $request);
 

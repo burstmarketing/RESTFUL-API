@@ -7,54 +7,140 @@
 
 	"defaults" : {
 		"url" : "www.assembla.com"
-	},
+	}
 
 	"services" : {
 
 		"list_of_milestones" : {
 			"uri" : "spaces/${space_id}/milestones/",
-			"type" : "GET"
+			"type" : "GET",
+			"classname" : "Assembla_Collection_Milestone"
 		},
+
 
 		"show_milestone" : {
 			"uri" : "spaces/${space_id}/milestones/${milestone_id}",
-			"type" : "GET"
+			"type" : "GET",
+			"classname" : "Assembla_Model_Milestone"
 		},
 
 		"my_spaces_list" : {
 			"uri" : "spaces/my_spaces",
-			"type" : "GET"
+			"type" : "GET",
+			"classname" : "Assembla_Collection_Space"
+		},
+
+		"my_tool_spaces_list" : {
+			"uri" :	"spaces/my_tool_spaces/${tool_id}", 
+			"type" : "GET",
+			"classname" : "Assembla_Collection_Space"
+
 		},
 
 		"show_space_by_id" : {
 			"uri" : "spaces/${id}",
-			"type" : "GET"
+			"type" : "GET",
+			"classname" : "Assembla_Model_Space"
 		},
 
 		"show_space_by_wiki_name" : {
 			"uri" : "spaces/${wiki_name}",
-			"type" : "GET"
+			"type" : "GET",
+			"classname" : "Assembla_Model_Space"
 		},
+
+		"update_space_by_id" : {
+			"uri" : "spaces/${space_id}",
+			"type" : "PUT"
+			"headers" : ["Content-Type:application/xml"],
+			"classname" : "Assembla_Model_Space"
+		},
+
+		"update_space_by_wiki" : {
+			"uri" : "spaces/${space_wiki_name}",
+			"type" : "PUT",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Model_Space"
+		},
+
+		"copy_space" : {
+			"uri" : "spaces/${template_space_id}/copy_via_api",
+			"type" : "POST",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Model_Space"
+		},
+
+		"create_space" : {
+			"uri" : "spaces/create_via_api",
+			"type" : "POST",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Model_Space"
+		},
+
+		"space_tools" : {
+			"uri" : "space/${space_id}/tools",
+			"type" : "GET",
+			"classname" : "Assembla_Collection_Space_Tools"
+		},
+
+		"space_repository_tools" : {
+			"uri" : "spaces/${space_id}/tools/repo",
+			"type" : "GET",
+			"classname" : "Assembla_Collection_Space_Tools"
+		},
+
+		"add_space_tool" : {
+			"uri" : "spaces/${space_id}/tools?tool_id=${tool_id}",
+			"type" : "POST"
+		},
+
+		"add_user" : {
+			"uri" : "spaces/${space_id}/add_members",
+			"type" : "POST",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Model_Space_User"
+			
+		},
+
+		"remove_space_user" : {
+			"uri" : "spaces/${space_id}/remove_members",
+			"type" : "POST",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Model_Space_User"
+		},
+
 
 		"list_of_tickets" : {
 			"uri" : "spaces/${space_id}/tickets/",
-			"type" : "GET"
+			"type" : "GET",
+			"classname" : "Assembla_Collection_Ticket"
 		},
    
 		"ticket_report" : {
 			"uri" : "spaces/${space_id}/tickets/report/${report_id}",
-			"type" : "GET"
+			"type" : "GET",
+			"classname" : "Assembla_Collection_Ticket"
 		},
 
 		"custom_ticket_report" : {
 			"uri" : "spaces/${space_id}/tickets/custom_report/${report_id}",
-			"type" : "GET"
+			"type" : "GET",
+			"classname" : "Assembla_Collection_Ticket"
 		},
 
 		"ticket_by_number" :  {
 			"uri" : "spaces/${space_id}/tickets/${ticket_number}",
-			"type" : "GET"
+			"type" : "GET",
+			"classname" : "Assembla_Model_Ticket"
 		}
+
+
+
+
 	}
+
+
+
+
 
 }
