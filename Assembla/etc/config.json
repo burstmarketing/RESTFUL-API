@@ -24,6 +24,55 @@
 			"classname" : "Assembla_Model_Milestone"
 		},
 
+		"create_milestone" : {
+			"uri" : "spaces/${space_id}/milestones",
+			"type" : "POST",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Model_Milestone"
+
+		},
+
+		"update_milestone" : {
+			"uri" : "spaces/${space_id}/milestones/${milestone_id}",
+			"type" : "PUT",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Model_Milestone"
+		},
+
+		"delete_milestone" : {
+			"uri" : "spaces/${space_id}/milestones/${milestone_id}",
+			"type" : "DELETE"			
+		},
+
+		"milestone_filter_all" : {
+			"uri" : "spaces/milestones/all/${space_id}",
+			"type" : "GET",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Collection_Milestone"
+		},
+
+		"milestone_filter_completed" : {
+			"uri" : "spaces/milestones/completed/${space_id}",
+			"type" : "GET",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Collection_Milestone"
+		},
+
+		"milestone_filter_release_notes" : {
+			"uri" : "spaces/milestones/release_notes/${space_id}",
+			"type" : "GET",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Collection_Milestone"
+		},
+
+		"milestone_filter_upcoming" : {
+			"uri" : "spaces/milestones/upcoming/${space_id}",
+			"type" : "GET",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Collection_Milestone"
+		},
+
+
 		"my_spaces_list" : {
 			"uri" : "spaces/my_spaces",
 			"type" : "GET",
