@@ -31,7 +31,7 @@
 		},
 
 		"my_tool_spaces_list" : {
-			"uri" :	"spaces/my_tool_spaces/${tool_id}", 
+			"uri" :	"spaces/my_tool_spaces/${tool_id}",
 			"type" : "GET",
 			"classname" : "Assembla_Collection_Space"
 
