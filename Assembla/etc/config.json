@@ -114,7 +114,7 @@
 			"type" : "GET",
 			"classname" : "Assembla_Collection_Ticket"
 		},
-   
+
 		"ticket_report" : {
 			"uri" : "spaces/${space_id}/tickets/report/${report_id}",
 			"type" : "GET",
