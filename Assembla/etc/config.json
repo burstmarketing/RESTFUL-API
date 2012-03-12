@@ -94,19 +94,20 @@
 			"type" : "POST"
 		},
 
-		"add_user" : {
+		"add_user_to_space" : {
 			"uri" : "spaces/${space_id}/add_members",
 			"type" : "POST",
 			"headers" : [ "Content-Type:application/xml" ],
 			"classname" : "Assembla_Model_Space_User"
 		},
 
-		"remove_space_user" : {
+		"remove_user_from_space" : {
 			"uri" : "spaces/${space_id}/remove_members",
 			"type" : "POST",
 			"headers" : [ "Content-Type:application/xml" ],
 			"classname" : "Assembla_Model_Space_User"
 		},
+
 
 
 		"list_of_tickets" : {
@@ -127,11 +128,90 @@
 			"classname" : "Assembla_Collection_Ticket"
 		},
 
-		"ticket_by_number" :  {
+		"show_ticket" :  {
 			"uri" : "spaces/${space_id}/tickets/${ticket_number}",
 			"type" : "GET",
 			"classname" : "Assembla_Model_Ticket"
+		},
+
+		"create_ticket" : {
+			"uri" : "spaces/${space_id}/tickets",
+			"type" : "POST",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Model_Ticket"
+			
+		},
+
+		"available_custom_fields" : {
+			"uri" : "spaces/${space_id}/tickets/custom_fields",
+			"type" : "GET",
+			"classname" : "Assembla_Model_Ticket_Customfields"
+		},
+		
+		"update_ticket" : {
+			"uri" : "spaces/${space_id}/tickets/${ticket_number}",
+			"type" : "PUT",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Model_Ticket"
+		},
+
+		"delete_ticket" : {
+			"uri" : "spaces/${space_id}/tickets/${ticket_number}",
+			"type" : "DELETE"			
+		},
+
+		"list_of_comments" : {
+			"uri" : "spaces/${space_id}/tickets/${ticket_number}/comments",
+			"type" : "GET",
+			"classname" : "Assembla_Collection_Ticket_Comments"
+		},
+
+		"list_of_components" : {
+			"uri" : "spaces/${space_id}/tickets/components",
+			"type" : "GET",
+			"classname" : "Assembla_Collection_Ticket_Components"
+		},
+
+		"list_of_custom_statuses" : {
+			"uri" : "spaces/${space_id}/tickets/custom_statuses",
+			"type" : "GET",
+			"classname" : "Assembla_Collection_Ticket_Statuses"
+		},
+
+		"create_component" : {
+			"uri" : "spaces/${space_id}/tickets/create_component",
+			"type" : "POST",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Model_Ticket_Components"
+		},
+
+		"list_ticket_associations" : {
+			"uri" : "spaces/${space_id}/tickets/list_associations",
+			"type" : "GET",
+			"classname" : "Assembla_Collection_Ticket_Associations"
+		},
+
+		"add_ticket_association" : {
+			"uri" : "spaces/:space_id/tickets/:ticket_number/api_add_association",
+			"type" : "POST",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Model_Ticket_Association"
+		},
+
+		"remove_ticket_association" : {
+			"uri" : "spaces/${space_id}/tickets/${ticket_number}/api_remove_association",
+			"type" : "DELETE",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Model_Ticket_Association"
+		},
+
+		"create_ticket_related_time_entry" : {
+			"uri" : "spaces/${space_id}/tickets/${ticket_number}/update_time_data_invested",
+			"type" : "POST",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Model_Ticket_Time_Entry"
 		}
+
 
 
 
