@@ -99,7 +99,6 @@
 			"type" : "POST",
 			"headers" : [ "Content-Type:application/xml" ],
 			"classname" : "Assembla_Model_Space_User"
-			
 		},
 
 		"remove_space_user" : {
