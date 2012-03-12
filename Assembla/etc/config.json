@@ -301,9 +301,38 @@
 			"uri" : "user/search?field=external_id&value=${value}",
 			"type" : "GET",
 			"classname" : "Assembla_Collection_User"
+		},
+
+		"list_of_tasks" : {
+			"uri" : "user/time_entries",
+			"type" : "GET",
+			"classname" : "Assembla_Collection_Task"
+		},
+
+		"create_task" : {
+			"uri" : "user/time_entries",
+			"type" : "POST",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Model_Task"
+		},
+
+		"show_task" : {
+			"uri" : "user/time_entires/${task_id}",
+			"type" : "GET",
+			"classname" : "Assembla_Model_Task"
+		},
+
+		"update_task" : {
+			"uri" : "user/time_entires/${task_id}",
+			"type" : "PUT",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Model_Task"
+		},
+
+		"delete_task" : {
+			"uri" : "user/time_entires/${task_id}",
+			"type" : "DELETE"
 		}
-
-
 
 
 
