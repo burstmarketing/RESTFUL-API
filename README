@@ -1,0 +1,28 @@
+/*****************************
+ *  Note
+ *****************************/
+
+   Just a warning,  this is in heavy development,  most of it
+   hasn't been tested,  probably a fair amount of this doesn't work.
+   Cheers!
+
+
+/******************************
+ *  Example
+ ******************************/
+
+include_once('lib/Autoload.php');
+
+$api = new Assembla_API;
+$api->loadConfig( 'Assembla/etc/config.json' );
+$api->setUserName('[username]')->setPassword('[password]');
+
+$foo[] = $api->loadListOfMilestones( "dMxouCDXyr4ie4eJe5cbLr" );
+$foo[] = $api->loadShowMilestone( "dMxouCDXyr4ie4eJe5cbLr","390612" );
+
+$foo[] = $api->loadTicketReport( "dMxouCDXyr4ie4eJe5cbLr","0" );
+
+$foo[]=  $api->loadMySpacesList();
+
+
+var_dump($foo);
