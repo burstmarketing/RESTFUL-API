@@ -332,7 +332,39 @@
 		"delete_task" : {
 			"uri" : "user/time_entires/${task_id}",
 			"type" : "DELETE"
+		},
+
+		"list_of_time_logs" : {
+			"uri" : "user/time_entries/${task_id}/time_logs",
+			"type" : "GET",
+			"classname" : "Assembla_Collection_Task_Log"
+		},
+
+		"create_time_log" : {
+			"uri" : "user/time_entries/${task_id}/time_logs",
+			"type" : "POST",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Model_Task_Log"
+		},
+
+		"show_time_log" : {
+			"uri" : "user/time_entires/${task_id}/time_logs/${time_log_id}",
+			"type" : "GET",
+			"classname" : "Assembla_Model_Task_Log"
+		},
+
+		"update_time_log" : {
+			"uri" : "user/time_entires/${task_id}/time_logs/${time_log_id}",
+			"type" : "PUT",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Model_Task_Log"
+		},
+
+		"delete_time_log" : {
+			"uri" : "user/time_entires/${task_id}/time_logs/${time_log_id}",
+			"type" : "DELETE"
 		}
+
 
 
 
