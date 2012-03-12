@@ -129,13 +129,13 @@
 		"space_tools" : {
 			"uri" : "space/${space_id}/tools",
 			"type" : "GET",
-			"classname" : "Assembla_Collection_Space_Tools"
+			"classname" : "Assembla_Collection_Space_Tool"
 		},
 
 		"space_repository_tools" : {
 			"uri" : "spaces/${space_id}/tools/repo",
 			"type" : "GET",
-			"classname" : "Assembla_Collection_Space_Tools"
+			"classname" : "Assembla_Collection_Space_Tool"
 		},
 
 		"add_space_tool" : {
@@ -194,7 +194,7 @@
 		"available_custom_fields" : {
 			"uri" : "spaces/${space_id}/tickets/custom_fields",
 			"type" : "GET",
-			"classname" : "Assembla_Model_Ticket_Customfields"
+			"classname" : "Assembla_Model_Ticket_Customfield"
 		},
 		
 		"update_ticket" : {
@@ -212,13 +212,13 @@
 		"list_of_comments" : {
 			"uri" : "spaces/${space_id}/tickets/${ticket_number}/comments",
 			"type" : "GET",
-			"classname" : "Assembla_Collection_Ticket_Comments"
+			"classname" : "Assembla_Collection_Ticket_Comment"
 		},
 
 		"list_of_components" : {
 			"uri" : "spaces/${space_id}/tickets/components",
 			"type" : "GET",
-			"classname" : "Assembla_Collection_Ticket_Components"
+			"classname" : "Assembla_Collection_Ticket_Component"
 		},
 
 		"list_of_custom_statuses" : {
@@ -231,13 +231,13 @@
 			"uri" : "spaces/${space_id}/tickets/create_component",
 			"type" : "POST",
 			"headers" : [ "Content-Type:application/xml" ],
-			"classname" : "Assembla_Model_Ticket_Components"
+			"classname" : "Assembla_Model_Ticket_Component"
 		},
 
 		"list_ticket_associations" : {
 			"uri" : "spaces/${space_id}/tickets/list_associations",
 			"type" : "GET",
-			"classname" : "Assembla_Collection_Ticket_Associations"
+			"classname" : "Assembla_Collection_Ticket_Association"
 		},
 
 		"add_ticket_association" : {
