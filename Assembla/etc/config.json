@@ -283,6 +283,24 @@
 			"uri" : "spaces/${space_id}/users/${user_id}/demote",
 			"type" : "POST",
 			"classname" : "Assembla_Model_User"
+		},
+
+		"user_search_by_login" : {
+			"uri" : "user/search?field=login&value=${value}",
+			"type" : "GET",
+			"classname" : "Assembla_Collection_User"
+		},
+
+		"user_search_by_email" : {
+			"uri" : "user/search?field=email&value=${value}",
+			"type" : "GET",
+			"classname" : "Assembla_Collection_User"
+		},
+
+		"user_search_by_external_id" : {
+			"uri" : "user/search?field=external_id&value=${value}",
+			"type" : "GET",
+			"classname" : "Assembla_Collection_User"
 		}
 
 
