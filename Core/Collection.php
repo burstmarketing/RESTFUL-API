@@ -5,6 +5,45 @@ abstract class Core_Collection implements ArrayAccess, Iterator, Countable {
   
   abstract protected function _getModelClassName();
 
+
+  public function toXml()
+  {
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>
+        <collection>  
+           <totalRecords>'.$this->_totalRecords.'</totalRecords>
+           <items>';
+
+        foreach ($this as $item) {
+		  $xml.=$item->toXml();
+        }
+        $xml.= '</items>
+        </collection>';
+        return $xml;
+  }
+
+  public function toArray($arrRequiredFields = array())
+  {
+	$arrItems = array();
+	$arrItems['totalRecords'] = count( $this->_collection);
+
+	$arrItems['items'] = array();
+	foreach ($this as $item) {
+	  $arrItems['items'][] = $item->toArray($arrRequiredFields);
+	}
+	return $arrItems;
+  }
+
+  public function toJSON($arrRequiredFields = array())
+  {
+	$_items = array();
+	foreach ($this as $item) {
+	  $_items[] = $item->toArray($arrRequiredFields);
+	}
+	return json_encode( $_items );
+  }
+
+
+
   public function offsetSet($offset,$value) {
 	$className = $this->_getModelClassName();
 	if ($value instanceof $className){

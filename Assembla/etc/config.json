@@ -241,7 +241,7 @@
 		},
 
 		"add_ticket_association" : {
-			"uri" : "spaces/:space_id/tickets/:ticket_number/api_add_association",
+			"uri" : "spaces/${space_id}/tickets/${ticket_number}/api_add_association",
 			"type" : "POST",
 			"headers" : [ "Content-Type:application/xml" ],
 			"classname" : "Assembla_Model_Ticket_Association"

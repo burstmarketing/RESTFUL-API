@@ -18,4 +18,8 @@ interface Core_Config_Interface {
   // when called from getConfig (even if it is nested)
   public function setConfig( $uri, $value );
 
+  // return an array of all the service uri's as matchable
+  // regurlar expressions.
+  public function getUris();
+
   }

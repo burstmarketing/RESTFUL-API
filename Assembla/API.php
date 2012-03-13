@@ -4,6 +4,18 @@
 class Assembla_API extends Core_API {
 
 
+  // a little sneaky if '$file' is already a config object
+  // set _config to that,  else load $file as if it were a file
+  public function loadConfig( $file ){
+	if( is_object($file) && in_array( 'Core_Config_Interface', class_implements($file) ) ){
+	  $this->_config = $file;
+	} else {
+	  parent::loadConfig( $file );
+	}
+
+	return $this;
+  }
+
   public function setUserName( $username ){
 	$this->setConfig('credentials/username', $username );
 	return $this;

@@ -45,6 +45,23 @@ class Core_Config_JSON extends Core_Object implements Core_Config_Interface {
 	return $this;
   }
 
+  public function getUris() {
+	if( empty( $this->_data ) ){
+	  throw new Exception( 'No config has been loaded!' );
+	}
+
+	$_uri_array = array();
+	foreach( $this->getServices() AS $_label => $_service ){
+	  if( array_key_exists( 'uri', $_service ) ){
+		$_uri_array[] = $_service['uri'];
+	  } else {
+		throw new Exception( 'No uri is defined for "' . $_label . '"' );
+	  }
+	}
+	return $_uri_array;
+  }
+
+
   }
 
 
