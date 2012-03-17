@@ -172,7 +172,7 @@
 		},
 
 		"custom_ticket_report" : {
-			"uri" : "spaces/${space_id}/tickets/custom_report/${report_id}",
+		    "uri" : "spaces/${space_id}/tickets/custom_report/${report_id}",
 			"type" : "GET",
 			"classname" : "Assembla_Collection_Ticket"
 		},

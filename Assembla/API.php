@@ -45,10 +45,7 @@ class Assembla_API extends Core_API {
 	  throw new Exception('Default URL is not set!');
 	}
 	// http://user:password@www.assembla.com/
-	  return "http://" . $this->getConfig('credentials/username') .
-		":"       . $this->getConfig('credentials/password') .
-		"@"       . $this->getConfig('defaults/url') .
-		"/";
+	  return "http://" . $this->getConfig('defaults/url') . "/";
 	  
   }
 
@@ -57,6 +54,8 @@ class Assembla_API extends Core_API {
   }
 
   protected function _postProcessRequest( Core_API_Request $request ){
+	$request->setUsername( $this->getConfig('credentials/username') );
+	$request->setPassword( $this->getConfig('credentials/password') );
 	$request->setUrl( $this->_getAPIUrl() );
 	return $request;
   }

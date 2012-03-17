@@ -25,6 +25,9 @@ abstract class Core_API_Request extends Core_Object {
 		$ch = curl_init( $this->getUrl() . $this->getUri() );
 		
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1 );
+		curl_setopt($ch,CURLOPT_USERPWD, $this->getUsername() . ":" . $this->getPassword()); 
+
 
 		$headers = $this->getHeaders();
 		if( is_array($headers) && ! empty($headers)){
