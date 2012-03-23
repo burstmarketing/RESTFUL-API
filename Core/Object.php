@@ -100,9 +100,18 @@ class Core_Object {
     public function __toArray(array $arrAttributes = array())
     {
         if (empty($arrAttributes)) {
-            return $this->_data;
+		  $arrRes = array();
+		  foreach( $this->_data AS $_key => $_value ){
+			if( $_value instanceof Core_Object || $_value instanceof Core_Collection ){
+			  $arrRes[$_key] = $_value->toArray();
+			} else {
+			  $arrRes[$_key] = $_value;
+			}
+		  }
+		  return $arrRes;
         }
-
+		// Note: this should be fixed so it calls toArray() on
+		// any values that are models!
         $arrRes = array();
         foreach ($arrAttributes as $attribute) {
             if (isset($this->_data[$attribute])) {

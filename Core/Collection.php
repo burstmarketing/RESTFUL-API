@@ -23,12 +23,10 @@ abstract class Core_Collection implements ArrayAccess, Iterator, Countable {
 
   public function toArray($arrRequiredFields = array())
   {
-	$arrItems = array();
-	$arrItems['totalRecords'] = count( $this->_collection);
 
-	$arrItems['items'] = array();
+	$arrItems = array();
 	foreach ($this as $item) {
-	  $arrItems['items'][] = $item->toArray($arrRequiredFields);
+	  $arrItems[] = $item->toArray($arrRequiredFields);
 	}
 	return $arrItems;
   }
