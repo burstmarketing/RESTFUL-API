@@ -34,6 +34,16 @@ abstract class Core_API {
   }
 
 
+  public function getService( $key ){
+	
+	if( $this->getConfig( 'services/' . $key ) ){
+	  return $this->getConfig( 'services/' . $key );
+	}
+
+	return $false;
+	
+  }
+
 
   //NOTE: all of this stuff should probably be refactored into
   //      a Core_RESTFUL_API class so we can use the rest of the framework
@@ -101,7 +111,7 @@ abstract class Core_API {
 	  $key = $this->_underscore(substr($method,4));
 	  try {
 		
-		if( ($service = $this->getConfig( 'services/' . $key )) !== null ){
+		if( ($service = $this->getService( $key )) !== null ){
 
 		  $request = $this->_getRequest();
 
