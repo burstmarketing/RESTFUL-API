@@ -17,11 +17,11 @@ class Assembla_API extends Core_API {
   }
 
   public function getUserName(){
-	$this->getConfig('credentials/username');
+	return $this->getConfig('credentials/username');
   }
 
   public function getPassword(){
-	$this->getConfig('credentials/password');
+	return $this->getConfig('credentials/password');
   }
 
   public function setUserName( $username ){
