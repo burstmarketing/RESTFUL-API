@@ -40,7 +40,7 @@ abstract class Core_API {
 	  return $this->getConfig( 'services/' . $key );
 	}
 
-	return $false;
+	return false;
 	
   }
 
