@@ -2,6 +2,12 @@
 
 class Assembla_Model_Ticket extends Assembla_Model_Abstract {
   
+
+  static public function getTagName(){
+	return "ticket";
+  }
+
+
   public function load( $element ){
 	parent::load( $element );
 

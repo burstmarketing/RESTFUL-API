@@ -130,7 +130,7 @@ class Core_Object {
         return $this->__toArray($arrAttributes);
     }
 
-	/* uncomment when we port over Varien_Simplexml_Element
+	/* uncomment when we port over Varien_Simplexml_Element */
 
     protected function __toXml(array $arrAttributes = array(), $rootName = 'item', $addOpenTag=false, $addCdata=true)
     {
@@ -141,7 +141,7 @@ class Core_Object {
         if (!empty($rootName)) {
             $xml.= '<'.$rootName.'>'."\n";
         }
-        $xmlModel = new Varien_Simplexml_Element('<node></node>');
+        $xmlModel = new Core_API_XML_Element('<node></node>');
         $arrData = $this->toArray($arrAttributes);
         foreach ($arrData as $fieldName => $fieldValue) {
             if ($addCdata === true) {
@@ -162,7 +162,7 @@ class Core_Object {
         return $this->__toXml($arrAttributes, $rootName, $addOpenTag, $addCdata);
     }
 
-*/
+
 
 
     protected function __toJson(array $arrAttributes = array())
