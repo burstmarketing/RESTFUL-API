@@ -1,6 +1,6 @@
 <?php
 
-abstract class Core_API_Request extends Core_Object {
+abstract class Core_API_Request extends Core_Object {  
 
   public function addHeader( $header ){
 	if( $headers = $this->getHeaders() ){
@@ -16,14 +16,38 @@ abstract class Core_API_Request extends Core_Object {
   }
 
 
-  public function send( array $args = array() ){
+  public function send( ){
 	
 	if( $this->_useCache() && $this->_getCache($this->_getCacheKey()) ) {
 	  return $this->_getCache( $this->_getCacheKey() );
 	} else {
 	  if( $this->getUrl() != '' && $this->getUri() != '' ) {
+
 		$ch = curl_init( $this->getUrl() . $this->getUri() );
+
+		/*
+
+		if( $this->getType() == 'PUT' && (bool) $this->getCurlData() ){
+		  $fp = fopen('php://temp/maxmemory:256000', 'w');
+		  if (!$fp) {
+			throw new Exception('could not open temp memory data');
+		  }
+		  fwrite($fp, $this->getCurlData());
+		  fseek($fp, 0); 
+		 		  
+		  curl_setopt($ch, CURLOPT_INFILE, $fp); // file pointer
+		  curl_setopt($ch, CURLOPT_INFILESIZE, strlen($this->getCurlData()) );
+
+		}
 		
+		*/
+		
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->getType() );
+		
+		if( (bool) $this->getCurlData() ){
+		  curl_setopt($ch, CURLOPT_POSTFIELDS, $this->getCurlData());
+		}
+
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1 );
 		curl_setopt($ch,CURLOPT_USERPWD, $this->getUsername() . ":" . $this->getPassword()); 
@@ -33,6 +57,7 @@ abstract class Core_API_Request extends Core_Object {
 		if( is_array($headers) && ! empty($headers)){
 		  curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 		}
+
 
 		$out = curl_exec ($ch);
 		

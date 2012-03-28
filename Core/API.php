@@ -114,45 +114,43 @@ abstract class Core_API {
 		if( ($service = $this->getService( $key )) !== null ){
 
 		  $request = $this->_getRequest();
+		  $request->setKey( $key );
 
 		  $request = $this->_preProcessRequest($request);
+
 
 		  if( $this->getConfig("defaults/url") ){
 			$request->setUrl( $this->getConfig("defaults/url") );
 		  }
 
+
 		  if( is_array($service) ){
 			if( array_key_exists( 'uri', $service ) ){
-
-			  // Handle $args - this can be passed in as a 
-			  // single array with key => value pairs to be
-			  // sent to processURI  or $args can just be a
-			  // list of arguments in wich case we add the
-			  // keys to the arguments with _getURIArgs()
-			  // NOTE: this should probably be reworked to simply
-			  //       validate the arguments and set the uri
-			  //       in a protected function.
-			  if( ! empty( $args ) ){
-				if( is_array( $args[0] ) ){
-				  $_args = $args[0];
-				} else {
-				  $_args =  $this->_getURIArgs( $service['uri'], $args );
-				}				
-				$request->setUri( $this->_processURI( $service['uri'], $_args ) );
+			  // parse args[0] into uri so we get the correct uri.
+			  if( isset($args[0]) && is_array( $args[0] ) ){				 
+				$request->setUri( $this->_processURI( $service['uri'], $args[0] ) );
 			  } else {
 				// no arguments,  just set the uri.
 				$request->setUri( $service['uri'] );
 			  }
-
 			} else {
 			  throw new Exception("could not find 'uri' in service: " . $key );
 			}
 			
+
+			// set curl data on this request
+			if( isset($args[1]) && is_string( $args[1] ) ){
+			  $request->setCurlData( $args[1] );
+			}				
+
+
 			if( array_key_exists('type', $service ) ){
 			  $request->setType($service['type']);
 			} else {
 			  throw new Exception("type is not defined in service: " . $key );
 			}
+
+
 		  } else {
 			throw new Exception("service: " . $key . "is not an array!");
 		  }
