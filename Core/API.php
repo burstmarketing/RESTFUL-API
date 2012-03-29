@@ -160,10 +160,10 @@ abstract class Core_API {
 		  $response = $this->_getResponse();
 
 		  if( array_key_exists( 'classname', $service ) ){
-			return $response->processRequest( $request->send(), $service['classname'] );
+			return $response->processRequest( $request, $service['classname'] );
 		  }		  		  		  
 
-		  return $response->processRequest( $request->send() );
+		  return $response->processRequest( $request );
 
 		} else {
 		  throw new Exception( 'no service set at: services/' . $key );

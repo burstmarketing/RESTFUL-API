@@ -1,57 +1,28 @@
 <?php
-
   /*
-   Invalid - 
-   working_hour, 
-   assigned_to, 
-   reporter, 
-   status_name, 
-   documents, 
-   id, 
-   tasks, 
-   ticket_comments, 
-   ticket_associations, 
-   from_support, 
-   invested_hours
-
-   Valid -
-   assigned_to_id
-   completed_date
-   component_id
-   created_on
-   description
-   from_support
-   id
-   importance
-   is_story
-   milestone_id
-   notification_list
-   number
-   priority
-   reporter_id
-   space_id
-   status
-   status_name
-   story_importance
-   summary
-   updated_at
-   working_hours
-   working_hour
-   estimate
-   total_estimate
-   invested_hours
-   assigned_to
-   reporter
-   documents
-   ticket_comments
-   tasks
-   ticket_associations
-   
+   * <custom-fields>
+   * <custom-field type="Date" name="Due Date" id="120993">2012/03/22</custom-field> 
+   * </custom-fields>
+   *
    */
-
-
-
 class Assembla_Model_Ticket extends Assembla_Model_Abstract {
+
+  public function getInvalidKeys() {
+	return array("working_hour",
+				 "assigned_to",
+				 "reporter",
+				 "status_name",
+				 "documents", 
+				 "id",
+				 "tasks",
+				 "ticket_comments",
+				 "ticket_associations",
+				 "from_support", 
+				 "invested_hours",
+				 "customfields",
+				 "due_date"
+				 );
+  }
   
 
   static public function getTagName(){
