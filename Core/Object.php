@@ -132,8 +132,35 @@ class Core_Object {
 
 	/* uncomment when we port over Varien_Simplexml_Element */
 
-    protected function __toXml(array $arrAttributes = array(), $rootName = 'item', $addOpenTag=false, $addCdata=true)
+    protected function __toXml($arrData, array $arrAttributes = array(), $addCdata=false)
     {
+	  if( ! is_array($arrData) ){
+		return $arrData; 
+	  } else {
+		$xml = '';
+		$xmlModel = new Core_API_XML_Element('<node></node>');
+		foreach ($arrData as $fieldName => $fieldValue) {
+		  if ($addCdata === true) {
+			if( ! is_array($fieldValue) ){
+			  $fieldValue = "<![CDATA[$fieldValue]]>";
+			}
+		  } else {
+			if( ! is_array($fieldValue) ){
+			  $fieldValue = $xmlModel->xmlentities($fieldValue);
+			}
+		  }
+		  
+		  $xml.= "<$fieldName>" . $this->__toXml($fieldValue, $arrAttributes, $addCdata) . "</$fieldName>"."\n";
+		  
+		}
+	  }
+	  return $xml;	 
+    }
+
+
+    public function toXml(array $arrAttributes = array(), $rootName = 'item', $addOpenTag=false, $addCdata=false)
+    {
+
         $xml = '';
         if ($addOpenTag) {
             $xml.= '<?xml version="1.0" encoding="UTF-8"?>'."\n";
@@ -141,25 +168,18 @@ class Core_Object {
         if (!empty($rootName)) {
             $xml.= '<'.$rootName.'>'."\n";
         }
-        $xmlModel = new Core_API_XML_Element('<node></node>');
-        $arrData = $this->toArray($arrAttributes);
-        foreach ($arrData as $fieldName => $fieldValue) {
-            if ($addCdata === true) {
-                $fieldValue = "<![CDATA[$fieldValue]]>";
-            } else {
-                $fieldValue = $xmlModel->xmlentities($fieldValue);
-            }
-            $xml.= "<$fieldName>$fieldValue</$fieldName>"."\n";
-        }
+
+		$xml .= $this->__toXml( $this->toArray($arrAttributes), $arrAttributes, $addCdata );
+
+
         if (!empty($rootName)) {
             $xml.= '</'.$rootName.'>'."\n";
         }
         return $xml;
-    }
 
-    public function toXml(array $arrAttributes = array(), $rootName = 'item', $addOpenTag=false, $addCdata=true)
-    {
-        return $this->__toXml($arrAttributes, $rootName, $addOpenTag, $addCdata);
+
+
+
     }
 
 

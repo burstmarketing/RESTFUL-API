@@ -25,23 +25,6 @@ abstract class Core_API_Request extends Core_Object {
 
 		$ch = curl_init( $this->getUrl() . $this->getUri() );
 
-		/*
-
-		if( $this->getType() == 'PUT' && (bool) $this->getCurlData() ){
-		  $fp = fopen('php://temp/maxmemory:256000', 'w');
-		  if (!$fp) {
-			throw new Exception('could not open temp memory data');
-		  }
-		  fwrite($fp, $this->getCurlData());
-		  fseek($fp, 0); 
-		 		  
-		  curl_setopt($ch, CURLOPT_INFILE, $fp); // file pointer
-		  curl_setopt($ch, CURLOPT_INFILESIZE, strlen($this->getCurlData()) );
-
-		}
-		
-		*/
-		
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->getType() );
 		
 		if( (bool) $this->getCurlData() ){
