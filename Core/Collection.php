@@ -17,19 +17,12 @@ abstract class Core_Collection implements ArrayAccess, Iterator, Countable {
 	return $this;
   }
 
-  public function toXml()
-  {
-        $xml = '<?xml version="1.0" encoding="UTF-8"?>
-        <collection>  
-           <totalRecords>'.$this->_totalRecords.'</totalRecords>
-           <items>';
-
-        foreach ($this as $item) {
-		  $xml.=$item->toXml();
-        }
-        $xml.= '</items>
-        </collection>';
-        return $xml;
+  public function toXml($arrData, array $arrAttributes = array(), $addCdata=false){
+	$xml = '';
+	foreach ($this as $item) {
+	  $xml.=$item->toXml($arrData, $arrAttributes, $addCdata);
+	}	
+	return $xml;
   }
 
   public function toArray($arrRequiredFields = array())

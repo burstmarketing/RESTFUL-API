@@ -130,49 +130,45 @@ class Core_Object {
         return $this->__toArray($arrAttributes);
     }
 
-	/* uncomment when we port over Varien_Simplexml_Element */
 
-    protected function __toXml($arrData, array $arrAttributes = array(), $addCdata=false)
+    protected function __toXml($arrData, array $arrAttributes = array())
     {
-	  if( ! is_array($arrData) ){
+	  if( $arrData instanceof Core_Object || $arrData instanceof Core_Collection){
+		return $arrData->toXml($arrAttributes);
+	  } else if( ! is_array($arrData) ) {
 		return $arrData; 
 	  } else {
 		$xml = '';
+		
 		$xmlModel = new Core_API_XML_Element('<node></node>');
+
 		foreach ($arrData as $fieldName => $fieldValue) {
-		  if ($addCdata === true) {
-			if( ! is_array($fieldValue) ){
-			  $fieldValue = "<![CDATA[$fieldValue]]>";
-			}
-		  } else {
-			if( ! is_array($fieldValue) ){
+		  if( empty( $arrAttributes) || in_array( $fieldName, $arrAttributes ) ){
+
+			if( is_string($fieldValue) ){
 			  $fieldValue = $xmlModel->xmlentities($fieldValue);
 			}
-		  }
-		  
-		  $xml.= "<$fieldName>" . $this->__toXml($fieldValue, $arrAttributes, $addCdata) . "</$fieldName>"."\n";
-		  
+			
+			$xml.= "<$fieldName>" . $this->__toXml($fieldValue) . "</$fieldName>"."\n";
+		  }		  
 		}
 	  }
 	  return $xml;	 
     }
 
 
-    public function toXml(array $arrAttributes = array(), $rootName = 'item', $addOpenTag=false, $addCdata=false)
+    public function toXml($arrAttributes = array(), $rootName = '')
     {
 
         $xml = '';
-        if ($addOpenTag) {
-            $xml.= '<?xml version="1.0" encoding="UTF-8"?>'."\n";
-        }
-        if (!empty($rootName)) {
+        if ($rootName) {
             $xml.= '<'.$rootName.'>'."\n";
         }
 
-		$xml .= $this->__toXml( $this->toArray($arrAttributes), $arrAttributes, $addCdata );
+		$xml .= $this->__toXml( $this->getData(), $arrAttributes );
 
 
-        if (!empty($rootName)) {
+        if ($rootName) {
             $xml.= '</'.$rootName.'>'."\n";
         }
         return $xml;

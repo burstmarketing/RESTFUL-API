@@ -19,15 +19,15 @@ class Assembla_Model_Abstract extends Core_Model {
 	return array_keys( $this->getData() );
   }
 
-  public function toXml(array $arrAttributes = array(), $rootName = 'item', $addOpenTag=false, $addCdata=true){
+  public function toXml($arrAttributes = array(), $rootName = ''){
 
-	if( $rootName == 'item' ){
+	if( !$rootName ){
 	  $rootName = $this::getTagName();
 	}
 
 	$arrAttributes = array_diff( $this->_getDataKeys(), $this->getInvalidKeys() );
 
-	return parent::toXml( $arrAttributes, $rootName, $addOpenTag, $addCdata );
+	return parent::toXml( $arrAttributes, $rootName );
   }
 
   }

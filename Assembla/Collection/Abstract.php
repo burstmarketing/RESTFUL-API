@@ -2,8 +2,11 @@
 
 abstract class Assembla_Collection_Abstract extends Core_Collection {
 
-  abstract protected function _getModelElementTag();
-
+  protected function _getModelElementTag(){
+    $model_name = $this->_getModelClassName();
+	return $model_name::getTagName();
+  }
+  
   protected function _getModelClassName(){
 	// This is almost certainly NOT what we want
 	// please override this function in inherited
