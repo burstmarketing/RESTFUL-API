@@ -44,8 +44,11 @@ class Assembla_Model_Ticket extends Assembla_Model_Abstract {
 		  $_custom_fields_collection[] = $_custom_field;
 		}
 		$key[$customfields] = $_custom_fields_collection;
-		parent::setData($key);
-	  }
+
+	  } 
+	  
+	  parent::setData($key);
+
 	} else if( ( $key == 'custom_fields' || $key == 'custom-fields' ) && is_array($value) ){
 
 	  $_custom_fields_collection = new Assembla_Collection_Ticket_Customfield();
