@@ -11,10 +11,9 @@ abstract class Core_API {
 	  // currently just defaults to json.
 	  switch( $this->_config_base_type ){
 	  default:
-		$this->_config = new Core_Config_JSON;
+		$this->_config = new Zend_Config_Json( RESTFUL_API_LOADER::getBaseDir() . $file, null, true );
 	  }
 
-	  $this->_config->load( RESTFUL_API_LOADER::getBaseDir() . $file );
 	} else {
 	  throw new Exception( "Could not load file " . RESTFUL_API_LOADER::getBaseDir() . $file);
 	}
@@ -121,48 +120,44 @@ abstract class Core_API {
 			$request->setUrl( $this->getConfig("defaults/url") );
 		  }
 
-		  if( is_array($service) ){
-			if( array_key_exists( 'uri', $service ) ){
-
-			  // Handle $args - this can be passed in as a 
-			  // single array with key => value pairs to be
-			  // sent to processURI  or $args can just be a
-			  // list of arguments in wich case we add the
-			  // keys to the arguments with _getURIArgs()
-			  // NOTE: this should probably be reworked to simply
-			  //       validate the arguments and set the uri
-			  //       in a protected function.
-			  if( ! empty( $args ) ){
-				if( is_array( $args[0] ) ){
-				  $_args = $args[0];
-				} else {
-				  $_args =  $this->_getURIArgs( $service['uri'], $args );
-				}				
-				$request->setUri( $this->_processURI( $service['uri'], $_args ) );
+		  if( isset( $service->uri ) ){
+			
+			// Handle $args - this can be passed in as a 
+			// single array with key => value pairs to be
+			// sent to processURI  or $args can just be a
+			// list of arguments in wich case we add the
+			// keys to the arguments with _getURIArgs()
+			// NOTE: this should probably be reworked to simply
+			//       validate the arguments and set the uri
+			//       in a protected function.
+			if( ! empty( $args ) ){
+			  if( is_array( $args[0] ) ){
+				$_args = $args[0];
 			  } else {
-				// no arguments,  just set the uri.
-				$request->setUri( $service['uri'] );
-			  }
-
+				$_args =  $this->_getURIArgs( $service->uri, $args );
+			  }				
+			  $request->setUri( $this->_processURI( $service->uri, $_args ) );
 			} else {
-			  throw new Exception("could not find 'uri' in service: " . $key );
+			  // no arguments,  just set the uri.
+			  $request->setUri( $service->uri );
 			}
 			
-			if( array_key_exists('type', $service ) ){
-			  $request->setType($service['type']);
-			} else {
-			  throw new Exception("type is not defined in service: " . $key );
-			}
 		  } else {
-			throw new Exception("service: " . $key . "is not an array!");
+			throw new Exception("could not find 'uri' in service: " . $key );
 		  }
-
+		  
+		  if( isset( $service->type ) ){
+			$request->setType( $service->type );
+		  } else {
+			throw new Exception("type is not defined in service: " . $key );
+		  }
+		  
 		  $request = $this->_postProcessRequest( $request );
-
+		  
 		  $response = $this->_getResponse();
 
-		  if( array_key_exists( 'classname', $service ) ){
-			return $response->processRequest( $request->send(), $service['classname'] );
+		  if( isset($service->classname) ){
+			return $response->processRequest( $request->send(), $service->classname );
 		  }		  		  		  
 
 		  return $response->processRequest( $request->send() );
