@@ -164,7 +164,7 @@ abstract class Core_API {
 		  $response = $this->_getResponse();
 
 		  if( isset($service->classname) ){
-			return $response->processRequest( $request->send(), $service->classname );
+			return $response->processRequest( $request, $service->classname );
 		  }		  		  		  
 
 		  return $response->processRequest( $request );
