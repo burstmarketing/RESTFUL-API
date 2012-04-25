@@ -1,4 +1,4 @@
-<?php
+  g<?php
 
 
 class Assembla_API extends Core_API {
@@ -67,8 +67,8 @@ class Assembla_API extends Core_API {
 	$request->setUrl( $this->_getAPIUrl() );
 
 	$service = $this->getService( $request->getKey() );
-	if( isset( $service['headers'] ) ){
-	  foreach( $service['headers'] AS $header ){
+	if( isset( $service->headers ) ){
+	  foreach( $service->headers AS $header ){
 		$request->addHeader( $header );
 	  }
 	}
