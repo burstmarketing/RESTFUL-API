@@ -2,42 +2,48 @@
 abstract class Core_Collection implements ArrayAccess, Iterator, Countable {
 
   private $_collection = array();
-  
+  private $_limit = -1; // -1 means all
+
+
   abstract protected function _getModelClassName();
 
+  public function reverse(){
+	$this->_collection = array_reverse( $this->_collection);
+	return $this;
+  }
 
-  public function toXml()
-  {
-        $xml = '<?xml version="1.0" encoding="UTF-8"?>
-        <collection>  
-           <totalRecords>'.$this->_totalRecords.'</totalRecords>
-           <items>';
+  public function limit( $num ){
+	$this->_limit = $num;
+	return $this;
+  }
 
-        foreach ($this as $item) {
-		  $xml.=$item->toXml();
-        }
-        $xml.= '</items>
-        </collection>';
-        return $xml;
+  public function toXml($arrData, array $arrAttributes = array(), $addCdata=false){
+	$xml = '';
+	foreach ($this as $item) {
+	  $xml.=$item->toXml($arrData, $arrAttributes, $addCdata);
+	}	
+	return $xml;
   }
 
   public function toArray($arrRequiredFields = array())
   {
 
 	$arrItems = array();
-	foreach ($this as $item) {
-	  $arrItems[] = $item->toArray($arrRequiredFields);
+	if( $this->_limit === -1 ){
+	  foreach ($this as $item) {
+		$arrItems[] = $item->toArray($arrRequiredFields);
+	  }
+	} else {
+	  for( $i = 0; $i < $this->_limit; $i++ ){
+		$arrItems[] = $this->_collection[$i]->toArray($arrRequiredFields);
+	  }
 	}
 	return $arrItems;
   }
 
   public function toJSON($arrRequiredFields = array())
   {
-	$_items = array();
-	foreach ($this as $item) {
-	  $_items[] = $item->toArray($arrRequiredFields);
-	}
-	return json_encode( $_items );
+	return json_encode( $this->toArray($arrRequiredFields) );
   }
 
 

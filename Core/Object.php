@@ -130,39 +130,55 @@ class Core_Object {
         return $this->__toArray($arrAttributes);
     }
 
-	/* uncomment when we port over Varien_Simplexml_Element
 
-    protected function __toXml(array $arrAttributes = array(), $rootName = 'item', $addOpenTag=false, $addCdata=true)
+    protected function __toXml($arrData, array $arrAttributes = array())
     {
+	  if( $arrData instanceof Core_Object || $arrData instanceof Core_Collection){
+		return $arrData->toXml($arrAttributes);
+	  } else if( ! is_array($arrData) ) {
+		return $arrData; 
+	  } else {
+		$xml = '';
+		
+		$xmlModel = new Core_API_XML_Element('<node></node>');
+
+		foreach ($arrData as $fieldName => $fieldValue) {
+		  if( empty( $arrAttributes) || in_array( $fieldName, $arrAttributes ) ){
+
+			if( is_string($fieldValue) ){
+			  $fieldValue = $xmlModel->xmlentities($fieldValue);
+			}
+			
+			$xml.= "<$fieldName>" . $this->__toXml($fieldValue) . "</$fieldName>"."\n";
+		  }		  
+		}
+	  }
+	  return $xml;	 
+    }
+
+
+    public function toXml($arrAttributes = array(), $rootName = '')
+    {
+
         $xml = '';
-        if ($addOpenTag) {
-            $xml.= '<?xml version="1.0" encoding="UTF-8"?>'."\n";
-        }
-        if (!empty($rootName)) {
+        if ($rootName) {
             $xml.= '<'.$rootName.'>'."\n";
         }
-        $xmlModel = new Varien_Simplexml_Element('<node></node>');
-        $arrData = $this->toArray($arrAttributes);
-        foreach ($arrData as $fieldName => $fieldValue) {
-            if ($addCdata === true) {
-                $fieldValue = "<![CDATA[$fieldValue]]>";
-            } else {
-                $fieldValue = $xmlModel->xmlentities($fieldValue);
-            }
-            $xml.= "<$fieldName>$fieldValue</$fieldName>"."\n";
-        }
-        if (!empty($rootName)) {
+
+		$xml .= $this->__toXml( $this->getData(), $arrAttributes );
+
+
+        if ($rootName) {
             $xml.= '</'.$rootName.'>'."\n";
         }
         return $xml;
+
+
+
+
     }
 
-    public function toXml(array $arrAttributes = array(), $rootName = 'item', $addOpenTag=false, $addCdata=true)
-    {
-        return $this->__toXml($arrAttributes, $rootName, $addOpenTag, $addCdata);
-    }
 
-*/
 
 
     protected function __toJson(array $arrAttributes = array())

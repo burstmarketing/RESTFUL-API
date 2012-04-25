@@ -113,8 +113,10 @@ abstract class Core_API {
 		if( ($service = $this->getService( $key )) !== null ){
 
 		  $request = $this->_getRequest();
+		  $request->setKey( $key );
 
 		  $request = $this->_preProcessRequest($request);
+
 
 		  if( $this->getConfig("defaults/url") ){
 			$request->setUrl( $this->getConfig("defaults/url") );
@@ -142,6 +144,11 @@ abstract class Core_API {
 			  $request->setUri( $service->uri );
 			}
 			
+			// set curl data on this request
+			if( isset($args[1]) && is_string( $args[1] ) ){
+			  $request->setCurlData( $args[1] );
+			}				
+
 		  } else {
 			throw new Exception("could not find 'uri' in service: " . $key );
 		  }
@@ -160,7 +167,7 @@ abstract class Core_API {
 			return $response->processRequest( $request->send(), $service->classname );
 		  }		  		  		  
 
-		  return $response->processRequest( $request->send() );
+		  return $response->processRequest( $request );
 
 		} else {
 		  throw new Exception( 'no service set at: services/' . $key );
