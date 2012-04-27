@@ -19,6 +19,10 @@ abstract class Core_API {
 	}
   }
 
+  public function getConfigs() {
+    return $this->_config->getConfigs();
+  }
+
   public function getConfig( $uri ){
 	try {
 	  return $this->_config->getConfig( $uri );

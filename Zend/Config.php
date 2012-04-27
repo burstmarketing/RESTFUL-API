@@ -499,6 +499,10 @@ class Zend_Config implements Countable, Iterator
 	  
 	}
 
+	public function getConfigs() {
+	  return $this->_data;
+	}
+
 	public function getConfig( $uri ){
 	  $segments = explode ("/", $uri );
 	  
