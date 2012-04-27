@@ -489,6 +489,11 @@ class Zend_Config implements Countable, Iterator
 		$this->$segments[0] = $value;
 	  } else {
 		$key = array_shift( $segments );
+		
+		if (!array_key_exists($key, $this->_data)) {
+		  $this->_data[$key] = new self(array(), true);
+		}
+		
 		$this->$key->setConfig( implode( "/", $segments ), $value );
 	  }
 	  
