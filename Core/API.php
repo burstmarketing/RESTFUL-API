@@ -122,8 +122,12 @@ abstract class Core_API {
 		  $request = $this->_preProcessRequest($request);
 
 
-		  if( $this->getConfig("defaults/url") ){
+		  if( isset( $service->url ) ){
+			$request->setUrl( $service->url ); 
+		  }	else if( $this->getConfig("defaults/url") ){
 			$request->setUrl( $this->getConfig("defaults/url") );
+		  } else {
+			throw new Exception( "could not locate a 'url' to use for this service");
 		  }
 
 		  if( isset( $service->uri ) ){

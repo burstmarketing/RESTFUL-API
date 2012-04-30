@@ -6,7 +6,7 @@
 	},
 
 	"defaults" : {
-		"url" : "www.assembla.com"
+		"url" : "http://www.assembla.com/"
 	},
 
 	"services" : {
@@ -157,7 +157,14 @@
 			"classname" : "Assembla_Model_Space_User"
 		},
 
+		"portfolio_ticket_report" : {
+			"url" : "http://burstmarketing.assembla.com/",
+			"uri" : "p/tickets/${report_id}/list",
+			"type" : "GET",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Collection_Ticket"
 
+		},
 
 		"list_of_tickets" : {
 			"uri" : "spaces/${space_id}/tickets/",

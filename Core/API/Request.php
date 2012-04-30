@@ -47,7 +47,7 @@ abstract class Core_API_Request extends Core_Object {
 		  $this->_setCache( $this->_getCacheKey( $ch ), $out );
 		  curl_close($ch);	  
 		} else {
-		  $out = $this->_curlError($ch);
+		  $out = $this->_curlFailure($ch);
 		}                  
 		return $out;	  
 		

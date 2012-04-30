@@ -43,6 +43,7 @@ class Assembla_API extends Core_API {
 	return new Assembla_API_Response;
   }
 
+  /*
   protected function _getAPIUrl(){
 
 	if( ! $this->getConfig('credentials/username') ||
@@ -56,6 +57,7 @@ class Assembla_API extends Core_API {
 	  return "http://" . $this->getConfig('defaults/url') . "/";
 	  
   }
+  */
 
   protected function _preProcessRequest( Core_API_Request $request ){
 	return $request;
@@ -64,7 +66,7 @@ class Assembla_API extends Core_API {
   protected function _postProcessRequest( Core_API_Request $request ){
 	$request->setUsername( $this->getConfig('credentials/username') );
 	$request->setPassword( $this->getConfig('credentials/password') );
-	$request->setUrl( $this->_getAPIUrl() );
+	//	$request->setUrl( $this->_getAPIUrl() );
 
 	$service = $this->getService( $request->getKey() );
 	if( isset( $service->headers ) ){
