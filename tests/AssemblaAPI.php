@@ -84,23 +84,24 @@ class Assembla_APITest extends PHPUnit_Framework_TestCase {
 
     $api_request->setKey('my_spaces_list');
 
-    if ($api_request->getConfig('defaults/url')) {
-      $api_request->setUrl($api_request->getConfig('defaults/url'));
+    $this->assertNotEquals(false, $service->getConfig('uri'));
+    $this->assertNotEquals(false, $service->getConfig('type'));
+
+    $api_request->setType($service->getConfig('type'));
+    $api_request->setUri($service->getConfig('uri'));
+
+    if (isset($service->url)) {
+      $api_request->setUrl($service->url);
+    } else if ($api->getConfig('defaults/url')) {
+      $api_request->setUrl($api->getConfig('defaults/url'));
     }
 
-    $this->assertTrue(isset($service->uri));
-
-    $this->assertTrue(isset($service->type));
-
-    $api_request->setType($service->type);
+    $api_request->setUsername($api->getConfig('credentials/username'));
+    $api_request->setPassword($api->getConfig('credentials/password'));
 
     var_dump($api_request->send());
 
-    die();
-
-    //  $api_request->setUsername($api_request->getConfig('credentials/username'));
-    //$api_request->setPassword($api_request->getConfig('credentials/password'));
-  
+    die();  
 
   }
 
