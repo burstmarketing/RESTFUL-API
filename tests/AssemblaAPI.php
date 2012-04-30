@@ -1,6 +1,7 @@
 <?php
 
 require('../Autoload.php');
+require('constants.php');
 
 define('DATA_PROVIDERS', realpath('./data_providers'));
   
@@ -47,22 +48,64 @@ class Assembla_APITest extends PHPUnit_Framework_TestCase {
 
     $api = &$this->_api_obj;
 
-    $api->setUserName('[username]');
-    $api->setPassword('[password]');
+    $api->setUserName(ASSEMBLA_API_USERNAME);
+    $api->setPassword(ASSEMBLA_API_PASSWORD);
     
     foreach ($api->getConfig('services') as $service_slug => $service) {
       $testMethodName = $this->_camelize($service_slug);
       
       if (method_exists($this, $testMethodName)) {
-	$this->$testMethodName();
+	$this->assertInstanceOf($api->getConfig('services/' . $service_slug . '/classname'), $this->$testMethodName());
       }
     }
   }
 
+  // url overwrites uri
+
+  public function _ShowSpaceById($id) {
+    return $this->_api_obj->loadShowSpaceById($id);
+  }
+
+  /**
+   * @depends _ShowSpaceById
+   *
+   * @covers Service::my_spaces_list
+   * @covers Service::show_space_by_id
+   */
   public function MySpacesList() {
     $api = &$this->_api_obj;
 
-    $spaces = $api->loadMySpacesList();
+    $api_request = new Assembla_API_Request;
+
+    $service = $api->getService('my_spaces_list');
+
+    // Assure that the service is a Zend_Config obj
+    $this->assertInstanceOf('Zend_Config', $service);
+
+    $api_request->setKey('my_spaces_list');
+
+    if ($api_request->getConfig('defaults/url')) {
+      $api_request->setUrl($api_request->getConfig('defaults/url'));
+    }
+
+    $this->assertTrue(isset($service->uri));
+
+    $this->assertTrue(isset($service->type));
+
+    $api_request->setType($service->type);
+
+    var_dump($api_request->send());
+
+    die();
+
+    //  $api_request->setUsername($api_request->getConfig('credentials/username'));
+    //$api_request->setPassword($api_request->getConfig('credentials/password'));
+  
+
+  }
+
+  protected function _send() {
+      
   }
 
   /**

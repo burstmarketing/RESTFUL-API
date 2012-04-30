@@ -16,12 +16,11 @@ abstract class Core_API_Request extends Core_Object {
   }
 
 
-  public function send( ){
-	
-	if( $this->_useCache() && $this->_getCache($this->_getCacheKey()) ) {
-	  return $this->_getCache( $this->_getCacheKey() );
-	} else {
-	  if( $this->getUrl() != '' && $this->getUri() != '' ) {
+  public function send() {	
+    if( $this->_useCache() && $this->_getCache($this->_getCacheKey()) ) {
+      return $this->_getCache( $this->_getCacheKey() );
+    } else {
+      if( $this->getUrl() != '' && $this->getUri() != '' ) {
 
 		$ch = curl_init( $this->getUrl() . $this->getUri() );
 
