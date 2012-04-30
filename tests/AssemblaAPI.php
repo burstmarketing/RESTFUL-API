@@ -99,10 +99,37 @@ class Assembla_APITest extends PHPUnit_Framework_TestCase {
     $api_request->setUsername($api->getConfig('credentials/username'));
     $api_request->setPassword($api->getConfig('credentials/password'));
 
-    var_dump($api_request->send());
+    $return_spaces_list = $api_request->send();
+    $return_spaces_list = preg_replace('/\<spaces\-tools(.*)\>(.*)\<\/spaces\-tools\>/s', '', $return_spaces_list);
 
-    die();  
+    $actualXmlStructure = new DOMDocument();
+    $actualXmlStructure->loadXML($return_spaces_list);
 
+    $sampleXmlStructure = new DOMDocument();
+    $sampleXmlStructure->loadXML(
+   '<spaces type="array">
+    <space>
+    <name>Assembla API Test Bed</name>
+    <default-showpage>Source/SVN</default-showpage>
+    <created-at type="datetime">2012-03-26T14:49:23Z</created-at>
+    <is-commercial type="boolean">true</is-commercial>
+    <watcher-permissions type="integer">1</watcher-permissions>
+    <updated-at type="datetime">2012-03-26T14:49:23Z</updated-at>
+    <wiki-name>assembla-api-test-bed</wiki-name>
+    <team-permissions type="integer">2</team-permissions>
+    <is-manager type="boolean">true</is-manager>
+    <can-join type="boolean">false</can-join>
+    <id>dGGiO6D1ir4B_BacwqjQWU</id>
+    <parent-id>dl9rxMqrar4iUWeJe5cbCb</parent-id>
+    <public-permissions type="integer">0</public-permissions>
+    <description>A test bed space for developing  the PHP implementation of the Assembla API - designed to allow for creation of tickets,  spaces,  adding and removing users and other mutative operations </description>
+    <is-volunteer type="boolean">false</is-volunteer>    
+    </space>
+    </spaces>');    
+
+    $this->assertEqualXmlStructure($sampleXmlStructure->firstChild, $actualXmlStructure->firstChild, true);    
+ 
+    return $api->loadMySpacesList();
   }
 
   protected function _send() {
