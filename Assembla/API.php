@@ -2,6 +2,8 @@
 
 
 class Assembla_API extends Core_API {
+  protected $_request_class = "Assembla_API_Request";
+  protected $_response_class = "Assembla_API_Response";
 
 
   // a little sneaky if '$file' is already a config object
@@ -36,11 +38,14 @@ class Assembla_API extends Core_API {
 
 
   protected function _getRequest(){
-	return new Assembla_API_Request;
+    $request = new $this->_request_class();
+    $request->useCache( $this->useCache() );
+    return $request;
   }
 
   protected function _getResponse(){
-	return new Assembla_API_Response;
+    $response = new $this->_response_class();
+    return $response;
   }
 
   /*

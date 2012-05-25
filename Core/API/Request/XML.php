@@ -11,9 +11,6 @@ class Core_API_Request_XML extends Core_API_Request {
 	return '<?xml version="1.0" encoding="UTF-8"?>';
   }
   
-  protected function _useCache(){
-	return false;
-  }
   protected function _setCache( $key, $value ){
 	return;
   }

@@ -2,8 +2,19 @@
 
 
 abstract class Core_API {
+  protected $_use_cache = false;
+  
   protected $_config;
   protected $_config_base_type;
+
+  public function useCache( $use_cache = null ){
+    if( $use_cache === null ){
+      return $this->_use_cache;
+    }
+    $this->_use_cache = $use_cache;
+    return $this;
+  }
+
 
   public function loadConfig( $file ){
 	if(is_readable(  RESTFUL_API_LOADER::getBaseDir() . $file ) ){

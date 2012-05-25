@@ -2,6 +2,8 @@
 
 abstract class Core_API_Request extends Core_Object {  
 
+  protected $_use_cache = false;
+
   public function addHeader( $header ){
 	if( $headers = $this->getHeaders() ){
 	  if( is_array( $headers ) ){
@@ -17,7 +19,7 @@ abstract class Core_API_Request extends Core_Object {
 
 
   public function send() {	
-    if( $this->_useCache() && $this->_getCache($this->_getCacheKey()) ) {
+    if( $this->useCache() && $this->_getCache($this->_getCacheKey()) ) {
       return $this->_getCache( $this->_getCacheKey() );
     } else {
       if( $this->getUrl() != '' && $this->getUri() != '' ) {
@@ -44,7 +46,9 @@ abstract class Core_API_Request extends Core_Object {
 		$out = curl_exec ($ch);
 		
 		if( $out !== false ){
-		  $this->_setCache( $this->_getCacheKey( $ch ), $out );
+		  if( $this->useCache() ){
+		    $this->_setCache( $this->_getCacheKey(), $out );
+		  }
 		  curl_close($ch);	  
 		} else {
 		  $out = $this->_curlFailure($ch);
@@ -61,7 +65,13 @@ abstract class Core_API_Request extends Core_Object {
 	throw new Exception( 'curl_exec failed with: ' . curl_error( $ch ) ); 
   }
   
-  abstract protected function _useCache();
+  public function useCache( $use_cache = null ){
+    if( $use_cache === null ){
+      return $this->_use_cache;
+    }
+    $this->_use_cache = $use_cache;
+    return $this;
+  }
   abstract protected function _setCache( $key, $value );
   abstract protected function _getCache( $key );
   abstract protected function _getCacheKey();
