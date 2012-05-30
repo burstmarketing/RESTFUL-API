@@ -166,6 +166,15 @@
 
 		},
 
+		"paged_portfolio_ticket_report" : {
+			"url" : "http://burstmarketing.assembla.com/",
+			"uri" : "p/tickets/${report_id}/list?page=${page_id}",
+			"type" : "GET",
+			"headers" : [ "Content-Type:application/xml" ],
+			"classname" : "Assembla_Collection_Ticket"
+
+		},
+
 		"list_of_tickets" : {
 			"uri" : "spaces/${space_id}/tickets/",
 			"type" : "GET",

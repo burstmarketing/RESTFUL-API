@@ -17,6 +17,10 @@ abstract class Core_Collection implements ArrayAccess, Iterator, Countable {
 	return $this;
   }
 
+  public function getCollection(){
+    return $this->_collection;
+  }
+
   public function toXml($arrData, array $arrAttributes = array(), $addCdata=false){
 	$xml = '';
 	foreach ($this as $item) {
