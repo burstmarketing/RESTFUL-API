@@ -74,6 +74,30 @@ class Assembla_Model_Ticket extends Assembla_Model_Abstract {
 
 	return $this;
   }
+
+  public function getEstimate(){
+    if( $this->hasEstimate() ){
+      switch( $this->_data['estimate'] ){
+      case 'Small' :
+	return 4.0;
+	break;
+      case 'Medium' :
+	return 8.0;
+	break;
+      case 'Big' :
+	return 16.0;
+	break;
+      case 'None' :
+	return 0.0;
+	break;
+      default:
+	return (float) $this->_data['estimate']; 
+
+      }
+
+    }
+    return false; 
+  }
   
   public function isOnTime(){
 	// to be implemented
