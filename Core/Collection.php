@@ -17,6 +17,20 @@ abstract class Core_Collection implements ArrayAccess, Iterator, Countable {
 	return $this;
   }
 
+  public function push( $value ){
+    $this->offsetSet("",$value);
+    return $this;
+  }
+
+  public function append( $collection ){
+    if( in_array( "getCollection", get_class_methods( $collection ) ) ){
+      $this->_collection = array_merge( $this->_collection, $collection->getCollection() );
+    }
+    return $this;
+
+  }
+
+
   public function getCollection(){
     return $this->_collection;
   }

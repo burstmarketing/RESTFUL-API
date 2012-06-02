@@ -17,16 +17,16 @@ abstract class Core_API {
 
 
   public function loadConfig( $file ){
-	if(is_readable(  RESTFUL_API_LOADER::getBaseDir() . $file ) ){
+	if(is_readable( $file ) ){
 	  // skeleton code to add other config types
 	  // currently just defaults to json.
 	  switch( $this->_config_base_type ){
 	  default:
-		$this->_config = new Zend_Config_Json( RESTFUL_API_LOADER::getBaseDir() . $file, null, true );
+		$this->_config = new Zend_Config_Json( $file, null, true );
 	  }
 
 	} else {
-	  throw new Exception( "Could not load file " . RESTFUL_API_LOADER::getBaseDir() . $file);
+	  throw new Exception( "Could not load file " . $file);
 	}
   }
 
