@@ -38,13 +38,13 @@ class Assembla_API extends Core_API {
 
 
   protected function _getRequest(){
-    $request = new $this->_request_class();
+    $request = new $this->_request_class;
     $request->useCache( $this->useCache() );
     return $request;
   }
 
   protected function _getResponse(){
-    $response = new $this->_response_class();
+    $response = new $this->_response_class;
     return $response;
   }
 

@@ -7,21 +7,32 @@
    */
 class Assembla_Model_Ticket extends Assembla_Model_Abstract {
 
+  const TICKET_STATUS_NEW = "0";
+  const TICKET_STATUS_ACCEPTED = "1";
+  const TICKET_STATUS_INVALID = "2";
+  const TICKET_STATUS_FIXED = "3";
+  const TICKET_STATUS_TEST = "4";
+  
+  const TICKET_UPDATED_AT = "updated-at";
+  const TICKET_CREATED_AT = "created-at";
+  const TICKET_COMPLETED_DATE = "completed-date";
+
+
   public function getInvalidKeys() {
 	return array("working-hour",
-				 "assigned-to",
-				 "reporter",
-				 "status-name",
-				 "documents", 
-				 "id",
-				 "tasks",
-				 "ticket-comments",
-				 "ticket-associations",
-				 "from-support", 
-				 "invested-hours",
-				 "customfields",
-				 "due-date"
-				 );
+		     "assigned-to",
+		     "reporter",
+		     "status-name",
+		     "documents", 
+		     "id",
+		     "tasks",
+		     "ticket-comments",
+		     "ticket-associations",
+		     "from-support", 
+		     "invested-hours",
+		     "customfields",
+		     "due-date"
+		     );
   }
   
 
