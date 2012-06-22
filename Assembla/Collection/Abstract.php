@@ -33,7 +33,7 @@ abstract class Assembla_Collection_Abstract extends Core_Collection {
 	  $sentinal = true;
 	  foreach( $this->_filters AS $_func_name => $_args ){
 	    array_unshift($_args, $_element);
-	    if( ! $sentinal = call_user_func_array( array( $this, $_func_name), $args ) ){
+	    if( ! $sentinal = call_user_func_array( array( $this, $_func_name), $_args ) ){
 	      break;
 	    }
 	  }
