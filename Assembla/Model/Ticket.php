@@ -138,8 +138,8 @@ class Assembla_Model_Ticket extends Assembla_Model_Abstract {
       public function isOnTime(){
 	
 	if( (bool) $this->getDueDate()  && (bool) $this->getCompletedDate() ){
-	  $due = new DateTime( $this->getDueDate() );	  
-	  $completed = new DateTime( $this->getCompletedDate() );      
+	  $due = strtotime( 'today', strtotime($this->getDueDate()) ); 
+	  $completed = strtotime( 'today', strtotime($this->getCompletedDate()) );
 	  return (bool) ( $completed <= $due );
 	}
 	
