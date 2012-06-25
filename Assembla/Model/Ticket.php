@@ -109,19 +109,44 @@ class Assembla_Model_Ticket extends Assembla_Model_Abstract {
     }
     return false; 
   }
+
+
   
-  public function isOnTime(){
-	// to be implemented
-  }
+      public function getMilestoneTitle(){
+          $milestone = $this->getMilestone();
+	  if( $milestone instanceof Assembla_Milestones_Model ):
+	      return $milestone->getTitle();
+	  elseif( (bool) $this->getData('milestone_id') ):
+	      return $this->getMilestoneId();
+	  else:
+	      return "No Milestone"; 
+          endif;
+      }
 
-  public function getMilestone($api){
-	// to be implemented
-  }
 
-  public function getMilestoneTitle(){
+      public function getMilestone(){
 	// to be implemented
-  }
+	return false;
+      }
 
+      public function formatDate( $date_str ){
+      	     $date = new DateTime( $date_str );
+	     return $date->format('m/d/Y');
+      }
+
+
+      public function isOnTime(){
+	
+	if( (bool) $this->getDueDate()  && (bool) $this->getCompletedDate() ){
+	  $due = new DateTime( $this->getDueDate() );	  
+	  $completed = new DateTime( $this->getCompletedDate() );      
+	  return (bool) ( $completed <= $due );
+	}
+	
+	return false;
+	
+  }
+      
   }
 
 
