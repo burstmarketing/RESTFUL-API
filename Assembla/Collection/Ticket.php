@@ -75,7 +75,6 @@ class Assembla_Collection_Ticket extends Assembla_Collection_Abstract {
     endif;
   }
   
-
   protected function statusFilter( $element, $status ){
     if( !is_array($status) ){ 
       $status = array($status); 
@@ -89,7 +88,26 @@ class Assembla_Collection_Ticket extends Assembla_Collection_Abstract {
 
     return false;
   }
+
+  protected function excludeStatusFilter( $element, $status ){
+    if( !is_array($status) ){ 
+      $status = array($status); 
+    }
+    
+    if( !in_array( $this->_convertTicketStatus( $element->status ), $status ) ){
+      return true;
+    }
+
+    return false;
+  }
   
+
+  public function addExcludeStatusFilter( $status ){
+    $this->_filters["excludeStatusFilter"] = array( "status" => $status );
+    return $this;
+  }
+  
+
   
   // Due Date filter                                                                                                                                                                     
   public function addHasDueDateFilter(){
