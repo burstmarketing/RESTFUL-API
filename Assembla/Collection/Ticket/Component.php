@@ -6,7 +6,7 @@ class Assembla_Collection_Ticket_Component extends Assembla_Collection_Abstract 
   }
 
   protected function _getModelClassName(){
-	return "Assembla_Model_Ticket_Components";
+	return "Assembla_Model_Ticket_Component";
   }
 
 
