@@ -36,7 +36,7 @@ class Assembla_API_Response  extends Core_API_Response_XML {
 	  }
 
 	} else {
-	  header("Location: /dashboard/showForm/assembla/invalid");
+	  throw new Core_Exception_Auth('Failed to authenticate with Assembla');
 	}
   }
   

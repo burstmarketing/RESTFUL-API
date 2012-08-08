@@ -204,7 +204,8 @@ abstract class Core_API {
 	
 	return $response->processRequest( $request );	
 	
-      } catch (Exception $e){
+      } catch (Core_Exception_Auth $e){
+	//	throw new Core_Exception_Auth('Y U NO AUTHENTICATE',0,$e);
 	throw $e;
       }
     }
