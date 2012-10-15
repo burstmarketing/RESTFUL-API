@@ -188,7 +188,7 @@ abstract class Core_API {
   public function __call($method, $args){
     $type = substr($method, 0, 4);
 
-    if($type == "load" ){
+    if($type == "load" || $type == "post" ){
       $key = $this->_underscore(substr($method,4));
       try {
 	

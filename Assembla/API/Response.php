@@ -14,7 +14,7 @@ class Assembla_API_Response  extends Core_API_Response_XML {
 	    if( simplexml_load_string($http_response) ){		
 	      $element = new Assembla_API_XML_Element( $http_response );
 	      $message->setSuccess(1)
-		->setBody( $element->asArray() );
+		->setBody( $element );
 	      return $message;
 		
 	    } else {
