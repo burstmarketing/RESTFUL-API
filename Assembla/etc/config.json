@@ -210,7 +210,7 @@
 		"available_custom_fields" : {
 			"uri" : "spaces/${space_id}/tickets/custom_fields",
 			"type" : "GET",
-			"classname" : "Assembla_Model_Ticket_Customfield"
+			"classname" : "Assembla_Collection_Space_Ticket_Customfield"
 		},
 		
 		"update_ticket" : {
