@@ -4,6 +4,10 @@ abstract class Core_API_Request extends Core_Object {
 
   protected $_use_cache = false;
 
+  protected function _validateCurlResponse( $str ){
+    return true;
+  }
+
   public function addHeader( $header ){
 	if( $headers = $this->getHeaders() ){
 	  if( is_array( $headers ) ){
@@ -45,13 +49,13 @@ abstract class Core_API_Request extends Core_Object {
 
 	$out = curl_exec ($ch);
 		
-	if( $out !== false ){
+	if( $out !== false && $this->_validateCurlResponse($out) ){
 	  if( $this->useCache() ){
 	    $this->_setCache( $this->_getCacheKey(), $out );
 	  }
 	  curl_close($ch);	  
 	} else {
-	  $out = $this->_curlFailure($ch);
+	  $out = $this->_curlFailure($ch, $out);
 	}                  
 	return $out;	  
 		
