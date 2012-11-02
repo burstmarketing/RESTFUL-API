@@ -65,7 +65,7 @@ abstract class Core_API_Request extends Core_Object {
     }
   }
   
-  protected function _curlFailure( $ch ){
+  protected function _curlFailure( $ch, $out ){
 	throw new Exception( 'curl_exec failed with: ' . curl_error( $ch ) ); 
   }
   

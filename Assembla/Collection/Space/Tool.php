@@ -2,7 +2,7 @@
 class Assembla_Collection_Space_Tool extends Assembla_Collection_Abstract {
   
   protected function _getModelElementTag(){
-	return 'space';
+	return 'spaces-tool';
   }
 
   protected function _getModelClassName(){

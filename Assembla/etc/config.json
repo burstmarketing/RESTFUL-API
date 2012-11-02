@@ -6,7 +6,7 @@
 	},
 
 	"defaults" : {
-		"url" : "http://www.assembla.com/"
+		"url" : "https://www.assembla.com/"
 	},
 
 	"services" : {
@@ -127,7 +127,7 @@
 		},
 
 		"space_tools" : {
-			"uri" : "space/${space_id}/tools",
+			"uri" : "spaces/${space_id}/tools",
 			"type" : "GET",
 			"classname" : "Assembla_Collection_Space_Tool"
 		},
