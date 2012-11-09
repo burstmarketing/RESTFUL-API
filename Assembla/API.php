@@ -37,6 +37,26 @@ class Assembla_API extends Core_API {
   }
 
 
+  public function getApiKey(){
+    return $this->getConfig('credentials/api_key');
+  }
+  
+  public function getApiKeySecrete(){
+    return $this->getConfig('credentials/api_key_secret');
+  }
+
+  public function setApiKey($key){
+    $this->setConfig('credentials/api_key', $key);
+    return $this;
+  }
+
+  public function setApiKeySecrete($secret){
+    $this->setConfig('credentials/api_key_secret', $secret);
+    return $this;
+  }
+
+
+
   protected function _getRequest(){
     $request = new $this->_request_class;
     $request->useCache( $this->useCache() );
