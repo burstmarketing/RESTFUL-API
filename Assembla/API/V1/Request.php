@@ -1,6 +1,25 @@
 <?php
-class Assembla_API_Request extends Core_API_Request_XML {
+class Assembla_API_V1_Request extends Core_API_Request_Json {
+
   protected $_api;
+
+
+  protected function _processHeader( $header ){
+    $api = $this->getAPI();
+
+    $callback = function($matches) use ($api) {
+      $uri = $matches[1];
+      return $api->getConfig($uri);
+    }
+
+    while (strpos($header, '${') !== false) {
+      $header = preg_replace_callback('/\$\{([^\$}]+)\}/', $callback, $header);
+    }
+    return $header;
+    
+  }
+
+
 
   protected function _processURI( $uri, $args = array() ){
 
@@ -50,7 +69,7 @@ class Assembla_API_Request extends Core_API_Request_XML {
 
 
   public function getAPI(){
-    return $this->_api;
+    return &$this->_api;
   }
 
   // @td should do typ checking here
@@ -60,6 +79,11 @@ class Assembla_API_Request extends Core_API_Request_XML {
   }
 
 
+  public function addHeader( $header ){
+    $header = $this->_processHeader( $header );
+    parent::addHeader( $header );
+  }
+  
 
   public function generateRequest( $service, $args ){
 
@@ -95,6 +119,12 @@ class Assembla_API_Request extends Core_API_Request_XML {
 	$this->setUri( $service->uri );
       }
       
+
+      if( $service->datatype ){
+	$this->setDatatype($service->datatype);
+	$this->setUri( $this->getUri() . "." . $service->datatype );
+      }
+
       // set curl data on this request
       if( isset($args[1]) && is_string( $args[1] ) ){
 	$this->setCurlData( $args[1] );
@@ -109,10 +139,6 @@ class Assembla_API_Request extends Core_API_Request_XML {
     } else {
       throw new Exception("type is not defined in service: " . $key );
     }
-    
-
-    $this->setUsername( $this->getAPI()->getConfig('credentials/username') );
-    $this->setPassword( $this->getAPI()->getConfig('credentials/password') );
     
 
     if( isset( $service->headers ) ){
