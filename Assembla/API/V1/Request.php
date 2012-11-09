@@ -10,7 +10,7 @@ class Assembla_API_V1_Request extends Core_API_Request_Json {
     $callback = function($matches) use ($api) {
       $uri = $matches[1];
       return $api->getConfig($uri);
-    }
+    };
 
     while (strpos($header, '${') !== false) {
       $header = preg_replace_callback('/\$\{([^\$}]+)\}/', $callback, $header);
@@ -69,12 +69,12 @@ class Assembla_API_V1_Request extends Core_API_Request_Json {
 
 
   public function getAPI(){
-    return &$this->_api;
+    return $this->_api;
   }
 
   // @td should do typ checking here
-  public function setAPI( $api ) {
-    $this->_api = $api;
+  public function setAPI( &$api ) {
+    $this->_api = &$api;
     return $this;
   }
 

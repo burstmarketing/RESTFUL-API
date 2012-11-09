@@ -2,7 +2,7 @@
 
 
 class Assembla_API extends Core_API {
-  protected $_request_class = "Assembla_API_Request";
+  protected $_request_class = "Assembla_API_V1_Request";
   protected $_response_class = "Assembla_API_Response";
 
 
@@ -42,7 +42,7 @@ class Assembla_API extends Core_API {
   }
   
   public function getApiKeySecrete(){
-    return $this->getConfig('credentials/api_key_secret');
+    return $this->getConfig('credentials/api_key_secrete');
   }
 
   public function setApiKey($key){
@@ -50,8 +50,8 @@ class Assembla_API extends Core_API {
     return $this;
   }
 
-  public function setApiKeySecrete($secret){
-    $this->setConfig('credentials/api_key_secret', $secret);
+  public function setApiKeySecrete($secrete){
+    $this->setConfig('credentials/api_key_secrete', $secrete);
     return $this;
   }
 
