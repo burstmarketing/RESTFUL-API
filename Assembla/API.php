@@ -3,7 +3,7 @@
 
 class Assembla_API extends Core_API {
   protected $_request_class = "Assembla_API_V1_Request";
-  protected $_response_class = "Assembla_API_Response";
+  protected $_response_class = "Assembla_API_V1_Response";
 
 
   // a little sneaky if '$file' is already a config object

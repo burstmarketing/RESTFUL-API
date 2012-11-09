@@ -7,7 +7,7 @@ class Core_API_Request_Json extends Core_API_Request {
   }
 
   protected function _validateCurlResponse( $str ){
-    return ( @json_encode($str) !== false );
+    return ( @json_decode($str) !== false );
   }
 
   protected function _curlFailure( $ch, $out ){
