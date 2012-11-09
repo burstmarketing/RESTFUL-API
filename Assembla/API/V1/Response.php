@@ -3,7 +3,7 @@ class Assembla_API_V1_Response  extends Core_API_Response_XML {
   
   public function processRequest( $request, $classname = "Core_Object" ){
 	$http_response = $request->send();	
-	$data = json_decode( $http_response );
+	$data = json_decode( $http_response, true );
 	if( ! isset($data['error']) ){	    
 	  switch( $request->getType() ){
 	  case 'PUT':
