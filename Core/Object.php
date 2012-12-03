@@ -85,10 +85,10 @@ class Core_Object {
 
         // legacy functionality for $index
         if (isset($this->_data[$key])) {
-		  return $this->_data[$key];
+                  return $this->_data[$key];
         }
 
-		return $default;
+                return $default;
     }
 
     protected function _getData($key)
@@ -99,31 +99,36 @@ class Core_Object {
 
     public function __toArray(array $arrAttributes = array())
     {
-        if (empty($arrAttributes)) {
-		  $arrRes = array();
-		  foreach( $this->_data AS $_key => $_value ){
-			if( $_value instanceof Core_Object || $_value instanceof Core_Collection ){
-			  $arrRes[$_key] = $_value->toArray();
-			} else {
-			  $arrRes[$_key] = $_value;
-			}
-		  }
-		  return $arrRes;
-        }
-		// Note: this should be fixed so it calls toArray() on
-		// any values that are models!
+      if (empty($arrAttributes)) {
         $arrRes = array();
-        foreach ($arrAttributes as $attribute) {
-            if (isset($this->_data[$attribute])) {
-                $arrRes[$attribute] = $this->_data[$attribute];
-            }
-            else {
-                $arrRes[$attribute] = null;
-            }
+        foreach( $this->_data AS $_key => $_value ){
+          if( $_value instanceof Core_Object || $_value instanceof Core_Collection ){
+            $arrRes[$_key] = $_value->toArray();
+          } else {
+            $arrRes[$_key] = $_value;
+          }
         }
         return $arrRes;
+      }
+      // Note: this should be fixed so it calls toArray() on
+      // any values that are models!
+      $arrRes = array();
+      foreach ($arrAttributes as $attribute) {
+        if (isset($this->_data[$attribute])) {        
+          if( $this->_data[$attribute] instanceof Core_Object || $this->_data[$attribute] instanceof Core_Collection ){
+            $arrRes[$attribute] = $this->_data[$attribute]->toArray();
+          } else {
+            $arrRes[$attribute] = $this->_data[$attribute];
+          }
+          
+        }
+        else {
+          $arrRes[$attribute] = null;
+        }
+      }
+      return $arrRes;
     }
-
+    
 
     public function toArray(array $arrAttributes = array())
     {
@@ -133,27 +138,27 @@ class Core_Object {
 
     protected function __toXml($arrData, array $arrAttributes = array())
     {
-	  if( $arrData instanceof Core_Object || $arrData instanceof Core_Collection){
-		return $arrData->toXml($arrAttributes);
-	  } else if( ! is_array($arrData) ) {
-		return $arrData; 
-	  } else {
-		$xml = '';
-		
-		$xmlModel = new Core_API_XML_Element('<node></node>');
+          if( $arrData instanceof Core_Object || $arrData instanceof Core_Collection){
+                return $arrData->toXml($arrAttributes);
+          } else if( ! is_array($arrData) ) {
+                return $arrData; 
+          } else {
+                $xml = '';
+                
+                $xmlModel = new Core_API_XML_Element('<node></node>');
 
-		foreach ($arrData as $fieldName => $fieldValue) {
-		  if( empty( $arrAttributes) || in_array( $fieldName, $arrAttributes ) ){
+                foreach ($arrData as $fieldName => $fieldValue) {
+                  if( empty( $arrAttributes) || in_array( $fieldName, $arrAttributes ) ){
 
-			if( is_string($fieldValue) ){
-			  $fieldValue = $xmlModel->xmlentities($fieldValue);
-			}
-			
-			$xml.= "<$fieldName>" . $this->__toXml($fieldValue) . "</$fieldName>"."\n";
-		  }		  
-		}
-	  }
-	  return $xml;	 
+                        if( is_string($fieldValue) ){
+                          $fieldValue = $xmlModel->xmlentities($fieldValue);
+                        }
+                        
+                        $xml.= "<$fieldName>" . $this->__toXml($fieldValue) . "</$fieldName>"."\n";
+                  }               
+                }
+          }
+          return $xml;   
     }
 
 
@@ -165,7 +170,7 @@ class Core_Object {
             $xml.= '<'.$rootName.'>'."\n";
         }
 
-		$xml .= $this->__toXml( $this->getData(), $arrAttributes );
+                $xml .= $this->__toXml( $this->getData(), $arrAttributes );
 
 
         if ($rootName) {
