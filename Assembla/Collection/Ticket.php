@@ -44,10 +44,23 @@ class Assembla_Collection_Ticket extends Assembla_Collection_Abstract {
       $request = $this->_getAPI($use_cache)->generateRequest("paged_portfolio_ticket_report", array( $id, $i ) );
       $http_response = $request->send();
 
-      if( simplexml_load_string($http_response) ){
+      $element = new Assembla_API_XML_Element( $http_response );
+      if( ! count($element->xpath('error')) ) {
 	$element = new Assembla_API_XML_Element( $http_response );
 	$this->load($element);
-      }
+      } else {
+	$errors = $element->asCanonicalArray();
+	$err = "Errors were encountered:";
+	foreach( $errors as $e ){
+	  if( $e == "HTTP Basic: Access denied." ){
+	    throw new Core_Exception_Auth( "Authentical credentials failed!" );
+	  } else {
+	    $err .= " " . $e . " ";
+	  }
+	}
+	throw new Exception( $err );
+	
+      }     
       // asCanonicalArray will return "" if empty - this means 
       // we're out of tickets so break the loop.  
     } while( (bool) $element->asCanonicalArray() );
