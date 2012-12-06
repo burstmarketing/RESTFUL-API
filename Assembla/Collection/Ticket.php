@@ -173,7 +173,7 @@ class Assembla_Collection_Ticket extends Assembla_Collection_Abstract {
   
   public function addNotTodayFilter( $date_string ){
     $this->_filters["notToday"] = array( 'date_string' => $date_string,
-					 'today' => date('d', time()) );
+					 'today' => date('Ymd', time()) );
     return $this;
   }
 
@@ -181,7 +181,7 @@ class Assembla_Collection_Ticket extends Assembla_Collection_Abstract {
   //       and others don't because all of a sudden the date changes
   protected function notToday($element, $date_string, $today){
     $d = new Datetime( (string) $element->$date_string );
-    return $d->format('d') != $today;
+    return $d->format('Ymd') != $today;
   }
 
   }
