@@ -1,12 +1,14 @@
 <?php
 class Assembla_Collection_Ticket extends Assembla_Collection_Abstract {
   
+
+  // cache spaces loaded by the component filter so we don't have
+  // to load the space and its components more than once.
+  protected $_component_filter_cache = array();
+
   protected function _getModelClassName(){
     return "Assembla_Model_Ticket";
-  }
-  
-  
-
+  }   
 
   public function getSpaceTickets( $space_id ){
     return new Blast_Assembla_Collection_Ticket( array_filter( $this->getCollection(),
@@ -101,6 +103,60 @@ class Assembla_Collection_Ticket extends Assembla_Collection_Abstract {
 
     return false;
   }
+
+  public function setComponentNameOnTickets(){
+
+    foreach($this->getCollection() AS $ticket ){      
+      $space_id = $ticket->getSpaceId();
+      if( !in_array($space_id, array_keys( $this->_component_filter_cache ) ) ){
+	$space = new Blast_Assembla_Model_Space;                                                                                              
+	$space->loadById($space_id, true)->loadComponents(true);    
+	$this->_component_filter_cache[$space_id] = $space;
+      } else {
+	$space = $this->_component_filter_cache[$space_id];
+      }
+      
+      $component_map = $space->getComponents()->getComponentIDNameMap();
+      if($ticket->getComponentId() != '' && isset($component_map[$ticket->getComponentId()])){
+	$ticket->setComponent($component_map[$ticket->getComponentId()]);
+      } else {
+	$ticket->setComponent('');
+      }
+    }
+
+  }
+
+  protected function excludeComponentFilter( $element, $components ){
+    if( !is_array($components) ){
+      $components = array($components);
+    }    
+
+    $space_id = (string) $element->{'space-id'};
+
+    if( !in_array($space_id, array_keys( $this->_component_filter_cache ) ) ){
+      $space = new Blast_Assembla_Model_Space;                                                                                              
+      $space->loadById($space_id, true)->loadComponents(true);    
+      $this->_component_filter_cache[$space_id] = $space;
+    } else {
+      $space = $this->_component_filter_cache[$space_id];
+    }
+
+    $component_map = $space->getComponents()->getComponentIDNameMap();
+    $ticket_component = (string) $element->{'component-id'};
+
+    if( isset($component_map[$ticket_component]) ){
+      return !in_array( $component_map[$ticket_component], $components);
+    }
+    
+    return true;
+
+  }
+
+  public function addExcludeComponentFilter( $components ){
+    $this->_filters["excludeComponentFilter"] = array( "components" => $components );
+    return $this;
+  }
+
 
   protected function excludeStatusFilter( $element, $status ){
     if( !is_array($status) ){ 
