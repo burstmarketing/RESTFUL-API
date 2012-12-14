@@ -78,10 +78,12 @@ abstract class Core_API {
   //       returned as an array.
 
   public function __call($method, $args){
-    $type = substr($method, 0, 4);
+    $matches = array();    
+    if( preg_match( '/^(load|post|put|delete)(.*)/', $method, $matches ) ){
+      var_dump($matches);
+      $type = $matches[1];
+      $key = $this->_underscore($matches[2]);
 
-    if($type == "load" || $type == "post" ){
-      $key = $this->_underscore(substr($method,4));
       try {
 
 	$request = $this->_getRequest();
