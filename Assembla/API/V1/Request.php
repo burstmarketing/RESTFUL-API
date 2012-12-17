@@ -108,45 +108,58 @@ class Assembla_API_V1_Request extends Core_API_Request_Json {
       //       validate the arguments and set the uri
       //       in a protected function.
       if( ! empty( $args ) ){
-	if( is_array( $args[0] ) ){
-	  $_args = $args[0];
-	} else {
-	  $_args =  $this->_getURIArgs( $service->uri, $args );
-	}				
-	$this->setUri( $this->_processURI( $service->uri, $_args ) );
+        if( is_array( $args[0] ) ){
+          $_args = $args[0];
+        } else {
+          $_args =  $this->_getURIArgs( $service->uri, $args );
+        }
+        $this->setUri( $this->_processURI( $service->uri, $_args ) );
       } else {
-	// no arguments,  just set the uri.
-	$this->setUri( $service->uri );
+        // no arguments,  just set the uri.
+        $this->setUri( $service->uri );
       }
-      
+
 
       if( $service->datatype ){
-	$this->setDatatype($service->datatype);
-	$this->setUri( $this->getUri() . "." . $service->datatype );
+        $this->setDatatype($service->datatype);
+
+        /*
+         * Due to V1 API appending .json or .xml to the end of requests,
+         * query strings at the end of URIs in the config break things, as they
+         * end up being uri?query=arg.json when they should be
+         * uri.json?query=arg.
+         * This checks for that, and replaces appropriately, and if there is no query
+         * string, just throws .datatype on the end.
+         **/
+        if (preg_match('/(.*)\?(.*)/', $this->getUri())) {
+          $this->setUri(preg_replace('/(.*)\?(.*)/', '$1.' . $service->datatype . '?$2', $this->getUri()));
+        } else {
+          $this->setUri($this->getUri() . '.' . $service->datatype);
+        }
       }
 
       // set curl data on this request
       if( isset($args[1]) && is_string( $args[1] ) ){
-	$this->setCurlData( $args[1] );
-      }				
-      
+        $this->setCurlData( $args[1] );
+      }
+
     } else {
       throw new Exception("could not find 'uri' in service: " . $key );
     }
-    
+
     if( isset( $service->type ) ){
       $this->setType( $service->type );
     } else {
       throw new Exception("type is not defined in service: " . $key );
     }
-    
+
 
     if( isset( $service->headers ) ){
       foreach( $service->headers AS $header ){
-	$this->addHeader( $header );
+        $this->addHeader( $header );
       }
     }
-    
+
     return $this;
 
   }
