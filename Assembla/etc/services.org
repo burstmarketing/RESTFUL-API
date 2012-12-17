@@ -1,31 +1,31 @@
-#+BEGIN_SRC elisp  
+#+BEGIN_SRC elisp
   (defun org-tbl-to-json (table params)
     (let ((header (mapcar (lambda(s) (intern (concat ":" s )) ) (car table)))
           (body (cdr table)))
-      (orgtbl-to-generic body '( :lfmt (lambda (line) 
+      (orgtbl-to-generic body '( :lfmt (lambda (line)
                                          (let ((plst (mapcan 'list header line)))
                                           (concat "\"" (lax-plist-get plst :service) "\" : { \n "
                                                   " \"category\" : \"" (lax-plist-get plst :category) "\",\n"
-                                                  " \"type\" : \"" (lax-plist-get plst :type ) "\",\n" 
+                                                  " \"type\" : \"" (lax-plist-get plst :type ) "\",\n"
                                                   " \"datatype\" : \"" (lax-plist-get plst :datatype ) "\",\n"
                                                   " \"classname\" : \"" (lax-plist-get plst :classname) "\",\n"
                                                   " \"status\" : \"" (lax-plist-get plst :status ) "\",\n "
                                                   " \"uri\" : \"" (lax-plist-get plst :uri ) "\",\n "
                                                   " \"headers\" : " (lax-plist-get plst :headers ) " },")))
-                                       :llfmt (lambda (line) 
+                                       :llfmt (lambda (line)
                                                 (let ((plst (mapcan 'list header line)))
                                                   (concat "\"" (lax-plist-get plst :service) "\" : { \n "
                                                           " \"category\" : \"" (lax-plist-get plst :category) "\",\n"
-                                                          " \"type\" : \"" (lax-plist-get plst :type ) "\",\n" 
+                                                          " \"type\" : \"" (lax-plist-get plst :type ) "\",\n"
                                                           " \"datatype\" : \"" (lax-plist-get plst :datatype ) "\",\n"
                                                           " \"classname\" : \"" (lax-plist-get plst :classname) "\",\n"
                                                           " \"status\" : \"" (lax-plist-get plst :status ) "\",\n "
                                                           " \"uri\" : \"" (lax-plist-get plst :uri ) "\",\n "
                                                           " \"headers\" : " (lax-plist-get plst :headers ) " }")))
                                        )
-                         )))  
-  
-#+END_SRC 
+                         )))
+
+#+END_SRC
 
 #+ORGTBL: SEND recevoir org-tbl-to-json
 | category                       | type   | datatype | classname   | status   | service                                | uri                                                                                                                       | comment                                                                                                                           | headers                                                                                |
@@ -117,7 +117,7 @@
 | Merge Request Version Votes    | POST   | json     | Core_Object | untested | merge_request_upvote                   | /v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/votes/upvote   | Upvotes a merge request version                                                                                                   | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secrete}" ] |
 | Merge Request Version Votes    | POST   | json     | Core_Object | untested | merge_request_downvote                 | /v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/votes/downvote | Downvotes a merge request version                                                                                                 | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secrete}" ] |
 | Merge Request Version Votes    | DELETE | json     | Core_Object | untested | delete_vote_from_merge_request         | /v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/votes/delete   | Deletes your vote from a merge request version                                                                                    | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secrete}" ] |
-
+| Wiki Pages                     | GET    | json     | Core_Object | untested | wiki_pages                             | /v1/spaces/${space_id}/wiki_pages                                                                                         | Returns a paginated list of wiki pages. Pages are default to 1000 wiki pages.                                                     | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secrete}" ] |
 
 
 #+BEGIN RECEIVE ORGTBL recevoir
