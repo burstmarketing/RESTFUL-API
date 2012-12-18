@@ -4,6 +4,9 @@ class Assembla_API_V1_Request extends Core_API_Request_Json {
   protected $_api;
 
 
+  // @todo, allow this to utilize other parts of the service definition?
+  // i.e. - ${datatype} would access $service->datatype IF getConfig(datatype)
+  // didn't exist.
   protected function _processHeader( $header ){
     $api = $this->getAPI();
 
@@ -16,53 +19,53 @@ class Assembla_API_V1_Request extends Core_API_Request_Json {
       $header = preg_replace_callback('/\$\{([^\$}]+)\}/', $callback, $header);
     }
     return $header;
-    
+
   }
 
 
 
   protected function _processURI( $uri, $args = array() ){
 
-	if( empty($args) ):
-	  return $uri;
-	endif;          
+        if( empty($args) ):
+          return $uri;
+        endif;
 
-	$callback = function($matches) use ($args) {
-	  $propertyName = $matches[1];
-	  if ( !array_key_exists( $propertyName, $args)) {
-		throw new Exception( $propertyName . " not passed into _parseVars function. ");
-	  }
-	  
-	  $propertyValue = $args[$propertyName];
-	  
-	  if (is_bool($propertyValue)) {
-		if ($propertyValue === true) {
-		  $propertyValue = "true";
-		} else {
-		  $propertyValue = "false";
-		}
-	  }	  
-	  return $propertyValue;	  
-	};
+        $callback = function($matches) use ($args) {
+          $propertyName = $matches[1];
+          if ( !array_key_exists( $propertyName, $args)) {
+                throw new Exception( $propertyName . " not passed into _parseVars function. ");
+          }
+
+          $propertyValue = $args[$propertyName];
+
+          if (is_bool($propertyValue)) {
+                if ($propertyValue === true) {
+                  $propertyValue = "true";
+                } else {
+                  $propertyValue = "false";
+                }
+          }
+          return $propertyValue;
+        };
 
 
-	while (strpos($uri, '${') !== false) {
-	  $uri = preg_replace_callback('/\$\{([^\$}]+)\}/', $callback, $uri);
-	}
-	return $uri;
-	
+        while (strpos($uri, '${') !== false) {
+          $uri = preg_replace_callback('/\$\{([^\$}]+)\}/', $callback, $uri);
+        }
+        return $uri;
+
   }
 
   protected function _getURIArgs( $uri, $args ){
-	$matches = array();
-	preg_match_all('/\$\{([^\$}]+)\}/', $uri, $matches);
+        $matches = array();
+        preg_match_all('/\$\{([^\$}]+)\}/', $uri, $matches);
 
-	if( isset($matches[1]) ){
-	  $vals = array_slice( $args, 0, count($matches[1]) );
-	  return array_combine( $matches[1], $vals );
-	}
+        if( isset($matches[1]) ){
+          $vals = array_slice( $args, 0, count($matches[1]) );
+          return array_combine( $matches[1], $vals );
+        }
 
-	return array(); 
+        return array();
   }
 
 
@@ -83,7 +86,7 @@ class Assembla_API_V1_Request extends Core_API_Request_Json {
     $header = $this->_processHeader( $header );
     parent::addHeader( $header );
   }
-  
+
 
   public function generateRequest( $service, $args ){
 
@@ -95,11 +98,11 @@ class Assembla_API_V1_Request extends Core_API_Request_Json {
     if( $service->url ){
       $this->setUrl( $service->url );
     }
-    
-    
+
+
     if( isset( $service->uri ) ){
-      
-      // Handle $args - this can be passed in as a 
+
+      // Handle $args - this can be passed in as a
       // single array with key => value pairs to be
       // sent to processURI  or $args can just be a
       // list of arguments in wich case we add the
