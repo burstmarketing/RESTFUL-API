@@ -92,13 +92,15 @@ abstract class Core_API {
 
         $request->setAPI($this);
 
-        $service = $this->getService( $key );
+        // Clone so service doesn't retain values from last call
+        $service = clone $this->getService( $key );
         $service->key = $key;
 
-        if( ! isset( $service->url ) ){
-          $service->url = $this->getConfig("defaults/url");
-        } else {
-          throw new Exception( "could not locate a 'url' to use for this service");
+        // If a URL isn't set in the service definition, try to pull
+        // a default from the config, if that fails, throw an exception.
+        if ((!isset($service->url)) &&
+            (!($service->url = $this->getConfig('defaults/url')))) {
+          throw new Exception(sprintf('Could not locate a URL for service %s.', $service->key));
         }
 
         $request->generateRequest( $service, $args );
