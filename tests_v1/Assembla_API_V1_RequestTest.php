@@ -35,26 +35,29 @@ class Assembla_API_V1_RequestTest extends PHPUnit_Framework_TestCase {
     $this->_request->setAPI($this->_api);
   }
 
-  public function test_processHeader() {
+  public function testProcessHeaderReturnsWithNoVariables() {
     $this->assertEquals('example', $this->_request->exposedProcessHeader('example'));
-
-    $this->assertEquals('https://api.assembla.com', $this->_request->exposedProcessHeader('${defaults/url}'));
   }
 
-  public function test_processURI() {
+  public function testProcessHeaderReplacesVariables() {
+    $this->assertEquals($this->_request->exposedProcessHeader('${defaults/url}'), 'https://api.assembla.com');
+  }
+
+  public function testProcessUriReturnsUnchangedIfNoArgs() {
     // Test it will always return the same URI when $args is empty
     $this->assertEquals('test-1', $this->_request->exposedProcessUri('test-1'));
     $this->assertEquals('test-2', $this->_request->exposedProcessUri('test-2'));
+  }
 
+  public function testProcessUriReplacesVariablesInArgs() {
     // Test basic replacement
-    $this->assertEquals($this->_request->exposedProcessUri('a-${example}-c', array('example' => 'b')), 'a-b-c');
+    $this->assertEquals('a-b-c', $this->_request->exposedProcessUri('a-${example}-c', array('example' => 'b')));
+  }
 
-    // Test missing property
-    try {
-      $this->_request->exposedProcessUri('a-${test}-c', array('not-test' => 'b'));
+  public function testProcessUriThrowsExceptionForMissingProperty() {
+    $this->setExpectedException('Assembla_Exception');
 
-      $this->fail('Expected Assembla_Exception for property not passed.');
-    } catch (Assembla_Exception $e) {}
+    $this->_request->exposedProcessUri('a-${test}-c', array('not-test' => 'b'));
   }
 
   public function test_getURIArgs() {
