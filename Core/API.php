@@ -1,6 +1,5 @@
 <?php
 
-
 abstract class Core_API {
   protected $_use_cache = false;
 
@@ -15,49 +14,45 @@ abstract class Core_API {
     return $this;
   }
 
-
   public function loadConfig( $file ){
-        if(is_readable( $file ) ){
-          // skeleton code to add other config types
-          // currently just defaults to json.
-          switch( $this->_config_base_type ){
-          default:
-                $this->_config = new Zend_Config_Json( $file, null, true );
-          }
+    if(is_readable( $file ) ){
+      // skeleton code to add other config types
+      // currently just defaults to json.
+      switch( $this->_config_base_type ){
+      default:
+        $this->_config = new Zend_Config_Json( $file, null, true );
+      }
 
-        } else {
-          throw new Exception( "Could not load file " . $file);
-        }
+    } else {
+      throw new Assembla_Exception( "Could not load file " . $file);
+    }
   }
 
   public function getConfigs() {
     return $this->_config->getConfigs();
   }
 
+  // @todo - This will throw  a fatal error if $uri doesn't exist, and has a slash in it
   public function getConfig( $uri ){
-        try {
-          return $this->_config->getConfig( $uri );
-        } catch (Exception $e ) {
-          return false;
-        }
+    if ($config = $this->_config->getConfig($uri)) {
+      return $config;
+    } else {
+      return false;
+    }
   }
 
   public function setConfig( $uri, $value ){
-        $this->_config->setConfig($uri, $value );
-        return $this;
+    $this->_config->setConfig($uri, $value );
+    return $this;
   }
-
 
   public function getService( $key ){
+    if( $this->getConfig( 'services/' . $key ) ){
+      return $this->getConfig( 'services/' . $key );
+    }
 
-        if( $this->getConfig( 'services/' . $key ) ){
-          return $this->getConfig( 'services/' . $key );
-        }
-
-        return false;
-
+    return false;
   }
-
 
   //NOTE: all of this stuff should probably be refactored into
   //      a Core_RESTFUL_API class so we can use the rest of the framework
@@ -66,11 +61,8 @@ abstract class Core_API {
   //      in our new Core_RESTFUL_API class.
 
   protected function _underscore($name) {
-        return strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $name));
+    return strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $name));
   }
-
-
-
 
   // NOTE: getConfig( 'service' . $key )  should probably be a function
   //       like getService( $key ) which returns a Core_Config_Service object
@@ -118,10 +110,18 @@ abstract class Core_API {
         //	throw new Core_Exception_Auth('Y U NO AUTHENTICATE',0,$e);
         throw $e;
       }
+    } else {
+      throw new Assembla_Exception('Invalid method. Not one of load/post/put/delete.');
     }
   }
 
   abstract protected function _getRequest();
   abstract protected function _getResponse();
 
+}
+
+class Assembla_Exception extends Exception {
+  public function __construct($message = null, $code = 0, Exception $previous = null) {
+    parent::__construct($message, $code, $previous);
   }
+}
