@@ -1,13 +1,13 @@
 <phpunit>
   <testsuites>
     <testsuite name="Core_APITest">
-      <file>tests_v1/Core_APITest.php</file>
+      <file>tests/Core_APITest.php</file>
     </testsuite>
     <testsuite name="Assembla_APITest">
-      <file>tests_v1/Assembla_APITest.php</file>
+      <file>tests/Assembla_APITest.php</file>
     </testsuite>
     <testsuite name="Assembla_API_V1_RequestTest">
-      <file>tests_v1/Assembla_API_V1_RequestTest.php</file>
+      <file>tests/Assembla_API_V1_RequestTest.php</file>
     </testsuite>
   </testsuites>
 </phpunit>
