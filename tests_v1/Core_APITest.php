@@ -9,10 +9,6 @@ require_once ASSEMBLA_REST_API_ROOT . '/Core/API.php';
 
 
 class Mock_Core_API extends Core_API {
-  public function getRawConfig() {
-    return $this->_config;
-  }
-
   protected function _getRequest() {}
   protected function _getResponse() {}
 }
@@ -45,7 +41,7 @@ class Core_APITest extends PHPUnit_Framework_TestCase {
     }
 
     public function testConfigIsInitiallyNull() {
-      $this->assertNull($this->object->getRawConfig());
+      $this->assertAttributeEquals(null, '_config', $this->object);
     }
 
     public function testConfigThrowsExceptionForNonJsonFiles() {
@@ -64,7 +60,8 @@ class Core_APITest extends PHPUnit_Framework_TestCase {
     public function testLoadedConfigIsOfTypeZendConfigJson() {
       // Real config, _config should be an instance of Zend_Config_Json
       $this->object->loadConfig(ASSEMBLA_REST_API_ROOT . '/Assembla/etc/config.json');
-      $this->assertTrue($this->object->getRawConfig() instanceof Zend_Config_Json);
+
+      $this->assertAttributeInstanceOf('Zend_Config_Json', '_config', $this->object);
     }
 
     public function testGetConfigsReturnsArray() {

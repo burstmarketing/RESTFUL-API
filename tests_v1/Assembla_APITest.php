@@ -7,11 +7,7 @@ if (!defined("ASSEMBLA_REST_API_ROOT")) {
 require_once ASSEMBLA_REST_API_ROOT . '/Autoload.php';
 require_once ASSEMBLA_REST_API_ROOT . '/Assembla/API.php';
 
-class Mock_Assembla_API extends Assembla_API {
-  public function getRawConfig() {
-    return $this->_config;
-  }
-}
+class Mock_Assembla_API extends Assembla_API {}
 
 class Assembla_APITest extends PHPUnit_Framework_TestCase {
 
@@ -25,7 +21,8 @@ class Assembla_APITest extends PHPUnit_Framework_TestCase {
       $test_config = new Zend_Config(array());
 
       $this->object->loadConfig($test_config);
-      $this->assertEquals($this->object->getRawConfig(), $test_config);
+
+      $this->assertAttributeEquals($test_config, '_config', $this->object);
     }
 
     // Covered by Core_API test
