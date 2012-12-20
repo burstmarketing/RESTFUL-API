@@ -1,4 +1,5 @@
 <?php
+
 class Assembla_API_V1_Response  extends Core_API_Response_XML {
 
   public function processRequest( $request, $classname = "Core_Object" ){
@@ -32,5 +33,3 @@ class Assembla_API_V1_Response  extends Core_API_Response_XML {
         }
   }
 }
-
-?>
