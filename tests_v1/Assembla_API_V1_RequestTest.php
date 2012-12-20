@@ -7,21 +7,7 @@ if (!defined("ASSEMBLA_REST_API_ROOT")) {
 require_once ASSEMBLA_REST_API_ROOT . '/Autoload.php';
 require_once ASSEMBLA_REST_API_ROOT . '/Assembla/API/V1/Request.php';
 
-
-class Dummy_API_V1_Request extends Assembla_API_V1_Request {
-
-  public function exposedProcessHeader($arg) {
-    return $this->_processHeader($arg);
-  }
-
-  public function exposedProcessUri($uri, array $args=array()) {
-    return $this->_processURI($uri, $args);
-  }
-
-  public function exposedGetUriArgs($uri, array $args) {
-    return $this->_getURIArgs($uri, $args);
-  }
-}
+class Dummy_API_V1_Request extends Assembla_API_V1_Request {}
 
 class Assembla_API_V1_RequestTest extends PHPUnit_Framework_TestCase {
 
@@ -33,31 +19,41 @@ class Assembla_API_V1_RequestTest extends PHPUnit_Framework_TestCase {
     $this->_api->loadConfig(ASSEMBLA_REST_API_ROOT . '/Assembla/etc/config.json');
     $this->_request = new Dummy_API_V1_Request;
     $this->_request->setAPI($this->_api);
+
+    // Setup protected or private methods we may need to test
+    $this->processHeader = new ReflectionMethod('Assembla_API_V1_Request', '_processHeader');
+    $this->processHeader->setAccessible(true);
+
+    $this->processURI = new ReflectionMethod('Assembla_API_V1_Request', '_processURI');
+    $this->processURI->setAccessible(true);
+
+    $this->getURIArgs = new ReflectionMethod('Assembla_API_V1_Request', '_getURIArgs');
+    $this->getURIArgs->setAccessible(true);
   }
 
   public function testProcessHeaderReturnsWithNoVariables() {
-    $this->assertEquals('example', $this->_request->exposedProcessHeader('example'));
+    $this->assertEquals('example', $this->processHeader->invoke($this->_request, 'example'));
   }
 
   public function testProcessHeaderReplacesVariables() {
-    $this->assertEquals($this->_request->exposedProcessHeader('${defaults/url}'), 'https://api.assembla.com');
+    $this->assertEquals($this->processHeader->invoke($this->_request, '${defaults/url}'), 'https://api.assembla.com');
   }
 
   public function testProcessUriReturnsUnchangedIfNoArgs() {
     // Test it will always return the same URI when $args is empty
-    $this->assertEquals('test-1', $this->_request->exposedProcessUri('test-1'));
-    $this->assertEquals('test-2', $this->_request->exposedProcessUri('test-2'));
+    $this->assertEquals('test-1', $this->processURI->invoke($this->_request, 'test-1'));
+    $this->assertEquals('test-2', $this->processURI->invoke($this->_request, 'test-2'));
   }
 
   public function testProcessUriReplacesVariablesInArgs() {
     // Test basic replacement
-    $this->assertEquals('a-b-c', $this->_request->exposedProcessUri('a-${example}-c', array('example' => 'b')));
+    $this->assertEquals('a-b-c', $this->processURI->invoke($this->_request, 'a-${example}-c', array('example' => 'b')));
   }
 
   public function testProcessUriThrowsExceptionForMissingProperty() {
     $this->setExpectedException('Assembla_Exception');
 
-    $this->_request->exposedProcessUri('a-${test}-c', array('not-test' => 'b'));
+    $this->processURI->invoke($this->_request, 'a-${test}-c', array('not-test' => 'b'));
   }
 
   public function test_getURIArgs() {
