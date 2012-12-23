@@ -1,5 +1,8 @@
 <phpunit>
   <testsuites>
+    <testsuite name="Core_ObjectTest">
+      <file>tests/Core_ObjectTest.php</file>
+    </testsuite>
     <testsuite name="Core_APITest">
       <file>tests/Core_APITest.php</file>
     </testsuite>
