@@ -71,45 +71,32 @@ abstract class Core_API {
 
   public function __call($method, $args){
     $matches = array();
-    if( preg_match( '/^(load|post|put|delete)(.*)/', $method, $matches ) ){
-      $type = $matches[1];
+
+    if (preg_match('/^(load|post|put|delete)(.*)/', $method, $matches)) {
       $key = $this->_underscore($matches[2]);
 
-      try {
+      $request = $this->_getRequest()
+                      ->setAPI($this);
 
-        $request = $this->_getRequest();
-
-        // @td make sure 'setAPI' is set up as an abstract function on
-        //     Core_API_Request
-
-        $request->setAPI($this);
-
-        // Clone so service doesn't retain values from last call
-        $service = clone $this->getService( $key );
+      // Clone so service doesn't retain values from last call
+      if ($service = $this->getService($key)) {
+        $service = clone $service;
         $service->key = $key;
-
-        // If a URL isn't set in the service definition, try to pull
-        // a default from the config, if that fails, throw an exception.
-        if ((!isset($service->url)) &&
-            (!($service->url = $this->getConfig('defaults/url')))) {
-          throw new Exception(sprintf('Could not locate a URL for service %s.', $service->key));
-        }
-
-        $request->generateRequest( $service, $args );
-
-
-        $response = $this->_getResponse();
-
-        if( isset($service->classname) ){
-          return $response->processRequest( $request, $service->classname );
-        }
-
-        return $response->processRequest( $request );
-
-      } catch (Core_Exception_Auth $e){
-        //	throw new Core_Exception_Auth('Y U NO AUTHENTICATE',0,$e);
-        throw $e;
+      } else {
+        throw new Assembla_Exception(sprintf('Service for %s could not be found.', $key));
       }
+
+      // If a URL isn't set in the service definition, try to pull
+      // a default from the config, if that fails, throw an exception.
+      if ((!isset($service->url)) &&
+          (!($service->url = $this->getConfig('defaults/url')))) {
+        throw new Exception(sprintf('Could not locate a URL for service %s.', $service->key));
+      }
+
+      $request->generateRequest( $service, $args );
+
+      return $this->_getResponse()
+                  ->processRequest($request, (isset($service->classname)) ? $service->classname : '');
     } else {
       throw new Assembla_Exception('Invalid method. Not one of load/post/put/delete.');
     }
