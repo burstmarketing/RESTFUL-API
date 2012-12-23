@@ -227,22 +227,6 @@ class Core_Object {
       return uc_words($name, '');
     }
 
-    public function serialize($attributes = array(), $valueSeparator='=', $fieldSeparator=' ', $quote='"') {
-      $res  = '';
-      $data = array();
-      if (empty($attributes)) {
-        $attributes = array_keys($this->_data);
-      }
-
-      foreach ($this->_data as $key => $value) {
-        if (in_array($key, $attributes)) {
-          $data[] = $key . $valueSeparator . $quote . $value . $quote;
-        }
-      }
-      $res = implode($fieldSeparator, $data);
-      return $res;
-    }
-
     public function getOrigData($key=null) {
       if (is_null($key)) {
         return $this->_origData;

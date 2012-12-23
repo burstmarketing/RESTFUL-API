@@ -222,18 +222,6 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Core_Object::serialize
-     * @todo   Implement testSerialize().
-     */
-    public function testSerialize()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Core_Object::getOrigData
      * @todo   Implement testGetOrigData().
      */
