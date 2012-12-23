@@ -19,9 +19,12 @@ class Assembla_API_V1_Response  extends Core_API_Response_Json {
         break;
 
       default:
+        // make sure $classname exists
+        $classname = (class_exists($classname)) ? $classname : 'Core_Object';
         $class = new $classname;
         return $class->setData($data);
         break;
+      }
       } else {
         $error = "Errors were encountered: \n";
 
@@ -37,4 +40,3 @@ class Assembla_API_V1_Response  extends Core_API_Response_Json {
       }
     }
   }
-}
