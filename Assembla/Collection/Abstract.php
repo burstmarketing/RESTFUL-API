@@ -26,8 +26,6 @@ abstract class Assembla_Collection_Abstract extends Core_Collection {
   }
 
   public function load(array $data) {
-    $this->addStatusFilter('Test');
-
     $model_class = $this->_getModelClassName();
 
     foreach ($this->_filterData($data) as $model_data) {
