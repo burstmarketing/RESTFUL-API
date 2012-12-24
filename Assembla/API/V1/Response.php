@@ -22,7 +22,7 @@ class Assembla_API_V1_Response  extends Core_API_Response_Json {
         // make sure $classname exists
         $classname = (class_exists($classname)) ? $classname : 'Core_Object';
         $class = new $classname;
-        return $class->setData($data);
+        return $class->load($data);
         break;
       }
       } else {
