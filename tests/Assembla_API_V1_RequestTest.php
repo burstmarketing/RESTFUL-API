@@ -53,6 +53,37 @@ class Assembla_API_V1_RequestTest extends PHPUnit_Framework_TestCase {
     $this->processURI->invoke($this->_request, 'a-${test}-c', array('not-test' => 'b'));
   }
 
+  public function testValidateArgsThrowsExceptionWithNonArrayArgs() {
+    $service = new Zend_Config(array());
+
+    $this->setExpectedException('Assembla_Exception',
+                                'Arguments must be passed in the form of an array.');
+
+    // Should be array of arguments
+    $this->_request->validateArgs($service, 'some-string');
+  }
+
+  public function testValidateArgsThrowsExceptionForInvalidArgumentCount() {
+    $service = new Zend_Config(array('uri' => '${one_arg}'), true);
+
+    $this->setExpectedException('Assembla_Exception',
+                                'Argument count doesn\'t match the services argument count.');
+
+    // Should only have one arg
+    $this->_request->validateArgs($service, array('two', 'args'));
+  }
+
+  public function testValidateArgsThrowsExceptionForInvalidArgumentKeys() {
+    $service = new Zend_Config(array('uri' => '${one_arg}/${second_arg}'), true);
+
+    $this->setExpectedException('Assembla_Exception',
+                                'Arguments expected vs arguments received do not match.');
+
+    // Should be second_arg instead of two_arg
+    $this->_request->validateArgs($service, array('one_arg' => 'value',
+                                                  'two_arg' => 'value'));
+  }
+
   public function test_validw() {
     $this->markTestIncomplete('This test has not been implemented yet.');
   }

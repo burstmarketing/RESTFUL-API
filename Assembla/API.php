@@ -60,7 +60,6 @@ class Assembla_API extends Core_API {
   }
 
   protected function _getResponse(){
-    $response = new $this->_response_class;
-    return $response;
+    return new $this->_response_class;
   }
 }
