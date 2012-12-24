@@ -84,10 +84,6 @@ class Assembla_API_V1_RequestTest extends PHPUnit_Framework_TestCase {
                                                   'two_arg' => 'value'));
   }
 
-  public function test_validw() {
-    $this->markTestIncomplete('This test has not been implemented yet.');
-  }
-
   public function testGenerateRequest() {
     $this->markTestIncomplete('This test has not been implemented yet.');
   }
