@@ -26,9 +26,6 @@ class Assembla_API_V1_RequestTest extends PHPUnit_Framework_TestCase {
 
     $this->processURI = new ReflectionMethod('Assembla_API_V1_Request', '_processURI');
     $this->processURI->setAccessible(true);
-
-    $this->getURIArgs = new ReflectionMethod('Assembla_API_V1_Request', '_getURIArgs');
-    $this->getURIArgs->setAccessible(true);
   }
 
   public function testProcessHeaderReturnsWithNoVariables() {
@@ -56,7 +53,7 @@ class Assembla_API_V1_RequestTest extends PHPUnit_Framework_TestCase {
     $this->processURI->invoke($this->_request, 'a-${test}-c', array('not-test' => 'b'));
   }
 
-  public function test_getURIArgs() {
+  public function test_validw() {
     $this->markTestIncomplete('This test has not been implemented yet.');
   }
 

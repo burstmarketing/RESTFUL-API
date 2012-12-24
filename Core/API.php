@@ -70,6 +70,7 @@ abstract class Core_API {
   //       returned as an array.
 
   public function __call($method, $args){
+    $args    = (@current($args)) ? current($args) : $args;
     $matches = array();
 
     if (preg_match('/^(load|post|put|delete)(.*)/', $method, $matches)) {
@@ -90,9 +91,10 @@ abstract class Core_API {
       // a default from the config, if that fails, throw an exception.
       if ((!isset($service->url)) &&
           (!($service->url = $this->getConfig('defaults/url')))) {
-        throw new Exception(sprintf('Could not locate a URL for service %s.', $service->key));
+        throw new Assembla_Exception(sprintf('Could not locate a URL for service %s.', $service->key));
       }
 
+      $request->validateArgs($service, $args);
       $request->generateRequest( $service, $args );
 
       return $this->_getResponse()
