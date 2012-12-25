@@ -15,7 +15,9 @@ abstract class Assembla_Collection_Abstract extends Core_Collection {
   public function load(array $data) {
     $model_class = $this->_getModelClassName();
 
-    foreach ($this->_filterData($data) as $model_data) {
+    $filtered_data = (array) $this->_filterData($data);
+
+    foreach ($filtered_data as $model_data) {
       $model = new $model_class;
       $model->load($model_data);
       $this->offsetSet('', $model);

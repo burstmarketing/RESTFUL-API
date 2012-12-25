@@ -96,17 +96,16 @@ class Assembla_Model_Ticket extends Assembla_Model_Abstract {
   }
 
   public function load( $element ){
-    parent::load( $element );
+    parent::load($element);
 
+    if (isset($element['custom_fields'])) {
+      $custom_fields_collection = $this->_getCustomfieldCollection();
+      $custom_fields_collection->load((array) $element['custom_fields']);
 
+      $this->setData('custom_fields', $custom_fields_collection);
+    }
 
-        if( $custom_fields_element = $element->{'custom-fields'} ){
-          $custom_fields_collection = $this->_getCustomfieldCollection();
-          $custom_fields_collection->load( $custom_fields_element );
-          $this->setData('custom_fields', $custom_fields_collection);
-        }
-
-        return $this;
+    return $this;
   }
 
   public function getEstimate(){
