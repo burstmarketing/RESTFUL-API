@@ -26,6 +26,18 @@ class Core_APITest extends PHPUnit_Framework_TestCase {
         $this->object = new Mock_Core_API;
     }
 
+    public function testAddFilterThrowsExceptionForInvalidFormat() {
+      $this->markTestIncomplete('This test has not been implemented yet.');
+    }
+
+    public function testAddFilterThrowsExceptionForInvalidCallback() {
+      $this->markTestIncomplete('This test has not been implemented yet.');
+    }
+
+    public function testAddFilterAddsFilter() {
+      $this->markTestIncomplete('This test has not been implemented yet.');
+    }
+
     public function testUseCacheIsInitiallyFalse() {
       $this->assertFalse($this->object->useCache());
     }
@@ -135,5 +147,13 @@ class Core_APITest extends PHPUnit_Framework_TestCase {
 
       // anything other than post,put,delete,load are invalid prefixes
       $this->object->someExampleMethod();
+    }
+
+    public function testCallThrowsExceptionForNonExistentService() {
+      $this->markTestIncomplete('This test has not been implemented yet.');
+    }
+
+    public function testCallThrowsExceptionForServiceWithNoUrl() {
+      $this->markTestIncomplete('This test has not been implemented yet.');
     }
 }

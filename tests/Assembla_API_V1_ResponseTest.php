@@ -12,6 +12,7 @@ class Dummy_API_V1_Response extends Assembla_API_V1_Response {}
 class Assembla_API_V1_ResponseTest extends PHPUnit_Framework_TestCase {
 
   public function testProcessRequest() {
+    $this->markTestIncomplete('This test has not been implemented yet.');
     // Setup mock request objects, and test possible responses
   }
 }

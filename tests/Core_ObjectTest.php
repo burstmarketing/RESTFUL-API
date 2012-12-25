@@ -139,8 +139,6 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
       $this->assertEquals('value', $this->object->getData('a/b'));
     }
 
-
-
     /**
      * @covers Core_Object::__toArray
      * @todo   Implement test__toArray().

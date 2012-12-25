@@ -98,7 +98,7 @@ class Assembla_API_V1_Request extends Core_API_Request_Json {
     if (isset($service->type)) {
       $this->setType($service->type);
     } else {
-      throw new Assembla_Exception(sprintf('Can\'t find type for %s', $service->key));
+      throw new Assembla_Exception(sprintf('Can\'t find type for %s.', $service->key));
     }
 
     $this->_setupHeaders($service);

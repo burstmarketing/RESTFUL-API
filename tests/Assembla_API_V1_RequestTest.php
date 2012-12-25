@@ -53,6 +53,10 @@ class Assembla_API_V1_RequestTest extends PHPUnit_Framework_TestCase {
     $this->processURI->invoke($this->_request, 'a-${test}-c', array('not-test' => 'b'));
   }
 
+  public function testAddHeaderProcessesHeader() {
+    $this->markTestIncomplete('This test has not been implemented yet.');
+  }
+
   public function testValidateArgsThrowsExceptionWithNonArrayArgs() {
     $service = new Zend_Config(array());
 
@@ -84,7 +88,22 @@ class Assembla_API_V1_RequestTest extends PHPUnit_Framework_TestCase {
                                                   'two_arg' => 'value'));
   }
 
-  public function testGenerateRequest() {
-    $this->markTestIncomplete('This test has not been implemented yet.');
+  public function testGenerateRequestThrowsExceptionForNoUri() {
+    $service = new Zend_Config(array('key' => 'sample'), true);
+
+    $this->setExpectedException('Assembla_Exception',
+                                'Can\'t find a URI for sample.');
+
+    $this->_request->generateRequest($service, array());
+  }
+
+  public function testGenerateRequestThrowsExceptionForNoType() {
+    $service = new Zend_Config(array('uri' => 'some-uri',
+                                     'key' => 'sample'), true);
+
+    $this->setExpectedException('Assembla_Exception',
+                                'Can\'t find type for sample.');
+
+    $this->_request->generateRequest($service, array());
   }
 }
