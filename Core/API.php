@@ -1,10 +1,43 @@
 <?php
 
 abstract class Core_API {
+
   protected $_use_cache = false;
 
   protected $_config;
   protected $_config_base_type;
+
+  protected $_filters = array();
+
+  /**
+   * I feel like this is more justification that
+   * a filter should be an object..
+   **/
+  private function _validateFilter(array $filter) {
+    if (!array_key_exists('callback', $filter) ||
+        !array_key_exists('args', $filter)) {
+      throw new Assembla_Exception('Invalid filter format; filters require a callback and arguments.');
+    } elseif (!is_callable($filter['callback'])) {
+      throw new Assembla_Exception('Invalid filter callback; callback is not callable.');
+    }
+
+    return $this;
+  }
+
+  public function addFilter($callback, $args) {
+    $filter = array('callback' => $callback,
+                    'args'     => (array) $args);
+
+    $this->_validateFilter($filter);
+
+    $this->_filters[] = $filter;
+
+    return $this;
+  }
+
+  public function getFilters(){
+    return $this->_filters;
+  }
 
   public function useCache( $use_cache = null ){
     if( $use_cache === null ){
@@ -98,6 +131,7 @@ abstract class Core_API {
       $request->generateRequest( $service, $args );
 
       return $this->_getResponse()
+                  ->setFilters($this->getFilters())
                   ->processRequest($request, (isset($service->classname)) ? $service->classname : '');
     } else {
       throw new Assembla_Exception('Invalid method. Not one of load/post/put/delete.');

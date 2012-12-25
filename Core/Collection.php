@@ -7,14 +7,39 @@ abstract class Core_Collection implements ArrayAccess, Iterator, Countable {
 
   abstract protected function _getModelClassName();
 
+  public function setFilters(array $filters) {
+    $this->_filters = $filters;
+
+    return $this;
+  }
+
+  protected function _filterData(array $data) {
+    foreach ($data as $key => &$val) {
+      foreach ($this->_filters as $filter) {
+        // assumes callback/args exist... @todo validate filters getting set
+
+        /* Throw $val at the beginning of $_args so the filter
+           method gets the model data, and the args */
+        $filter['args'] = (array)$filter['args'];
+        array_unshift($filter['args'], $val);
+
+        if (!call_user_func_array($filter['callback'], $filter['args'])) {
+          unset($data[$key]);
+        }
+      }
+    }
+
+    return $data;
+  }
+
   public function reverse(){
-	$this->_collection = array_reverse( $this->_collection);
-	return $this;
+        $this->_collection = array_reverse( $this->_collection);
+        return $this;
   }
 
   public function limit( $num ){
-	$this->_limit = $num;
-	return $this;
+        $this->_limit = $num;
+        return $this;
   }
 
   public function push( $value ){

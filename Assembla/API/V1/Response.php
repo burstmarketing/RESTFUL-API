@@ -2,6 +2,18 @@
 
 class Assembla_API_V1_Response  extends Core_API_Response_Json {
 
+  public function setFilters(array $filters) {
+    $this->_filters = $filters;
+
+    return $this;
+  }
+
+  public function clearFilters() {
+    $this->_filters = array();
+
+    return $this;
+  }
+
   public function processRequest(Core_API_Request $request, $classname = "Core_Object" ){
     $http_response = $request->send();
     $data          = json_decode($http_response, true);
@@ -22,6 +34,11 @@ class Assembla_API_V1_Response  extends Core_API_Response_Json {
         // make sure $classname exists
         $classname = (class_exists($classname)) ? $classname : 'Core_Object';
         $class = new $classname;
+
+        // Pass filters to the proper collection/model/whatever, they're
+        // only on the API object temporarily.
+        $class->setFilters($this->_filters);
+        $this->clearFilters();
 
         if (method_exists($class, 'load')) {
           return $class->load($data);
