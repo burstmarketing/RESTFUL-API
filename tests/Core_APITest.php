@@ -25,17 +25,24 @@ class Core_APITest extends PHPUnit_Framework_TestCase {
     protected function setUp() {
         $this->object = new Mock_Core_API;
     }
-
-    public function testAddFilterThrowsExceptionForInvalidFormat() {
-      $this->markTestIncomplete('This test has not been implemented yet.');
-    }
-
     public function testAddFilterThrowsExceptionForInvalidCallback() {
-      $this->markTestIncomplete('This test has not been implemented yet.');
+      $this->setExpectedException('Assembla_Exception',
+                                  'Invalid filter callback; callback is not callable.');
+
+      $this->object->addFilter('some_nonexistent_callback', array());
     }
 
     public function testAddFilterAddsFilter() {
-      $this->markTestIncomplete('This test has not been implemented yet.');
+      $this->assertAttributeEquals(array(), '_filters', $this->object);
+
+      $example_callback = function($arg) { return true; };
+
+      $this->object->addFilter($example_callback, array());
+
+      $this->assertAttributeContains(array('callback' => $example_callback,
+                                           'args'     => array()),
+                                     '_filters',
+                                     $this->object);
     }
 
     public function testUseCacheIsInitiallyFalse() {
