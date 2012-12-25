@@ -6,12 +6,13 @@ class Assembla_Model_Ticket_Customfield extends Assembla_Model_Abstract {
     return $this->setData($element);
   }
 
-  public function getName(){
+  public function getName() {
     if( $attr = $this->getAttr() ){
       if( isset( $attr['name'] ) ){
         return $attr['name'];
       }
     }
+
     return false;
   }
 
@@ -21,6 +22,7 @@ class Assembla_Model_Ticket_Customfield extends Assembla_Model_Abstract {
         return $attr['id'];
       }
     }
+
     return false;
   }
 
@@ -30,7 +32,7 @@ class Assembla_Model_Ticket_Customfield extends Assembla_Model_Abstract {
         return $attr['type'];
       }
     }
+
     return false;
   }
-
-  }
+}

@@ -1,6 +1,3 @@
 <?php
-class Core_Model extends Core_Object {
 
-
-  }
-?>
+class Core_Model extends Core_Object {}

@@ -6,12 +6,6 @@ abstract class Assembla_Collection_Abstract extends Core_Collection {
     return 'Core_Model';
   }
 
-  protected function _getModelElementTag(){
-    $model_name = $this->_getModelClassName();
-
-    return $model_name::getTagName();
-  }
-
   public function load(array $data) {
     $model_class = $this->_getModelClassName();
 
