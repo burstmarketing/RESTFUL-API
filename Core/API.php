@@ -103,7 +103,6 @@ abstract class Core_API {
   //       returned as an array.
 
   public function __call($method, $args){
-    $args    = (@current($args)) ? current($args) : $args;
     $matches = array();
 
     if (preg_match('/^(load|post|put|delete)(.*)/', $method, $matches)) {
@@ -127,8 +126,8 @@ abstract class Core_API {
         throw new Assembla_Exception(sprintf('Could not locate a URL for service %s.', $service->key));
       }
 
-      $request->validateArgs($service, $args);
-      $request->generateRequest( $service, $args );
+      $request->validateArgs($service, current($args));
+      $request->generateRequest($service, $args);
 
       return $this->_getResponse()
                   ->setFilters($this->getFilters())

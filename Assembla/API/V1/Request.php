@@ -107,7 +107,7 @@ class Assembla_API_V1_Request extends Core_API_Request_Json {
   }
 
   protected function _setupUri(Zend_Config $service, array $args) {
-    $this->setUri($this->_processURI($service->uri, $args));
+    $this->setUri($this->_processURI($service->uri, $args[0]));
 
     if (isset($args[1]) && is_string($args[1])) {
       $this->setCurlData($args[1]);

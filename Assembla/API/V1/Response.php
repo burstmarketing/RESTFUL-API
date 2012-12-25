@@ -23,9 +23,17 @@ class Assembla_API_V1_Response  extends Core_API_Response_Json {
       case 'PUT':
       case 'POST':
       case 'DELETE':
+        $response = new $classname;
+
+        if (method_exists($response, 'load')) {
+          $response->load($data);
+        } else {
+          $response->setData($data);
+        }
+
         $message = new Core_Object;
         $message->setSuccess(1)
-                ->setBody(new Core_Object($data));
+                ->setBody($response);
 
         return $message;
         break;
