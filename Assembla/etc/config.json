@@ -1,1095 +1,733 @@
 {
-    "services": {
-        "create_wiki_page": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}",
-                "Content-Type: application/json"
-            ],
-            "uri": "/v1/spaces/${space_id}/wiki_pages",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "POST",
-            "category": "Wiki Pages"
-        },
-        "wiki_page_by_id": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/wiki_pages/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Wiki Pages"
-        },
-        "wiki_pages": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/wiki_pages",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Wiki Pages"
-        },
-        "delete_vote_from_merge_request": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/votes/delete",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "DELETE",
-            "category": "Merge Request Version Votes"
-        },
-        "merge_request_downvote": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/votes/downvote",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "POST",
-            "category": "Merge Request Version Votes"
-        },
-        "merge_request_upvote": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/votes/upvote",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "POST",
-            "category": "Merge Request Version Votes"
-        },
-        "merge_request_votes": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/votes",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Merge Request Version Votes"
-        },
-        "create_merge_request_versions_comments": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/comments",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "POST",
-            "category": "Merge Request Version Comments"
-        },
-        "merge_request_versions_comments": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/comments",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Merge Request Version Comments"
-        },
-        "merge_request_versions_by_version": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Merge Request Versions"
-        },
-        "merge_request_versions": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Merge Request Versions"
-        },
-        "merge_request_comments": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/comments",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Merge Requests"
-        },
-        "merge_request_by_id": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Merge Requests"
-        },
-        "merge_requests": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Merge Requests"
-        },
-        "create_away_standup_report": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/away_standup_report",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "POST",
-            "category": "StandUp Away Reports"
-        },
-        "away_standup_report": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/away_standup_report",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "StandUp Away Reports"
-        },
-        "away_standup_reports": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/away_standup_reports",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "StandUp Away Reports"
-        },
-        "create_standup_report": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/standup_report",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "POST",
-            "category": "StandUp Reports"
-        },
-        "standup_report": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/standup_report",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "StandUp Reports"
-        },
-        "standup_reports": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/standup_reports",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "StandUp Reports"
-        },
-        "delete_document": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/documents/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "DELETE",
-            "category": "Documents"
-        },
-        "update_document": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/documents/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "PUT",
-            "category": "Documents"
-        },
-        "create_document": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/documents",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "POST",
-            "category": "Documents"
-        },
-        "document_by_id": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/documents/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Documents"
-        },
-        "documents": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/documents",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Documents"
-        },
-        "delete_milestone": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/milestones/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "DELETE",
-            "category": "Milestones"
-        },
-        "update_milestone": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/milestones/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "PUT",
-            "category": "Milestones"
-        },
-        "create_milestone": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/milestones",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "POST",
-            "category": "Milestones"
-        },
-        "mileston_by_id": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/milestones/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Milestones"
-        },
-        "release_notes": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/milestones/release_notes",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Milestones"
-        },
-        "completed_milestones": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/milestones/completed",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Milestones"
-        },
-        "upcoming_milestones": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/milestones/upcoming",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Milestones"
-        },
-        "all_milestones": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/milestones/all",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Milestones"
-        },
-        "milestones": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/milestones",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Milestones"
-        },
-        "remove_space_ticket_components": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/ticket_components/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "DELETE",
-            "category": "Ticket Components"
-        },
-        "update_space_ticket_components": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/ticket_components/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "PUT",
-            "category": "Ticket Components"
-        },
-        "create_space_ticket_components": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/ticket_components",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "POST",
-            "category": "Ticket Components"
-        },
-        "space_ticket_components_by_id": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/ticket_components/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Ticket Components"
-        },
-        "space_ticket_components": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/ticket_components",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Ticket Components"
-        },
-        "update_ticket_comment": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_comments/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "PUT",
-            "category": "Ticket Comments"
-        },
-        "create_ticket_comment": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_comments",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "POST",
-            "category": "Ticket Comments"
-        },
-        "ticket_comment_by_id": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_comments/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Ticket Comments"
-        },
-        "ticket_comments": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_comments",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Ticket Comments"
-        },
-        "delete_space_ticket_association": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/${ticket_number}/",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "DELETE",
-            "category": "Ticket Associations"
-        },
-        "update_space_ticket_associaiton": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_associations/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "PUT",
-            "category": "Ticket Associations"
-        },
-        "create_space_ticket_association": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_associations",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "POST",
-            "category": "Ticket Associations"
-        },
-        "space_ticket_associations_by_id": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_associations/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Ticket Associations"
-        },
-        "space_ticket_associations": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_associations",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Ticket Associations"
-        },
-        "delete_space_ticket_custom_field": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/custom_fields/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "DELETE",
-            "category": "Tickets custom fields"
-        },
-        "update_space_ticket_custom_field": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/custom_fields/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "PUT",
-            "category": "Tickets custom fields"
-        },
-        "create_space_ticket_custom_field": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/custom_fields",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "POST",
-            "category": "Tickets custom fields"
-        },
-        "space_ticket_custom_field_by_id": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/custom_fields/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Tickets custom fields"
-        },
-        "space_ticket_custom_fields": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/custom_fields",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Tickets custom fields"
-        },
-        "delete_space_ticket_status": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/statuses/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "DELETE",
-            "category": "Ticket statuses"
-        },
-        "update_space_ticket_status": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/statuses/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "PUT",
-            "category": "Ticket statuses"
-        },
-        "create_space_ticket_status": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/statuses",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "POST",
-            "category": "Ticket statuses"
-        },
-        "space_ticket_status_by_id": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/statuses/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Ticket statuses"
-        },
-        "space_ticket_statuses": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/statuses",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Ticket statuses"
-        },
-        "tickets_no_milestone": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/no_milestone",
-            "status": "untested",
-            "classname": "Assembla_Collection_Ticket",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Tickets"
-        },
-        "tickets_by_milestone": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/milestone/${milestone_id}",
-            "status": "untested",
-            "classname": "Assembla_Collection_Ticket",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Tickets"
-        },
-        "followed_tickets": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/my_followed",
-            "status": "untested",
-            "classname": "Assembla_Collection_Ticket",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Tickets"
-        },
-        "active_tickets": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/my_active",
-            "status": "tested - doesn't seem to be per space",
-            "classname": "Assembla_Collection_Ticket",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Tickets"
-        },
-        "ticket_custom_report": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/custom_reports",
-            "status": "untested",
-            "classname": "Assembla_Collection_Ticket",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Tickets"
-        },
-        "delete_ticket": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/${number}",
-            "status": "untested",
-            "classname": "Assembla_Model_Ticket",
-            "datatype": "json",
-            "type": "DELETE",
-            "category": "Tickets"
-        },
-        "update_ticket": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/${number}",
-            "status": "untested",
-            "classname": "Assembla_Model_Ticket",
-            "datatype": "json",
-            "type": "PUT",
-            "category": "Tickets"
-        },
-        "create_ticket": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}",
-                "Content-Type: application/json"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets",
-            "status": "untested",
-            "classname": "Assembla_Model_Ticket",
-            "datatype": "json",
-            "type": "POST",
-            "category": "Tickets"
-        },
-        "ticket_by_id": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/id/${id}",
-            "status": "tested",
-            "classname": "Assembla_Model_Ticket",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Tickets"
-        },
-        "ticket_by_number": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets/${number}",
-            "status": "tested",
-            "classname": "Assembla_Model_Ticket",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Tickets"
-        },
-        "tickets": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/tickets",
-            "status": "tested",
-            "classname": "Assembla_Collection_Ticket",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Tickets"
-        },
-        "remove_space_tool": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/space_tools/${id_or_name}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "DELETE",
-            "category": "Space tools"
-        },
-        "update_space_tool": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/space_tools/${id_or_name}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "PUT",
-            "category": "Space tools"
-        },
-        "add_space_tool": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/space_tools/${tool_id}/add",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "POST",
-            "category": "Space tools"
-        },
-        "space_tool": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/space_tools/${id_or_name}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Space tools"
-        },
-        "space_repo": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/space_tools/repo",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Space tools"
-        },
-        "space_tools": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/space_tools",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Space tools"
-        },
-        "delete_user_role": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/user_roles/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "DELETE",
-            "category": "User Roles (Space members)"
-        },
-        "update_user_role": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/user_roles/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "PUT",
-            "category": "User Roles (Space members)"
-        },
-        "create_user_role": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/user_roles",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "POST",
-            "category": "User Roles (Space members)"
-        },
-        "user_role": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/user_roles/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "User Roles (Space members)"
-        },
-        "user_roles": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/user_roles",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "User Roles (Space members)"
-        },
-        "copy_space": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${id}/copy",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "POST",
-            "category": "Spaces"
-        },
-        "delete_space": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "DELETE",
-            "category": "Spaces"
-        },
-        "update_space": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "PUT",
-            "category": "Spaces"
-        },
-        "create_space": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "POST",
-            "category": "Spaces"
-        },
-        "space": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${id}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Spaces"
-        },
-        "spaces": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Spaces"
-        },
-        "users_by_space": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/spaces/${space_id}/users",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Users"
-        },
-        "show_user": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/users/${id_or_login}",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Users"
-        },
-        "user": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/user",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Users"
-        },
-        "activity": {
-            "headers": [
-                "X-Api-Key: ${credentials/api_key}",
-                "X-Api-Secret: ${credentials/api_key_secret}"
-            ],
-            "uri": "/v1/activity",
-            "status": "untested",
-            "classname": "Core_Object",
-            "datatype": "json",
-            "type": "GET",
-            "category": "Stream"
-        }
+    "credentials" : {
+        "username" : "",
+        "password" : "",
+        "api_key" : "",
+        "api_key_secrete" : ""
     },
-    "defaults": {
-        "url": "https://api.assembla.com"
+    "defaults" : {
+        "url" : "https://api.assembla.com"
     },
-    "credentials": {
-        "api_key_secrete": "",
-        "api_key": "",
-        "password": "",
-        "username": ""
-    }
-}
+    "services" : {
+
+"activity" : {
+  "category" : "Stream",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/activity",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"user" : {
+  "category" : "Users",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/user",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"show_user" : {
+  "category" : "Users",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/users/${id_or_login}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"users_by_space" : {
+  "category" : "Users",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/users",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"spaces" : {
+  "category" : "Spaces",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"space" : {
+  "category" : "Spaces",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"create_space" : {
+  "category" : "Spaces",
+ "type" : "POST",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"update_space" : {
+  "category" : "Spaces",
+ "type" : "PUT",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"delete_space" : {
+  "category" : "Spaces",
+ "type" : "DELETE",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"copy_space" : {
+  "category" : "Spaces",
+ "type" : "POST",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${id}/copy",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"user_roles" : {
+  "category" : "User Roles (Space members)",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/user_roles",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"user_role" : {
+  "category" : "User Roles (Space members)",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/user_roles/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"create_user_role" : {
+  "category" : "User Roles (Space members)",
+ "type" : "POST",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/user_roles",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"update_user_role" : {
+  "category" : "User Roles (Space members)",
+ "type" : "PUT",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/user_roles/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"delete_user_role" : {
+  "category" : "User Roles (Space members)",
+ "type" : "DELETE",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/user_roles/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"space_tools" : {
+  "category" : "Space tools",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/space_tools",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"space_repo" : {
+  "category" : "Space tools",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/space_tools/repo",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"space_tool" : {
+  "category" : "Space tools",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/space_tools/${id_or_name}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"add_space_tool" : {
+  "category" : "Space tools",
+ "type" : "POST",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/space_tools/${tool_id}/add",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"update_space_tool" : {
+  "category" : "Space tools",
+ "type" : "PUT",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/space_tools/${id_or_name}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"remove_space_tool" : {
+  "category" : "Space tools",
+ "type" : "DELETE",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/space_tools/${id_or_name}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"tickets" : {
+  "category" : "Tickets",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Assembla_Collection_Ticket",
+ "status" : "tested",
+  "uri" : "/v1/spaces/${space_id}/tickets",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"ticket_by_number" : {
+  "category" : "Tickets",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Assembla_Model_Ticket",
+ "status" : "tested",
+  "uri" : "/v1/spaces/${space_id}/tickets/${number}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"ticket_by_id" : {
+  "category" : "Tickets",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Assembla_Model_Ticket",
+ "status" : "tested",
+  "uri" : "/v1/spaces/${space_id}/tickets/id/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"create_ticket" : {
+  "category" : "Tickets",
+ "type" : "POST",
+ "datatype" : "json",
+ "classname" : "Assembla_Model_Ticket",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
+"update_ticket" : {
+  "category" : "Tickets",
+ "type" : "PUT",
+ "datatype" : "json",
+ "classname" : "Assembla_Model_Ticket",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets/${number}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"delete_ticket" : {
+  "category" : "Tickets",
+ "type" : "DELETE",
+ "datatype" : "json",
+ "classname" : "Assembla_Model_Ticket",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets/${number}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"ticket_custom_report" : {
+  "category" : "Tickets",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Assembla_Collection_Ticket",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets/custom_reports",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"active_tickets" : {
+  "category" : "Tickets",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Assembla_Collection_Ticket",
+ "status" : "tested - doesn't seem to be per space",
+  "uri" : "/v1/spaces/${space_id}/tickets/my_active",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"followed_tickets" : {
+  "category" : "Tickets",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Assembla_Collection_Ticket",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets/my_followed",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"tickets_by_milestone" : {
+  "category" : "Tickets",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Assembla_Collection_Ticket",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets/milestone/${milestone_id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"tickets_no_milestone" : {
+  "category" : "Tickets",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Assembla_Collection_Ticket",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets/no_milestone",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"space_ticket_statuses" : {
+  "category" : "Ticket statuses",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Assembla_Collection_Ticket_Status",
+ "status" : "tested",
+  "uri" : "/v1/spaces/${space_id}/tickets/statuses",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"space_ticket_status_by_id" : {
+  "category" : "Ticket statuses",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Assembla_Model_Ticket_Status",
+ "status" : "tested",
+  "uri" : "/v1/spaces/${space_id}/tickets/statuses/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"create_space_ticket_status" : {
+  "category" : "Ticket statuses",
+ "type" : "POST",
+ "datatype" : "json",
+ "classname" : "Assembla_Model_Ticket_Status",
+ "status" : "tested",
+  "uri" : "/v1/spaces/${space_id}/tickets/statuses",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
+"update_space_ticket_status" : {
+  "category" : "Ticket statuses",
+ "type" : "PUT",
+ "datatype" : "json",
+ "classname" : "Assembla_Model_Ticket_Status",
+ "status" : "tested",
+  "uri" : "/v1/spaces/${space_id}/tickets/statuses/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
+"delete_space_ticket_status" : {
+  "category" : "Ticket statuses",
+ "type" : "DELETE",
+ "datatype" : "json",
+ "classname" : "Assembla_Model_Ticket_Status",
+ "status" : "tested",
+  "uri" : "/v1/spaces/${space_id}/tickets/statuses/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"space_ticket_custom_fields" : {
+  "category" : "Tickets custom fields",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets/custom_fields",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"space_ticket_custom_field_by_id" : {
+  "category" : "Tickets custom fields",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets/custom_fields/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"create_space_ticket_custom_field" : {
+  "category" : "Tickets custom fields",
+ "type" : "POST",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets/custom_fields",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"update_space_ticket_custom_field" : {
+  "category" : "Tickets custom fields",
+ "type" : "PUT",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets/custom_fields/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"delete_space_ticket_custom_field" : {
+  "category" : "Tickets custom fields",
+ "type" : "DELETE",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets/custom_fields/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"space_ticket_associations" : {
+  "category" : "Ticket Associations",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_associations",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"space_ticket_associations_by_id" : {
+  "category" : "Ticket Associations",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_associations/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"create_space_ticket_association" : {
+  "category" : "Ticket Associations",
+ "type" : "POST",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_associations",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"update_space_ticket_associaiton" : {
+  "category" : "Ticket Associations",
+ "type" : "PUT",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_associations/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"delete_space_ticket_association" : {
+  "category" : "Ticket Associations",
+ "type" : "DELETE",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets/${ticket_number}/",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"ticket_comments" : {
+  "category" : "Ticket Comments",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_comments",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"ticket_comment_by_id" : {
+  "category" : "Ticket Comments",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_comments/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"create_ticket_comment" : {
+  "category" : "Ticket Comments",
+ "type" : "POST",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_comments",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"update_ticket_comment" : {
+  "category" : "Ticket Comments",
+ "type" : "PUT",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_comments/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"space_ticket_components" : {
+  "category" : "Ticket Components",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/ticket_components",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"space_ticket_components_by_id" : {
+  "category" : "Ticket Components",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/ticket_components/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"create_space_ticket_components" : {
+  "category" : "Ticket Components",
+ "type" : "POST",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/ticket_components",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"update_space_ticket_components" : {
+  "category" : "Ticket Components",
+ "type" : "PUT",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/ticket_components/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"remove_space_ticket_components" : {
+  "category" : "Ticket Components",
+ "type" : "DELETE",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/ticket_components/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"milestones" : {
+  "category" : "Milestones",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/milestones",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"all_milestones" : {
+  "category" : "Milestones",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/milestones/all",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"upcoming_milestones" : {
+  "category" : "Milestones",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/milestones/upcoming",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"completed_milestones" : {
+  "category" : "Milestones",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/milestones/completed",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"release_notes" : {
+  "category" : "Milestones",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/milestones/release_notes",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"mileston_by_id" : {
+  "category" : "Milestones",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/milestones/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"create_milestone" : {
+  "category" : "Milestones",
+ "type" : "POST",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/milestones",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"update_milestone" : {
+  "category" : "Milestones",
+ "type" : "PUT",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/milestones/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"delete_milestone" : {
+  "category" : "Milestones",
+ "type" : "DELETE",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/milestones/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"documents" : {
+  "category" : "Documents",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/documents",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"document_by_id" : {
+  "category" : "Documents",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/documents/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"create_document" : {
+  "category" : "Documents",
+ "type" : "POST",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/documents",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"update_document" : {
+  "category" : "Documents",
+ "type" : "PUT",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/documents/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"delete_document" : {
+  "category" : "Documents",
+ "type" : "DELETE",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/documents/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"standup_reports" : {
+  "category" : "StandUp Reports",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/standup_reports",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"standup_report" : {
+  "category" : "StandUp Reports",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/standup_report",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"create_standup_report" : {
+  "category" : "StandUp Reports",
+ "type" : "POST",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/standup_report",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"away_standup_reports" : {
+  "category" : "StandUp Away Reports",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/away_standup_reports",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"away_standup_report" : {
+  "category" : "StandUp Away Reports",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/away_standup_report",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"create_away_standup_report" : {
+  "category" : "StandUp Away Reports",
+ "type" : "POST",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/away_standup_report",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"merge_requests" : {
+  "category" : "Merge Requests",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"merge_request_by_id" : {
+  "category" : "Merge Requests",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"merge_request_comments" : {
+  "category" : "Merge Requests",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/comments",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"merge_request_versions" : {
+  "category" : "Merge Request Versions",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"merge_request_versions_by_version" : {
+  "category" : "Merge Request Versions",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"merge_request_versions_comments" : {
+  "category" : "Merge Request Version Comments",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/comments",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"create_merge_request_versions_comments" : {
+  "category" : "Merge Request Version Comments",
+ "type" : "POST",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/comments",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"merge_request_votes" : {
+  "category" : "Merge Request Version Votes",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/votes",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"merge_request_upvote" : {
+  "category" : "Merge Request Version Votes",
+ "type" : "POST",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/votes/upvote",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"merge_request_downvote" : {
+  "category" : "Merge Request Version Votes",
+ "type" : "POST",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/votes/downvote",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"delete_vote_from_merge_request" : {
+  "category" : "Merge Request Version Votes",
+ "type" : "DELETE",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/votes/delete",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"wiki_pages" : {
+  "category" : "Wiki Pages",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/wiki_pages?per_page=${per_page}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"wiki_page_by_id" : {
+  "category" : "Wiki Pages",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/wiki_pages/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"create_wiki_page" : {
+  "category" : "Wiki Pages",
+ "type" : "POST",
+ "datatype" : "json",
+ "classname" : "Core_Object",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/wiki_pages",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] }
+}}
