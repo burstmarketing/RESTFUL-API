@@ -29,9 +29,9 @@ abstract class Core_Collection implements ArrayAccess, Iterator, Countable {
           }
         }
       }
-
-      return $data;
     }
+
+    return $data;
   }
 
   public function reverse(){
