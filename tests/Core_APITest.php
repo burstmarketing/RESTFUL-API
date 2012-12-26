@@ -115,10 +115,7 @@ class Core_APITest extends PHPUnit_Framework_TestCase {
     public function testGetConfigNonExistentUriWithSlashReturnsFalse() {
       $this->object->loadConfig(ASSEMBLA_REST_API_ROOT . '/Assembla/etc/config.json');
 
-      // Throws fatal error
-      //$this->assertEquals($this->object->getConfig('non-existent-key-with-a-/'), false);
-
-      $this->markTestIncomplete('Test not yet implemented.');
+      $this->assertFalse($this->object->getConfig('non-existent-key-with-a-/'));
     }
 
     public function testSetConfig() {
@@ -157,7 +154,12 @@ class Core_APITest extends PHPUnit_Framework_TestCase {
     }
 
     public function testCallThrowsExceptionForNonExistentService() {
-      $this->markTestIncomplete('This test has not been implemented yet.');
+      $this->object->loadConfig(ASSEMBLA_REST_API_ROOT . '/Assembla/etc/config.json');
+
+      $this->setExpectedException('Assembla_Exception',
+                                  'Service for some_service_that_doesnt_exist could not be found.');
+
+      $this->object->loadSomeServiceThatDoesntExist();
     }
 
     public function testCallThrowsExceptionForServiceWithNoUrl() {

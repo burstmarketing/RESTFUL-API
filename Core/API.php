@@ -108,9 +108,6 @@ abstract class Core_API {
     if (preg_match('/^(load|post|put|delete)(.*)/', $method, $matches)) {
       $key = $this->_underscore($matches[2]);
 
-      $request = $this->_getRequest()
-                      ->setAPI($this);
-
       // Clone so service doesn't retain values from last call
       if ($service = $this->getService($key)) {
         $service = clone $service;
@@ -125,6 +122,9 @@ abstract class Core_API {
           (!($service->url = $this->getConfig('defaults/url')))) {
         throw new Assembla_Exception(sprintf('Could not locate a URL for service %s.', $service->key));
       }
+
+      $request = $this->_getRequest()
+                      ->setAPI($this);
 
       $request->validateArgs($service, current($args));
       $request->generateRequest($service, $args);

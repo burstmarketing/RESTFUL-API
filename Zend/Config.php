@@ -483,38 +483,41 @@ class Zend_Config implements Countable, Iterator
     }
 
 
-	public function setConfig( $uri, $value ){
-	  $segments = explode( "/", $uri );
-	  if( count( $segments ) == 1 ){
-		$this->$segments[0] = $value;
-	  } else {
-		$key = array_shift( $segments );
-		
-		if (!array_key_exists($key, $this->_data)) {
-		  $this->_data[$key] = new self(array(), true);
-		}
-		
-		$this->$key->setConfig( implode( "/", $segments ), $value );
-	  }
-	  
-	}
+        public function setConfig( $uri, $value ){
+          $segments = explode( "/", $uri );
+          if( count( $segments ) == 1 ){
+                $this->$segments[0] = $value;
+          } else {
+                $key = array_shift( $segments );
 
-	public function getConfigs() {
-	  return $this->_data;
-	}
+                if (!array_key_exists($key, $this->_data)) {
+                  $this->_data[$key] = new self(array(), true);
+                }
 
-	public function getConfig( $uri ){
-	  $segments = explode ("/", $uri );
-	  
-	  if( count( $segments ) == 1 ){
-		return $this->$segments[0];
-	  }
-	  
-	  $key = array_shift( $segments );
-	  return $this->$key->getConfig( implode( "/", $segments ) );
+                $this->$key->setConfig( implode( "/", $segments ), $value );
+          }
 
-	  
-	}
+        }
+
+        public function getConfigs() {
+          return $this->_data;
+        }
+
+        public function getConfig( $uri ){
+          $segments = explode ("/", $uri );
+
+          if( count( $segments ) == 1 ){
+                return $this->$segments[0];
+          }
+
+          $key = array_shift( $segments );
+
+          if ($this->get($key) && ($this->get($key) instanceof Zend_Config)) {
+            return $this->$key->getConfig(implode( "/", $segments));
+          } else {
+            return false;
+          }
+        }
 
 
 
