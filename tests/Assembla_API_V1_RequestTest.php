@@ -57,16 +57,6 @@ class Assembla_API_V1_RequestTest extends PHPUnit_Framework_TestCase {
     $this->markTestIncomplete('This test has not been implemented yet.');
   }
 
-  public function testValidateArgsThrowsExceptionWithNonArrayArgs() {
-    $service = new Zend_Config(array());
-
-    $this->setExpectedException('Assembla_Exception',
-                                'Arguments must be passed in the form of an array.');
-
-    // Should be array of arguments
-    $this->_request->validateArgs($service, 'some-string');
-  }
-
   public function testValidateArgsThrowsExceptionForInvalidArgumentCount() {
     $service = new Zend_Config(array('uri' => '${one_arg}'), true);
 

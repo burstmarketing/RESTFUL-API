@@ -56,11 +56,10 @@ class Assembla_API_V1_Request extends Core_API_Request_Json {
   }
 
   public function validateArgs(Zend_Config $service, $args) {
+    $args    = (is_array($args)) ? $args : array();
     $matches = array();
 
-    if (!is_array($args)) {
-      throw new Assembla_Exception('Arguments must be passed in the form of an array.');
-    } elseif (count($args) != preg_match_all($this->variable_pattern, $service->uri, $matches)) {
+    if (count($args) != preg_match_all($this->variable_pattern, $service->uri, $matches)) {
       throw new Assembla_Exception('Argument count doesn\'t match the services argument count.');
     } else {
       // We have an array of arguments with the same count of
@@ -107,7 +106,9 @@ class Assembla_API_V1_Request extends Core_API_Request_Json {
   }
 
   protected function _setupUri(Zend_Config $service, array $args) {
-    $this->setUri($this->_processURI($service->uri, $args[0]));
+    $args = (is_array($args) && isset($args[0])) ? $args[0] : array();
+
+    $this->setUri($this->_processURI($service->uri, $args));
 
     if (isset($args[1]) && is_string($args[1])) {
       $this->setCurlData($args[1]);
