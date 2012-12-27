@@ -7,14 +7,12 @@ if (!defined("ASSEMBLA_REST_API_ROOT")) {
 require_once ASSEMBLA_REST_API_ROOT . '/Autoload.php';
 require_once ASSEMBLA_REST_API_ROOT . '/Assembla/API.php';
 
-class Mock_Assembla_API extends Assembla_API {}
-
 class Assembla_APITest extends PHPUnit_Framework_TestCase {
 
     protected $object;
 
     protected function setUp() {
-        $this->object = new Mock_Assembla_API;
+        $this->object = new Assembla_API;
     }
 
     public function testLoadConfigReturnsItselfIfAnInstanceOfZendConfig() {
