@@ -48,7 +48,8 @@ class Assembla_API_V1_RequestTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testProcessUriThrowsExceptionForMissingProperty() {
-    $this->setExpectedException('Assembla_Exception');
+    $this->setExpectedException('Assembla_Exception',
+				"test not passed into _parseVars function. ");
 
     $this->processURI->invoke($this->_request, 'a-${test}-c', array('not-test' => 'b'));
   }

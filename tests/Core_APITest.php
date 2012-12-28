@@ -65,13 +65,15 @@ class Core_APITest extends PHPUnit_Framework_TestCase {
 
     public function testConfigThrowsExceptionForNonJsonFiles() {
       // Try loading a non-json file into config
-      $this->setExpectedException('Zend_Json_Exception');
+      $this->setExpectedException('Zend_Json_Exception',
+				  'Decoding failed: Syntax error');
 
       $this->object->loadConfig(ASSEMBLA_REST_API_ROOT . '/Autoload.php');
     }
 
     public function testConfigThrowsExceptionForUnreadableFile() {
-      $this->setExpectedException('Assembla_Exception');
+      $this->setExpectedException('Assembla_Exception',
+				  'Could not load file some-non-existent-file');
 
       $this->object->loadConfig('some-non-existent-file');
     }
@@ -147,7 +149,8 @@ class Core_APITest extends PHPUnit_Framework_TestCase {
     }
 
     public function testCallThrowsExceptionForInvalidMethodPrefixes() {
-      $this->setExpectedException('Assembla_Exception');
+      $this->setExpectedException('Assembla_Exception',
+				  'Invalid method. Not one of load/post/put/delete.');
 
       // anything other than post,put,delete,load are invalid prefixes
       $this->object->someExampleMethod();

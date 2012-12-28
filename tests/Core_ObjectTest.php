@@ -145,10 +145,7 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
      */
     public function test__toArray()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+      $this->assertTrue(is_array($this->object->__toArray()));
     }
 
     /**
