@@ -1,0 +1,11 @@
+{
+    "services" : {
+        "an_example_service": {
+            "category" : "Example",
+            "type" : "GET",
+            "datatype" : "json",
+            "classname" : "Core_Object",
+            "uri" : "/some-uri",
+            "headers" :[] }
+    }
+}

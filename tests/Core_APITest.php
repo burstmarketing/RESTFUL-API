@@ -165,7 +165,15 @@ class Core_APITest extends PHPUnit_Framework_TestCase {
       $this->object->loadSomeServiceThatDoesntExist();
     }
 
+    /**
+     * Note we load a dummy service config for this specific test, which defines an_example_service.
+     **/
     public function testCallThrowsExceptionForServiceWithNoUrl() {
-      $this->markTestIncomplete('This test has not been implemented yet.');
+      $this->object->loadConfig(ASSEMBLA_REST_API_ROOT . '/tests/fixtures/dummy_service.json');
+
+      $this->setExpectedException('Assembla_Exception',
+                                  'Could not locate a URL for service an_example_service.');
+
+      $this->object->loadAnExampleService();
     }
 }
