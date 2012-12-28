@@ -109,6 +109,7 @@ abstract class Core_API {
       $key = $this->_underscore($matches[2]);
 
       // Clone so service doesn't retain values from last call
+      // @todo - Shouldn't this check for a service that has a GET/POST/PUT/DELETE value corresponding to $key?
       if ($service = $this->getService($key)) {
         $service = clone $service;
         $service->key = $key;
