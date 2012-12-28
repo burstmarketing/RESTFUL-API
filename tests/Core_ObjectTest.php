@@ -22,13 +22,13 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new Core_Object;
+	$this->object = new Core_Object;
     }
 
     public function testHasDataChanges() {
       // Tests the actual attribute is equal to what the method returns
       $this->assertAttributeEquals($this->object->hasDataChanges(),
-                                   '_hasDataChanges', $this->object);
+				   '_hasDataChanges', $this->object);
     }
 
     public function testHasDataChangesDefaultsToFalse() {
@@ -53,7 +53,7 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
 
     public function testAddData() {
       $this->object->addData(array('example1' => 'value1',
-                                   'example2' => 'value2'));
+				   'example2' => 'value2'));
 
       $this->assertAttributeContains('value1', '_data', $this->object);
       $this->assertAttributeContains('value1', '_data', $this->object);
@@ -61,7 +61,7 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
 
     public function testAddDataReturnsCoreObject() {
       $this->assertInstanceOf('Core_Object',
-                              $this->object->addData(array()));
+			      $this->object->addData(array()));
     }
 
     /**
@@ -75,14 +75,14 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
       $this->object->setData('foo', 'bar');
 
       $this->object->setData(array('key1' => 'value1',
-                                   'key2' => 'value2'));
+				   'key2' => 'value2'));
 
       $this->assertAttributeNotContains('foo', '_data', $this->object);
     }
 
     public function testSetDataReturnsCoreObject() {
       $this->assertInstanceOf('Core_Object',
-                              $this->object->setData('key', 'value'));
+			      $this->object->setData('key', 'value'));
     }
 
     public function testSetDataSetsData() {
@@ -93,7 +93,7 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
 
     public function testUnsetDataUnsetsAllDataWhenPassedNull() {
       $this->object->setData(array('key1' => 'value1',
-                                   'key2' => 'value2'));
+				   'key2' => 'value2'));
 
       $this->object->unsetData();
 
@@ -115,7 +115,7 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
 
     public function testGetDataReturnsAllWhenGivenNoKey() {
       $sample_data = array('key1' => 'value1',
-                           'key2' => 'value2');
+			   'key2' => 'value2');
 
       $this->object->addData($sample_data);
 
@@ -145,6 +145,17 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
      */
     public function test__toArray()
     {
+      $this->object->setData("foo", "bar");
+      $mock = new Core_Object;
+      $mock->setData("is", "cool");
+      $this->object->setData("mike", $mock);
+
+      $testArray = array("foo" => "bar", "mike" => array("is" => "cool"));
+
+      $this->assertEquals($testArray, $this->object->__toArray());
+    }
+
+    public function test__toArrayReturnsArray() {
       $this->assertTrue(is_array($this->object->__toArray()));
     }
 
@@ -154,10 +165,7 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
      */
     public function testToArray()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+      $this->assertEquals($this->object->toArray(), $this->object->__toArray());
     }
 
     /**
@@ -166,10 +174,14 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
      */
     public function testToXml()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+      $this->object->setData("foo", "bar");
+      $mock = new Core_Object;
+      $mock->setData("is", "cool");
+      $this->object->setData("mike", $mock);
+
+      $testXml = "<foo>bar</foo>\n<mike><is>cool</is>\n</mike>\n";
+
+      $this->assertEquals($testXml, $this->object->toXml());
     }
 
     /**
@@ -178,10 +190,10 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
      */
     public function testToJson()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+	// Remove the following lines when you implement this test.
+	$this->markTestIncomplete(
+	  'This test has not been implemented yet.'
+	);
     }
 
     /**
@@ -190,10 +202,10 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
      */
     public function testToString()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+	// Remove the following lines when you implement this test.
+	$this->markTestIncomplete(
+	  'This test has not been implemented yet.'
+	);
     }
 
     /**
@@ -202,10 +214,11 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
      */
     public function test__call()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+      $this->object->setData("foo", "bar");
+      $this->assertEquals("bar", $this->object->getData("foo"));
+
+      $this->object->unsetData("foo");
+      $this->assertEquals(false, $this->object->has("foo"));
     }
 
     public function testIsEmpty() {
@@ -222,10 +235,11 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
      */
     public function testGetOrigData()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+      $this->object->setData("foo", "bar");
+      $this->object->setOrigData();
+      $this->assertEquals($this->object->getData(), $this->object->getOrigData());
+
+      $this->assertEquals("bar", $this->object->getOrigData("foo"));
     }
 
     /**
@@ -234,10 +248,12 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
      */
     public function testSetOrigData()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+      $this->object->setData("foo", "bar");
+      $this->object->setOrigData();
+      $this->assertEquals($this->object->getOrigData(), $this->object->getData());
+
+      $this->object->setOrigData("foo", "baz");
+      $this->assertEquals("baz", $this->object->getOrigData("foo"));
     }
 
     /**
@@ -246,9 +262,9 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
      */
     public function testDataHasChangedFor()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+      $this->object->setData("bar", "baz");
+      $this->object->setOrigData();
+      $this->object->setData("bar", "foo");
+      $this->assertTrue($this->object->dataHasChangedFor("bar"));
     }
 }
