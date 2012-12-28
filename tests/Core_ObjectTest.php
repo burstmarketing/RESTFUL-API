@@ -214,10 +214,10 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
      */
     public function test__call()
     {
-      $this->object->setData("foo", "bar");
-      $this->assertEquals("bar", $this->object->getData("foo"));
+      $this->object->setFoo("bar");
+      $this->assertEquals("bar", $this->object->getFoo());
 
-      $this->object->unsetData("foo");
+      $this->object->unsetFoo();
       $this->assertEquals(false, $this->object->has("foo"));
     }
 
