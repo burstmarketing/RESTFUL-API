@@ -55,7 +55,13 @@ class Assembla_API_V1_RequestTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testAddHeaderProcessesHeader() {
-    $this->markTestIncomplete('This test has not been implemented yet.');
+    $this->_request->addHeader('${test}');
+    $this->refObject = new ReflectionClass($this->_request);
+    $this->_data = $this->refObject->getProperty('_data');
+    $this->_data->setAccessible(true);
+    $this->_data = $this->_data->getValue($this->_request);
+    $testArray = array("headers" => array(''));
+    $this->assertEquals($testArray, $this->_data);
   }
 
   public function testValidateArgsThrowsExceptionForInvalidArgumentCount() {

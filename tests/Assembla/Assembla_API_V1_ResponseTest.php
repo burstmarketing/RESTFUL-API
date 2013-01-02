@@ -57,6 +57,6 @@ class Assembla_API_V1_ResponseTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testProcessRequest() {
-    $this->markTestIncomplete('This test has not been implemented yet.');
+    $this->assertInstanceOf('Assembla_Collection_Activity', $this->api->loadActivity());
   }
 }
