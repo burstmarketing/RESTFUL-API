@@ -1,6 +1,6 @@
 <?php
 
-class Assembla_Model_Abstract extends Core_Model {
+abstract class Assembla_Model_Abstract extends Core_Model {
 
   public function load( $element ){
     return $this->setData($element);

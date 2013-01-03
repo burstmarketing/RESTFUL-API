@@ -6,6 +6,9 @@
     <testsuite name="Core_APITest">
       <file>tests/Core/Core_APITest.php</file>
     </testsuite>
+    <testsuite name="Core_CollectionTest">
+      <file>tests/Core/Core_CollectionTest.php</file>
+    </testsuite>
     <testsuite name="Assembla_APITest">
       <file>tests/Assembla/Assembla_APITest.php</file>
     </testsuite>
