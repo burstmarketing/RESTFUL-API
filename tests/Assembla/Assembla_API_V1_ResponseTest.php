@@ -17,7 +17,9 @@ class Mock_Assembla_API extends Assembla_API {
 class Mock_Assembla_API_V1_Request extends Assembla_API_V1_Request {
 
   public $uri_fixture_mapping = array(
-    '/v1/activity.json' => '/fixtures/activity.json');
+				      '/v1/activity.json' => '/fixtures/activity.json',
+				      '/v1/spaces.json' => '/fixtures/spaces.json',
+				      '/v1/tickets.json' => '/fixtures/tickets.json');
 
   /**
    * If it has a URI, it exists in the fixture mapping, and it's readable,
@@ -55,6 +57,21 @@ class Assembla_API_V1_ResponseTest extends PHPUnit_Framework_TestCase {
       $this->assertInstanceOf('Assembla_Model_Activity', $activity);
     }
   }
+
+  public function testLoadTickets() {
+    $ticket_collection = $this->api->loadTickets();
+    $this->assertInstanceOf('Assembla_Collection_Tickets', $ticket_collection);
+
+    foreach ($ticket_collection as $ticket) {
+      $this->assertInstanceOf('Assembla_Model_Ticket', $ticket);
+    }
+    $this->markTestIncomplete('Test incomplete');
+  }
+
+  public function testLoadSpaces() {
+    $space_collection = $this->api->loadSpaces();
+    $this->assertInstanceOf('Assembla_Collection_Space', $space_collection);
+   }
 
   public function testProcessRequest() {
     $this->assertInstanceOf('Assembla_Collection_Activity', $this->api->loadActivity());
