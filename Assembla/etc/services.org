@@ -1,42 +1,42 @@
 #+BEGIN_SRC elisp
   (defun export-services (table params)
     (let ((header (mapcar (lambda(s) (intern (concat ":" s )) ) (car table)))
-          (body (cdr table)))
+	  (body (cdr table)))
       (orgtbl-to-generic body `(:tstart ,(concat
-                                         "{\n"
-                                         "    \"credentials\" : {\n"
-                                         "        \"username\" : \"\",\n"
-                                         "        \"password\" : \"\",\n"
-                                         "        \"api_key\" : \"\",\n"
-                                         "        \"api_key_secrete\" : \"\"\n"
-                                         "    },\n"
-                                         "    \"defaults\" : {\n"
-                                         "        \"url\" : \"https://api.assembla.com\"\n"
-                                         "    },\n"
-                                         "    \"services\" : {\n" )
-                                :tend "}}"
-                                :lfmt (lambda (line)
-                                         (let ((plst (mapcan 'list header line)))
-                                          (concat "\"" (lax-plist-get plst :service) "\" : { \n "
-                                                  " \"category\" : \"" (lax-plist-get plst :category) "\",\n"
-                                                  " \"type\" : \"" (lax-plist-get plst :type ) "\",\n"
-                                                  " \"datatype\" : \"" (lax-plist-get plst :datatype ) "\",\n"
-                                                  " \"classname\" : \"" (lax-plist-get plst :classname) "\",\n"
-                                                  " \"status\" : \"" (lax-plist-get plst :status ) "\",\n "
-                                                  " \"uri\" : \"" (lax-plist-get plst :uri ) "\",\n "
-                                                  " \"headers\" : " (lax-plist-get plst :headers ) " },")))
-                                       :llfmt (lambda (line)
-                                                (let ((plst (mapcan 'list header line)))
-                                                  (concat "\"" (lax-plist-get plst :service) "\" : { \n "
-                                                          " \"category\" : \"" (lax-plist-get plst :category) "\",\n"
-                                                          " \"type\" : \"" (lax-plist-get plst :type ) "\",\n"
-                                                          " \"datatype\" : \"" (lax-plist-get plst :datatype ) "\",\n"
-                                                          " \"classname\" : \"" (lax-plist-get plst :classname) "\",\n"
-                                                          " \"status\" : \"" (lax-plist-get plst :status ) "\",\n "
-                                                          " \"uri\" : \"" (lax-plist-get plst :uri ) "\",\n "
-                                                          " \"headers\" : " (lax-plist-get plst :headers ) " }")))
-                                       )
-                         )))
+					 "{\n"
+					 "    \"credentials\" : {\n"
+					 "        \"username\" : \"\",\n"
+					 "        \"password\" : \"\",\n"
+					 "        \"api_key\" : \"\",\n"
+					 "        \"api_key_secrete\" : \"\"\n"
+					 "    },\n"
+					 "    \"defaults\" : {\n"
+					 "        \"url\" : \"https://api.assembla.com\"\n"
+					 "    },\n"
+					 "    \"services\" : {\n" )
+				:tend "}}"
+				:lfmt (lambda (line)
+					 (let ((plst (mapcan 'list header line)))
+					  (concat "\"" (lax-plist-get plst :service) "\" : { \n "
+						  " \"category\" : \"" (lax-plist-get plst :category) "\",\n"
+						  " \"type\" : \"" (lax-plist-get plst :type ) "\",\n"
+						  " \"datatype\" : \"" (lax-plist-get plst :datatype ) "\",\n"
+						  " \"classname\" : \"" (lax-plist-get plst :classname) "\",\n"
+						  " \"status\" : \"" (lax-plist-get plst :status ) "\",\n "
+						  " \"uri\" : \"" (lax-plist-get plst :uri ) "\",\n "
+						  " \"headers\" : " (lax-plist-get plst :headers ) " },")))
+				       :llfmt (lambda (line)
+						(let ((plst (mapcan 'list header line)))
+						  (concat "\"" (lax-plist-get plst :service) "\" : { \n "
+							  " \"category\" : \"" (lax-plist-get plst :category) "\",\n"
+							  " \"type\" : \"" (lax-plist-get plst :type ) "\",\n"
+							  " \"datatype\" : \"" (lax-plist-get plst :datatype ) "\",\n"
+							  " \"classname\" : \"" (lax-plist-get plst :classname) "\",\n"
+							  " \"status\" : \"" (lax-plist-get plst :status ) "\",\n "
+							  " \"uri\" : \"" (lax-plist-get plst :uri ) "\",\n "
+							  " \"headers\" : " (lax-plist-get plst :headers ) " }")))
+				       )
+			 )))
 
 #+END_SRC
 
@@ -60,8 +60,8 @@
 | User Roles (Space members)     | POST   | json     | Assembla_Model_Userrole                          | tested                                | create_user_role                       | /v1/spaces/${space_id}/user_roles                                                                                         | Create a user role in space (add a space member)                                                                                  | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] |
 | User Roles (Space members)     | PUT    | json     | Assembla_Model_Userrole                          | untested                              | update_user_role                       | /v1/spaces/${space_id}/user_roles/${id}                                                                                   | Update a user role in space                                                                                                       | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
 | User Roles (Space members)     | DELETE | json     | Assembla_Model_Userrole                          | untested                              | delete_user_role                       | /v1/spaces/${space_id}/user_roles/${id}                                                                                   | Delete a user role (remove a space member)                                                                                        | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
-| Space tools                    | GET    | json     | Assembla_Collection_Space_Tool                   | untested                              | space_tools                            | /v1/spaces/${space_id}/space_tools                                                                                        | Returns list of space tools in a space                                                                                            | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
-| Space tools                    | GET    | json     | Assembla_Collection_Space_Tool                   | untested                              | space_repo                             | /v1/spaces/${space_id}/space_tools/repo                                                                                   | Returns a list of repository tools only                                                                                           | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
+| Space tools                    | GET    | json     | Assembla_Collection_Space_Tool                   | tested                                | space_tools                            | /v1/spaces/${space_id}/space_tools                                                                                        | Returns list of space tools in a space                                                                                            | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
+| Space tools                    | GET    | json     | Assembla_Collection_Space_Tool                   | tested                                | space_repo                             | /v1/spaces/${space_id}/space_tools/repo                                                                                   | Returns a list of repository tools only                                                                                           | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
 | Space tools                    | GET    | json     | Assembla_Model_Space_Tool                        | untested                              | space_tool                             | /v1/spaces/${space_id}/space_tools/${id_or_name}                                                                          | Show a space tool by id or name                                                                                                   | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
 | Space tools                    | POST   | json     | Assembla_Model_Space_Tool                        | untested                              | add_space_tool                         | /v1/spaces/${space_id}/space_tools/${tool_id}/add                                                                         | Add a tool to space                                                                                                               | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
 | Space tools                    | PUT    | json     | Assembla_Model_Space_Tool                        | untested                              | update_space_tool                      | /v1/spaces/${space_id}/space_tools/${id_or_name}                                                                          | Update a space tool, particularly space tool permissions                                                                          | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
@@ -69,9 +69,9 @@
 | Tickets                        | GET    | json     | Assembla_Collection_Ticket                       | tested                                | tickets                                | /v1/spaces/${space_id}/tickets                                                                                            | Returns a paginated tickets list filtered by a report. Default report                                                             | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
 | Tickets                        | GET    | json     | Assembla_Model_Ticket                            | tested                                | ticket_by_number                       | /v1/spaces/${space_id}/tickets/${number}                                                                                  | Returns a ticket by a ticket number.                                                                                              | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
 | Tickets                        | GET    | json     | Assembla_Model_Ticket                            | tested                                | ticket_by_id                           | /v1/spaces/${space_id}/tickets/id/${id}                                                                                   | Returns a ticket by an id.                                                                                                        | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
-| Tickets                        | POST   | json     | Assembla_Model_Ticket                            | untested                              | create_ticket                          | /v1/spaces/${space_id}/tickets                                                                                            | Create a ticket and returns the body and location of newly created                                                                | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] |
-| Tickets                        | PUT    | json     | Assembla_Model_Ticket                            | untested                              | update_ticket                          | /v1/spaces/${space_id}/tickets/${number}                                                                                  | Update a ticket by number                                                                                                         | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
-| Tickets                        | DELETE | json     | Assembla_Model_Ticket                            | untested                              | delete_ticket                          | /v1/spaces/${space_id}/tickets/${number}                                                                                  | Delete a ticket by number                                                                                                         | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
+| Tickets                        | POST   | json     | Assembla_Model_Ticket                            | tested                                | create_ticket                          | /v1/spaces/${space_id}/tickets                                                                                            | Create a ticket and returns the body and location of newly created                                                                | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] |
+| Tickets                        | PUT    | json     | Assembla_Model_Ticket                            | tested                                | update_ticket                          | /v1/spaces/${space_id}/tickets/${number}                                                                                  | Update a ticket by number                                                                                                         | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] |
+| Tickets                        | DELETE | json     | Assembla_Model_Ticket                            | tested                                | delete_ticket                          | /v1/spaces/${space_id}/tickets/${number}                                                                                  | Delete a ticket by number                                                                                                         | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] |
 | Tickets                        | GET    | json     | Assembla_Collection_Ticket                       | untested                              | ticket_custom_report                   | /v1/spaces/${space_id}/tickets/custom_reports                                                                             | Get the list of custom reports available for the space                                                                            | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
 | Tickets                        | GET    | json     | Assembla_Collection_Ticket                       | tested - doesn't seem to be per space | active_tickets                         | /v1/spaces/${space_id}/tickets/my_active                                                                                  | Get the list of tickets assigned to current user                                                                                  | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
 | Tickets                        | GET    | json     | Assembla_Collection_Ticket                       | untested                              | followed_tickets                       | /v1/spaces/${space_id}/tickets/my_followed                                                                                | Get the list of tickets current user is following                                                                                 | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |

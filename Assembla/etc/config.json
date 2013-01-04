@@ -1,12 +1,12 @@
 {
     "credentials" : {
-        "username" : "",
-        "password" : "",
-        "api_key" : "",
-        "api_key_secrete" : ""
+	"username" : "",
+	"password" : "",
+	"api_key" : "",
+	"api_key_secrete" : ""
     },
     "defaults" : {
-        "url" : "https://api.assembla.com"
+	"url" : "https://api.assembla.com"
     },
     "services" : {
 
@@ -15,7 +15,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Collection_Activity",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/activity",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "user" : {
@@ -23,7 +23,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Model_User",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/user",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "show_user" : {
@@ -31,7 +31,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Model_User",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/users/${id_or_login}",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "users_by_space" : {
@@ -39,7 +39,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Collection_User",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/users",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "spaces" : {
@@ -47,7 +47,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Collection_Space",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "space" : {
@@ -55,7 +55,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Model_Space",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${id}",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "create_space" : {
@@ -95,7 +95,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Collection_Userrole",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/user_roles",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "user_role" : {
@@ -103,7 +103,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Model_Userrole",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/user_roles/${id}",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "create_user_role" : {
@@ -111,9 +111,9 @@
  "type" : "POST",
  "datatype" : "json",
  "classname" : "Assembla_Model_Userrole",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/user_roles",
-  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
 "update_user_role" : {
   "category" : "User Roles (Space members)",
  "type" : "PUT",
@@ -135,7 +135,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Collection_Space_Tool",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/space_tools",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "space_repo" : {
@@ -143,7 +143,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Collection_Space_Tool",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/space_tools/repo",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "space_tool" : {
@@ -207,7 +207,7 @@
  "type" : "POST",
  "datatype" : "json",
  "classname" : "Assembla_Model_Ticket",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/tickets",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
 "update_ticket" : {
@@ -215,9 +215,9 @@
  "type" : "PUT",
  "datatype" : "json",
  "classname" : "Assembla_Model_Ticket",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/tickets/${number}",
-  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
 "delete_ticket" : {
   "category" : "Tickets",
  "type" : "DELETE",
@@ -225,7 +225,7 @@
  "classname" : "Assembla_Model_Ticket",
  "status" : "untested",
   "uri" : "/v1/spaces/${space_id}/tickets/${number}",
-  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
 "ticket_custom_report" : {
   "category" : "Tickets",
  "type" : "GET",

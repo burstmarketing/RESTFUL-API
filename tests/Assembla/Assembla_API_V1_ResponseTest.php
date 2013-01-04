@@ -92,6 +92,12 @@ class Assembla_API_V1_ResponseTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testLoadTicketsFiltersCustomFields() {
+    $ticket_collection = $this->api->loadTickets(array('space_id' => 'foo'));
+    foreach ($ticket_collection as $ticket) {
+      if ($ticket->get('custom_fields')) {
+        $this->assertInstanceOf('Assembla_Collection_Ticket_Customfield', $ticket->getCustomFields());
+      }
+    }
   }
 
   public function testLoadTicketByNumber() {
