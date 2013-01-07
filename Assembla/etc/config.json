@@ -223,7 +223,7 @@
  "type" : "DELETE",
  "datatype" : "json",
  "classname" : "Assembla_Model_Ticket",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/tickets/${number}",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
 "ticket_custom_report" : {
@@ -247,7 +247,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Collection_Ticket",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/tickets/my_followed",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "tickets_by_milestone" : {
@@ -311,7 +311,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Collection_Ticket_Customfield",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/tickets/custom_fields",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "space_ticket_custom_field_by_id" : {
@@ -319,7 +319,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Model_Ticket_Customfield",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/tickets/custom_fields/${id}",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "create_space_ticket_custom_field" : {
@@ -407,9 +407,9 @@
  "type" : "POST",
  "datatype" : "json",
  "classname" : "Assembla_Model_Ticket_Comment",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_comments",
-  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
 "update_ticket_comment" : {
   "category" : "Ticket Comments",
  "type" : "PUT",
@@ -417,7 +417,7 @@
  "classname" : "Assembla_Model_Ticket_Comment",
  "status" : "untested",
   "uri" : "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_comments/${id}",
-  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
 "space_ticket_components" : {
   "category" : "Ticket Components",
  "type" : "GET",
