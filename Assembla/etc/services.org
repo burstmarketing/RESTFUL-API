@@ -1,42 +1,42 @@
 #+BEGIN_SRC elisp
   (defun export-services (table params)
     (let ((header (mapcar (lambda(s) (intern (concat ":" s )) ) (car table)))
-	  (body (cdr table)))
+          (body (cdr table)))
       (orgtbl-to-generic body `(:tstart ,(concat
-					 "{\n"
-					 "    \"credentials\" : {\n"
-					 "        \"username\" : \"\",\n"
-					 "        \"password\" : \"\",\n"
-					 "        \"api_key\" : \"\",\n"
-					 "        \"api_key_secrete\" : \"\"\n"
-					 "    },\n"
-					 "    \"defaults\" : {\n"
-					 "        \"url\" : \"https://api.assembla.com\"\n"
-					 "    },\n"
-					 "    \"services\" : {\n" )
-				:tend "}}"
-				:lfmt (lambda (line)
-					 (let ((plst (mapcan 'list header line)))
-					  (concat "\"" (lax-plist-get plst :service) "\" : { \n "
-						  " \"category\" : \"" (lax-plist-get plst :category) "\",\n"
-						  " \"type\" : \"" (lax-plist-get plst :type ) "\",\n"
-						  " \"datatype\" : \"" (lax-plist-get plst :datatype ) "\",\n"
-						  " \"classname\" : \"" (lax-plist-get plst :classname) "\",\n"
-						  " \"status\" : \"" (lax-plist-get plst :status ) "\",\n "
-						  " \"uri\" : \"" (lax-plist-get plst :uri ) "\",\n "
-						  " \"headers\" : " (lax-plist-get plst :headers ) " },")))
-				       :llfmt (lambda (line)
-						(let ((plst (mapcan 'list header line)))
-						  (concat "\"" (lax-plist-get plst :service) "\" : { \n "
-							  " \"category\" : \"" (lax-plist-get plst :category) "\",\n"
-							  " \"type\" : \"" (lax-plist-get plst :type ) "\",\n"
-							  " \"datatype\" : \"" (lax-plist-get plst :datatype ) "\",\n"
-							  " \"classname\" : \"" (lax-plist-get plst :classname) "\",\n"
-							  " \"status\" : \"" (lax-plist-get plst :status ) "\",\n "
-							  " \"uri\" : \"" (lax-plist-get plst :uri ) "\",\n "
-							  " \"headers\" : " (lax-plist-get plst :headers ) " }")))
-				       )
-			 )))
+                                         "{\n"
+                                         "    \"credentials\" : {\n"
+                                         "        \"username\" : \"\",\n"
+                                         "        \"password\" : \"\",\n"
+                                         "        \"api_key\" : \"\",\n"
+                                         "        \"api_key_secrete\" : \"\"\n"
+                                         "    },\n"
+                                         "    \"defaults\" : {\n"
+                                         "        \"url\" : \"https://api.assembla.com\"\n"
+                                         "    },\n"
+                                         "    \"services\" : {\n" )
+                                :tend "}}"
+                                :lfmt (lambda (line)
+                                         (let ((plst (mapcan 'list header line)))
+                                          (concat "\"" (lax-plist-get plst :service) "\" : { \n "
+                                                  " \"category\" : \"" (lax-plist-get plst :category) "\",\n"
+                                                  " \"type\" : \"" (lax-plist-get plst :type ) "\",\n"
+                                                  " \"datatype\" : \"" (lax-plist-get plst :datatype ) "\",\n"
+                                                  " \"classname\" : \"" (lax-plist-get plst :classname) "\",\n"
+                                                  " \"status\" : \"" (lax-plist-get plst :status ) "\",\n "
+                                                  " \"uri\" : \"" (lax-plist-get plst :uri ) "\",\n "
+                                                  " \"headers\" : " (lax-plist-get plst :headers ) " },")))
+                                       :llfmt (lambda (line)
+                                                (let ((plst (mapcan 'list header line)))
+                                                  (concat "\"" (lax-plist-get plst :service) "\" : { \n "
+                                                          " \"category\" : \"" (lax-plist-get plst :category) "\",\n"
+                                                          " \"type\" : \"" (lax-plist-get plst :type ) "\",\n"
+                                                          " \"datatype\" : \"" (lax-plist-get plst :datatype ) "\",\n"
+                                                          " \"classname\" : \"" (lax-plist-get plst :classname) "\",\n"
+                                                          " \"status\" : \"" (lax-plist-get plst :status ) "\",\n "
+                                                          " \"uri\" : \"" (lax-plist-get plst :uri ) "\",\n "
+                                                          " \"headers\" : " (lax-plist-get plst :headers ) " }")))
+                                       )
+                         )))
 
 #+END_SRC
 
@@ -96,13 +96,13 @@
 | Ticket Comments                | GET    | json     | Assembla_Model_Ticket_Comment                    | tested                                | ticket_comment_by_id                   | /v1/spaces/${space_id}/tickets/${ticket_number}/ticket_comments/${id}                                                     | Return a ticket comment by id                                                                                                     | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
 | Ticket Comments                | POST   | json     | Assembla_Model_Ticket_Comment                    | tested                                | create_ticket_comment                  | /v1/spaces/${space_id}/tickets/${ticket_number}/ticket_comments                                                           | Create a ticket comment and returns newly comment body and location in requested format                                           | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] |
 | Ticket Comments                | PUT    | json     | Assembla_Model_Ticket_Comment                    | tested                                | update_ticket_comment                  | /v1/spaces/${space_id}/tickets/${ticket_number}/ticket_comments/${id}                                                     | Update a ticket comment                                                                                                           | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] |
-| Ticket Components              | GET    | json     | Assembla_Collection_Ticket_Component             | untested                              | space_ticket_components                | /v1/spaces/${space_id}/ticket_components                                                                                  | Returns a list of components for a space                                                                                          | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
+| Ticket Components              | GET    | json     | Assembla_Collection_Ticket_Component             | untested                              | space_ticket_components                | /v1/spaces/${space_id}/ticket_components                                                                                  | Returns a list of components for a space                                                                                          | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] |
 | Ticket Components              | GET    | json     | Assembla_Model_Ticket_Component                  | untested                              | space_ticket_components_by_id          | /v1/spaces/${space_id}/ticket_components/${id}                                                                            | Returns a component by id                                                                                                         | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
 | Ticket Components              | POST   | json     | Assembla_Model_Ticket_Component                  | untested                              | create_space_ticket_components         | /v1/spaces/${space_id}/ticket_components                                                                                  | Create a component and returns the body and location of newly created component                                                   | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
 | Ticket Components              | PUT    | json     | Assembla_Model_Ticket_Component                  | untested                              | update_space_ticket_components         | /v1/spaces/${space_id}/ticket_components/${id}                                                                            | Update a component                                                                                                                | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
 | Ticket Components              | DELETE | json     | Assembla_Model_Ticket_Component                  | untested                              | remove_space_ticket_components         | /v1/spaces/${space_id}/ticket_components/${id}                                                                            | Delete a component                                                                                                                | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
-| Milestones                     | GET    | json     | Assembla_Collection_Milestone                    | untested                              | milestones                             | /v1/spaces/${space_id}/milestones                                                                                         | Returns a list of paginated upcoming milestones. Pages are defaulted to 1000 milestones.                                          | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
-| Milestones                     | GET    | json     | Assembla_Collection_Milestone                    | untested                              | all_milestones                         | /v1/spaces/${space_id}/milestones/all                                                                                     | Returns a list of all milestones paginated. Pages are defaulted to 1000 milestones.                                               | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
+| Milestones                     | GET    | json     | Assembla_Collection_Milestone                    | tested                                | milestones                             | /v1/spaces/${space_id}/milestones                                                                                         | Returns a list of paginated upcoming milestones. Pages are defaulted to 1000 milestones.                                          | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
+| Milestones                     | GET    | json     | Assembla_Collection_Milestone                    | tested                                | all_milestones                         | /v1/spaces/${space_id}/milestones/all                                                                                     | Returns a list of all milestones paginated. Pages are defaulted to 1000 milestones.                                               | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
 | Milestones                     | GET    | json     | Assembla_Collection_Milestone                    | untested                              | upcoming_milestones                    | /v1/spaces/${space_id}/milestones/upcoming                                                                                | Returns a list of paginated upcoming milestones, this query is an alias for milestones query. Pages default to 1000 milestones.   | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
 | Milestones                     | GET    | json     | Assembla_Collection_Milestone                    | untested                              | completed_milestones                   | /v1/spaces/${space_id}/milestones/completed                                                                               | Returns a list of paginated completed milestones. Pages default to 1000  milestones.                                              | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
 | Milestones                     | GET    | json     | Assembla_Collection_Milestone                    | untested                              | release_notes                          | /v1/spaces/${space_id}/milestones/release_notes                                                                           | Returns a list of releases, releases are considered milestones with  filed release notes field. Pages default to 1000 milestones. | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
@@ -132,6 +132,6 @@
 | Merge Request Version Votes    | POST   | json     | Assembla_Model_Mergerequest_Version_Vote         | untested                              | merge_request_upvote                   | /v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/votes/upvote   | Upvotes a merge request version                                                                                                   | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
 | Merge Request Version Votes    | POST   | json     | Assembla_Model_Mergerequest_Version_Vote         | untested                              | merge_request_downvote                 | /v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/votes/downvote | Downvotes a merge request version                                                                                                 | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
 | Merge Request Version Votes    | DELETE | json     | Assembla_Model_Mergerequest_Version_Vote         | untested                              | delete_vote_from_merge_request         | /v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/votes/delete   | Deletes your vote from a merge request version                                                                                    | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
-| Wiki Pages                     | GET    | json     | Assembla_Collection_Wikipage                     | untested                              | wiki_pages                             | /v1/spaces/${space_id}/wiki_pages?per_page=${per_page}                                                                    | Returns a paginated list of wiki pages. Pages are default to 1000 wiki pages.                                                     | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
+| Wiki Pages                     | GET    | json     | Assembla_Collection_Wikipage                     | tested                                | wiki_pages                             | /v1/spaces/${space_id}/wiki_pages?per_page=${per_page}                                                                    | Returns a paginated list of wiki pages. Pages are default to 1000 wiki pages.                                                     | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
 | Wiki Pages                     | GET    | json     | Assembla_Model_Wikipage                          | untested                              | wiki_page_by_id                        | /v1/spaces/${space_id}/wiki_pages/${id}                                                                                   | Returns a wiki page by id.                                                                                                        | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ]                                  |
-| Wiki Pages                     | POST   | json     | Assembla_Model_Wikipage                          | untested                              | create_wiki_page                       | /v1/spaces/${space_id}/wiki_pages                                                                                         | Creates a wiki page.                                                                                                              | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] |
+| Wiki Pages                     | POST   | json     | Assembla_Model_Wikipage                          | tested                                | create_wiki_page                       | /v1/spaces/${space_id}/wiki_pages                                                                                         | Creates a wiki page.                                                                                                              | [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] |

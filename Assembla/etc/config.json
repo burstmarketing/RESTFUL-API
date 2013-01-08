@@ -391,7 +391,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Collection_Ticket_Comment",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_comments",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "ticket_comment_by_id" : {
@@ -399,7 +399,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Model_Ticket_Comment",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_comments/${id}",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "create_ticket_comment" : {
@@ -415,7 +415,7 @@
  "type" : "PUT",
  "datatype" : "json",
  "classname" : "Assembla_Model_Ticket_Comment",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_comments/${id}",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
 "space_ticket_components" : {
@@ -425,7 +425,7 @@
  "classname" : "Assembla_Collection_Ticket_Component",
  "status" : "untested",
   "uri" : "/v1/spaces/${space_id}/ticket_components",
-  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
 "space_ticket_components_by_id" : {
   "category" : "Ticket Components",
  "type" : "GET",
