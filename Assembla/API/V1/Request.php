@@ -2,30 +2,31 @@
 
 class Assembla_API_V1_Request extends Core_API_Request_Json {
 
-  public $variable_pattern = '/\$\{([^\$}]+)\}/';
-
   protected $_api;
+  protected $_service;
 
-  public function getAPI(){
-    return $this->_api;
+  public function getService(){
+    return $this->_service;
   }
 
-  public function setAPI(Core_API &$api) {
-    $this->_api = &$api;
+  public function setService(Core_API_Service $service) {
+    $this->_service = $service;
     return $this;
   }
 
-  protected function _processHeader( $header ){
-    $api = $this->getAPI();
-
-    $callback = function($matches) use ($api) {
-      $uri = $matches[1];
-      return $api->getConfig($uri);
-    };
-
-    return preg_replace_callback($this->variable_pattern, $callback, $header);
+  public function setAPI( Core_API &$api ){
+    $this->_api = $api;
+    return $this;
   }
 
+  public function getAPI(){
+    if( $this->getService() instanceof Core_API_Service ){
+      return $this->getService()->getAPI();
+    }
+    return $this->_api;
+  }
+
+  /*
   protected function _processURI( $uri, array $args = array() ){
     if (empty($args)) {
       return $uri;
@@ -49,40 +50,21 @@ class Assembla_API_V1_Request extends Core_API_Request_Json {
 
     return preg_replace_callback($this->variable_pattern, $callback, $uri);
   }
-
+  */
+  /*
   public function addHeader( $header ){
     $header = $this->_processHeader( $header );
     parent::addHeader( $header );
   }
+  */
 
-  public function validateArgs(Zend_Config $service, $args) {
-    $args    = (is_array($args)) ? $args : array();
-    $matches = array();
-
-    if (count($args) != preg_match_all($this->variable_pattern, $service->uri, $matches)) {
-      throw new Assembla_Exception('Argument count doesn\'t match the services argument count.');
-    } else {
-      // We have an array of arguments with the same count of
-      // the amount of expected arguments, validate the keys are the same.
-      $args_expected = $matches[1];
-      $args_received = array_keys($args);
-
-      sort($args_received);
-      sort($args_expected);
-
-      if (array_diff($args_expected, $args_received)) {
-        throw new Assembla_Exception('Arguments expected vs arguments received do not match.');
-      }
-    }
-
-    return $this;
-  }
 
   /**
    * Sets service variables onto the request object ($this).
    * Sets up URI/Datatype
    * Sets up headers.
    **/
+  /*
   public function generateRequest(Zend_Config $service, array $args) {
     $this->setKey($service->key)
          ->setUrl($service->url);
@@ -104,7 +86,8 @@ class Assembla_API_V1_Request extends Core_API_Request_Json {
 
     return $this;
   }
-
+  */
+  /*
   protected function _setupUri(Zend_Config $service, array $args) {
     $this->setUri($this->_processURI($service->uri, (array) current($args)));
 
@@ -120,15 +103,8 @@ class Assembla_API_V1_Request extends Core_API_Request_Json {
 
     return $this;
   }
-
-  /**
-   * Due to V1 API appending .json or .xml to the end of requests,
-   * query strings at the end of URIs in the config break things, as they
-   * end up being uri?query=arg.json when they should be
-   * uri.json?query=arg.
-   * This checks for that, and replaces appropriately, and if there is no query
-   * string, just throws .datatype on the end.
-   **/
+  */
+  /*
   protected function _setupDatatype(Zend_Config $service) {
     if ($service->datatype) {
       $this->setDatatype($service->datatype);
@@ -142,7 +118,8 @@ class Assembla_API_V1_Request extends Core_API_Request_Json {
 
     return $this;
   }
-
+  */
+  /*
   protected function _setupHeaders(Zend_Config $service) {
     if ($service->headers) {
       foreach ($service->headers as $header) {
@@ -152,4 +129,5 @@ class Assembla_API_V1_Request extends Core_API_Request_Json {
 
     return $this;
   }
+  */
 }

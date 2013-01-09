@@ -158,6 +158,8 @@ abstract class Core_API {
     if (preg_match('/^(load|post|put|delete)(.*)/', $method, $matches)) {
       $key = $this->_underscore($matches[2]);
 
+      $uri_arguments = isset($args[0]) ? $args[0] : array();
+
       // Clone so service doesn't retain values from last call
       // @todo - Shouldn't this check for a service that has a GET/POST/PUT/DELETE value corresponding to $key?
       if( ($service = $this->getService($key) ) === false) {
@@ -165,15 +167,14 @@ abstract class Core_API {
       }
 
 
-      $request = $this->_getRequest()
-                      ->setAPI($this);
+      $request = $service->validateArgs( $uri_arguments )->getRequest( $uri_arguments );
+      $request->setCurlData( isset($args[1]) ? $args[1] : null );
 
-      $request->validateArgs($service, current($args));
-      $request->generateRequest($service, $args);
+      // this needs to be refactored so that "send" returns a response object which gets filters and then "processesRequest"
 
       return $this->_getResponse()
-                  ->setFilters($this->getFilters())
-                  ->processRequest($request, (isset($service->classname)) ? $service->classname : '');
+        ->setFilters($this->getFilters())
+        ->processRequest($request, $service->getClassname() );
     } else {
       throw new Assembla_Exception('Invalid method. Not one of load/post/put/delete.');
     }

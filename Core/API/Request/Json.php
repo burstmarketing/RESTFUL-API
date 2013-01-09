@@ -2,10 +2,6 @@
 
 class Core_API_Request_Json extends Core_API_Request {
 
-  public function __construct(){
-        parent::__construct();
-  }
-
   public function setAPI(Core_API &$api) {}
 
   protected function _validateCurlResponse( $str ){
