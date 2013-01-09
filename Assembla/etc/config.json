@@ -330,7 +330,7 @@
  "classname" : "Assembla_Model_Ticket_Customfield",
  "status" : "untested",
   "uri" : "/v1/spaces/${space_id}/tickets/custom_fields",
-  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
 "update_space_ticket_custom_field" : {
   "category" : "Tickets custom fields",
  "type" : "PUT",

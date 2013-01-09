@@ -55,18 +55,18 @@ abstract class Core_API_Request extends Core_Object {
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
   }
 
-  $out = curl_exec($ch);
 
   curl_setopt($ch, CURLOPT_HEADER, 1);
-  curl_setopt($ch, CURLOPT_HEADERFUNCTION, array($this, 'headerParse'));
-  //Outputs response headers
 
-  $outputWithHeaders = curl_exec($ch);
-  $responseHeader = $this->outputHeaders[0];
+  $out = curl_exec($ch);
 
-  if(preg_match("/(204|404)/", $responseHeader)) {
-    $out = json_encode(array("errors" => array($responseHeader)));
-  }
+  $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+  $header = substr($out, 0, $header_size);
+  $out = substr($out, $header_size);
+
+  //if(preg_match("/(204|404)/", $header)) {
+  //  $out = json_encode(array("errors" => array($header)));
+  //}
 
   if( $out !== false && $this->_validateCurlResponse($out) ){
     if( $this->useCache() ){
