@@ -31,7 +31,7 @@ class Core_CollectionTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-	$this->object = new Mock_Core_Collection;
+  $this->object = new Mock_Core_Collection;
     }
 
     /**
@@ -153,7 +153,7 @@ class Core_CollectionTest extends PHPUnit_Framework_TestCase
 
     public function testOffsetSetThrowsExceptionForInvalidValueType() {
       $this->setExpectedException('Exception',
-			       'Value must be of type Mock_Assembla_Model');
+             'Value must be of type Mock_Assembla_Model');
       $notValid = new Not_Mock_Assembla_Model;
       $this->object->offsetSet('', $notValid);
     }

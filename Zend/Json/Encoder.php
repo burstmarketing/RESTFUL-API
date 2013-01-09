@@ -572,4 +572,3 @@ class Zend_Json_Encoder
         return '';
     }
 }
-

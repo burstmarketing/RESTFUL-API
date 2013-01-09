@@ -247,4 +247,3 @@ class Zend_Json_Server_Response
         return $this->toJson();
     }
 }
-

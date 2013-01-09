@@ -28,7 +28,7 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
     public function testHasDataChanges() {
       // Tests the actual attribute is equal to what the method returns
       $this->assertAttributeEquals($this->object->hasDataChanges(),
-				   '_hasDataChanges', $this->object);
+           '_hasDataChanges', $this->object);
     }
 
     public function testHasDataChangesDefaultsToFalse() {
@@ -53,7 +53,7 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
 
     public function testAddData() {
       $this->object->addData(array('example1' => 'value1',
-				   'example2' => 'value2'));
+           'example2' => 'value2'));
 
       $this->assertAttributeContains('value1', '_data', $this->object);
       $this->assertAttributeContains('value1', '_data', $this->object);
@@ -61,7 +61,7 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
 
     public function testAddDataReturnsCoreObject() {
       $this->assertInstanceOf('Core_Object',
-			      $this->object->addData(array()));
+            $this->object->addData(array()));
     }
 
     /**
@@ -75,14 +75,14 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
       $this->object->setData('foo', 'bar');
 
       $this->object->setData(array('key1' => 'value1',
-				   'key2' => 'value2'));
+           'key2' => 'value2'));
 
       $this->assertAttributeNotContains('foo', '_data', $this->object);
     }
 
     public function testSetDataReturnsCoreObject() {
       $this->assertInstanceOf('Core_Object',
-			      $this->object->setData('key', 'value'));
+            $this->object->setData('key', 'value'));
     }
 
     public function testSetDataSetsData() {
@@ -93,7 +93,7 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
 
     public function testUnsetDataUnsetsAllDataWhenPassedNull() {
       $this->object->setData(array('key1' => 'value1',
-				   'key2' => 'value2'));
+           'key2' => 'value2'));
 
       $this->object->unsetData();
 
@@ -115,7 +115,7 @@ class Core_ObjectTest extends PHPUnit_Framework_TestCase
 
     public function testGetDataReturnsAllWhenGivenNoKey() {
       $sample_data = array('key1' => 'value1',
-			   'key2' => 'value2');
+         'key2' => 'value2');
 
       $this->object->addData($sample_data);
 

@@ -238,13 +238,13 @@ class Blast_Simplexml_Element extends SimpleXMLElement
         // add children values
         if ($this->hasChildren()) {
             foreach ($this->children() as $childName => $child) {
-	        $attrs = (array) $this->attributes();
-		if( isset( $attrs['@attributes']['type'] ) && $attrs['@attributes']['type'] == 'array' ):
-		    $result[] = $child->_asArray($isCanonical);
-		else:
-	            $formatedChildName = strtolower( preg_replace( '/-/', "_", $childName ) );
+          $attrs = (array) $this->attributes();
+    if( isset( $attrs['@attributes']['type'] ) && $attrs['@attributes']['type'] == 'array' ):
+        $result[] = $child->_asArray($isCanonical);
+    else:
+              $formatedChildName = strtolower( preg_replace( '/-/', "_", $childName ) );
                     $result[$formatedChildName] = $child->_asArray($isCanonical);
-		endif;
+    endif;
             }
         } else {
             if (empty($result)) {

@@ -49,7 +49,7 @@ class Assembla_API_V1_RequestTest extends PHPUnit_Framework_TestCase {
 
   public function testProcessUriThrowsExceptionForMissingProperty() {
     $this->setExpectedException('Assembla_Exception',
-				"test not passed into _parseVars function. ");
+        "test not passed into _parseVars function. ");
 
     $this->processURI->invoke($this->_request, 'a-${test}-c', array('not-test' => 'b'));
   }
@@ -68,7 +68,7 @@ class Assembla_API_V1_RequestTest extends PHPUnit_Framework_TestCase {
     $service = new Zend_Config(array('uri' => '${one_arg}'), true);
 
     $this->setExpectedException('Assembla_Exception',
-				'Argument count doesn\'t match the services argument count.');
+        'Argument count doesn\'t match the services argument count.');
 
     // Should only have one arg
     $this->_request->validateArgs($service, array('two', 'args'));
@@ -78,28 +78,28 @@ class Assembla_API_V1_RequestTest extends PHPUnit_Framework_TestCase {
     $service = new Zend_Config(array('uri' => '${one_arg}/${second_arg}'), true);
 
     $this->setExpectedException('Assembla_Exception',
-				'Arguments expected vs arguments received do not match.');
+        'Arguments expected vs arguments received do not match.');
 
     // Should be second_arg instead of two_arg
     $this->_request->validateArgs($service, array('one_arg' => 'value',
-						  'two_arg' => 'value'));
+              'two_arg' => 'value'));
   }
 
   public function testGenerateRequestThrowsExceptionForNoUri() {
     $service = new Zend_Config(array('key' => 'sample'), true);
 
     $this->setExpectedException('Assembla_Exception',
-				'Can\'t find a URI for sample.');
+        'Can\'t find a URI for sample.');
 
     $this->_request->generateRequest($service, array());
   }
 
   public function testGenerateRequestThrowsExceptionForNoType() {
     $service = new Zend_Config(array('uri' => 'some-uri',
-				     'key' => 'sample'), true);
+             'key' => 'sample'), true);
 
     $this->setExpectedException('Assembla_Exception',
-				'Can\'t find type for sample.');
+        'Can\'t find type for sample.');
 
     $this->_request->generateRequest($service, array());
   }

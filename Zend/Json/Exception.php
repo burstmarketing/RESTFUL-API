@@ -34,4 +34,3 @@
  */
 class Zend_Json_Exception extends Zend_Exception
 {}
-

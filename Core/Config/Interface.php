@@ -1,7 +1,7 @@
 <?php
 
 interface Core_Config_Interface {
-  
+
   // called to load the config, impelementing
   // class should probably save the contents of the
   // file in some kind of protected variable

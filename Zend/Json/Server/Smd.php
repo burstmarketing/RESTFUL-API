@@ -477,4 +477,3 @@ class Zend_Json_Server_Smd
         return $this->toJson();
     }
 }
-

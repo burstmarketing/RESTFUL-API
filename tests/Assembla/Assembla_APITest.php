@@ -12,7 +12,7 @@ class Assembla_APITest extends PHPUnit_Framework_TestCase {
     protected $object;
 
     protected function setUp() {
-	$this->object = new Assembla_API;
+  $this->object = new Assembla_API;
     }
 
     public function testLoadConfigReturnsItselfIfAnInstanceOfZendConfig() {
