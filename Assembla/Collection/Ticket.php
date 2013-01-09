@@ -11,8 +11,8 @@ class Assembla_Collection_Ticket extends Assembla_Collection_Abstract {
   public function getSpaceTickets( $space_id ){
     return new Blast_Assembla_Collection_Ticket( array_filter( $this->getCollection(),
                                                                function( $ticket ) use ($space_id) {
-                                                                return $ticket->getSpaceId() == $space_id;
-                                                              } ) );
+                                                             return $ticket->getSpaceId() == $space_id;
+                                                           } ) );
   }
 
   public function getUniqueSpaceIdsFromTickets(){
@@ -160,7 +160,7 @@ class Assembla_Collection_Ticket extends Assembla_Collection_Abstract {
 
 
 
-  }
+}
 
 
 ?>

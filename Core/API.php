@@ -125,14 +125,14 @@ abstract class Core_API {
       }
 
       $request = $this->_getRequest()
-                      ->setAPI($this);
+        ->setAPI($this);
 
       $request->validateArgs($service, current($args));
       $request->generateRequest($service, $args);
 
       return $this->_getResponse()
-                  ->setFilters($this->getFilters())
-                  ->processRequest($request, (isset($service->classname)) ? $service->classname : '');
+        ->setFilters($this->getFilters())
+        ->processRequest($request, (isset($service->classname)) ? $service->classname : '');
     } else {
       throw new Assembla_Exception('Invalid method. Not one of load/post/put/delete.');
     }

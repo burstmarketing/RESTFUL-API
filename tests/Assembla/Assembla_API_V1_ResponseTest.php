@@ -2,7 +2,7 @@
 
 if (!defined("ASSEMBLA_REST_API_ROOT")) {
   define("ASSEMBLA_REST_API_ROOT", realpath(dirname(__DIR__)));
-}
+ }
 
 require_once ASSEMBLA_REST_API_ROOT . '/../Autoload.php';
 require_once ASSEMBLA_REST_API_ROOT . '/../Assembla/API/V1/Response.php';
@@ -17,21 +17,21 @@ class Mock_Assembla_API extends Assembla_API {
 class Mock_Assembla_API_V1_Request extends Assembla_API_V1_Request {
 
   public $uri_fixture_mapping = array(
-                                      '/v1/activity.json' => '/fixtures/activity.json',
-                                      '/v1/spaces.json' => '/fixtures/spaces.json',
-                                      '/v1/spaces/foo/tickets.json' => '/fixtures/tickets.json',
-                                      '/v1/user.json' => '/fixtures/user.json',
-                                      '/v1/users/foo.json' => '/fixtures/user.json',
-                                      '/v1/spaces/foo/users.json' => '/fixtures/spaces.json',
-                                      '/v1/spaces/foo.json' => '/fixtures/space.json',
-                                      '/v1/spaces/foo/user_roles.json' => '/fixtures/user_roles.json',
-                                      '/v1/spaces/foo/user_roles/bar.json' => '/fixtures/user_roles_bar.json',
-                                      '/v1/spaces/foo/tickets/bar.json' => '/fixtures/ticket.json',
-                                      '/v1/spaces/foo/tickets/id/bar.json' =>'/fixtures/ticket.json',
-                                      '/v1/spaces/foo/tickets/statuses.json' => '/fixtures/ticketstatuses.json',
-                                      '/v1/spaces/foo/tickets/statuses/bar.json' => '/fixtures/ticketstatuses.json',
+    '/v1/activity.json' => '/fixtures/activity.json',
+    '/v1/spaces.json' => '/fixtures/spaces.json',
+    '/v1/spaces/foo/tickets.json' => '/fixtures/tickets.json',
+    '/v1/user.json' => '/fixtures/user.json',
+    '/v1/users/foo.json' => '/fixtures/user.json',
+    '/v1/spaces/foo/users.json' => '/fixtures/spaces.json',
+    '/v1/spaces/foo.json' => '/fixtures/space.json',
+    '/v1/spaces/foo/user_roles.json' => '/fixtures/user_roles.json',
+    '/v1/spaces/foo/user_roles/bar.json' => '/fixtures/user_roles_bar.json',
+    '/v1/spaces/foo/tickets/bar.json' => '/fixtures/ticket.json',
+    '/v1/spaces/foo/tickets/id/bar.json' =>'/fixtures/ticket.json',
+    '/v1/spaces/foo/tickets/statuses.json' => '/fixtures/ticketstatuses.json',
+    '/v1/spaces/foo/tickets/statuses/bar.json' => '/fixtures/ticketstatuses.json',
 
-                                      );
+  );
 
   /**
    * If it has a URI, it exists in the fixture mapping, and it's readable,
@@ -81,9 +81,9 @@ class Assembla_API_V1_ResponseTest extends PHPUnit_Framework_TestCase {
 
   public function testLoadTicketsSetFilters() {
     $this->api->addFilter(
-                          function($ticket) {
-                            return $ticket['status'] == 'New';
-                              }, array('New'));
+      function($ticket) {
+        return $ticket['status'] == 'New';
+      }, array('New'));
     $ticket_collection = $this->api->loadTickets(array('space_id' => 'foo'));
     foreach ($ticket_collection as $ticket) {
       $this->assertInstanceOf('Assembla_Model_Ticket', $ticket);
@@ -117,7 +117,7 @@ class Assembla_API_V1_ResponseTest extends PHPUnit_Framework_TestCase {
     foreach ($space_collection as $space) {
       $this->assertInstanceOf('Assembla_Model_Space', $space);
     }
-   }
+  }
 
   public function testLoadSpace() {
     $space = $this->api->loadSpace(array('id' => 'foo'));

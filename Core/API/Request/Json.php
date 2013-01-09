@@ -3,7 +3,7 @@
 class Core_API_Request_Json extends Core_API_Request {
 
   public function __construct(){
-        parent::__construct();
+    parent::__construct();
   }
 
   public function setAPI(Core_API &$api) {}
@@ -17,12 +17,12 @@ class Core_API_Request_Json extends Core_API_Request {
   }
 
   protected function _setCache( $key, $value ){
-        return;
+    return;
   }
   protected function _getCache( $key ){
-        return;
+    return;
   }
   protected function _getCacheKey(){
-        return '';
+    return '';
   }
 }

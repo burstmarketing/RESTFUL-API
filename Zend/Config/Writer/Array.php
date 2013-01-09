@@ -32,24 +32,24 @@
  */
 class Zend_Config_Writer_Array extends Zend_Config_Writer_FileAbstract
 {
-    /**
-     * Render a Zend_Config into a PHP Array config string.
-     *
-     * @since 1.10
-     * @return string
-     */
-    public function render()
-    {
-        $data        = $this->_config->toArray();
-        $sectionName = $this->_config->getSectionName();
+  /**
+   * Render a Zend_Config into a PHP Array config string.
+   *
+   * @since 1.10
+   * @return string
+   */
+  public function render()
+  {
+    $data        = $this->_config->toArray();
+    $sectionName = $this->_config->getSectionName();
 
-        if (is_string($sectionName)) {
-            $data = array($sectionName => $data);
-        }
-
-        $arrayString = "<?php\n"
-                     . "return " . var_export($data, true) . ";\n";
-
-        return $arrayString;
+    if (is_string($sectionName)) {
+      $data = array($sectionName => $data);
     }
+
+    $arrayString = "<?php\n"
+      . "return " . var_export($data, true) . ";\n";
+
+    return $arrayString;
+  }
 }

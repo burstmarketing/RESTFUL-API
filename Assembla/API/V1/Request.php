@@ -85,7 +85,7 @@ class Assembla_API_V1_Request extends Core_API_Request_Json {
    **/
   public function generateRequest(Zend_Config $service, array $args) {
     $this->setKey($service->key)
-         ->setUrl($service->url);
+      ->setUrl($service->url);
 
     if (isset($service->uri)) {
       $this->_setupUri($service, $args);
@@ -111,11 +111,11 @@ class Assembla_API_V1_Request extends Core_API_Request_Json {
     $post_or_put_args = (isset($args[1])) ? $args[1] : false;
 
     if ($post_or_put_args) {
-        if ($service->datatype == 'json' && is_array($post_or_put_args)) {
-            $post_or_put_args = json_encode($post_or_put_args);
-        }
+      if ($service->datatype == 'json' && is_array($post_or_put_args)) {
+        $post_or_put_args = json_encode($post_or_put_args);
+      }
 
-        $this->setCurlData($post_or_put_args);
+      $this->setCurlData($post_or_put_args);
     }
 
     return $this;

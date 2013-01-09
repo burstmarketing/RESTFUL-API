@@ -50,31 +50,31 @@
  */
 class Zend_Json_Expr
 {
-    /**
-     * Storage for javascript expression.
-     *
-     * @var string
-     */
-    protected $_expression;
+  /**
+   * Storage for javascript expression.
+   *
+   * @var string
+   */
+  protected $_expression;
 
-    /**
-     * Constructor
-     *
-     * @param  string $expression the expression to hold.
-     * @return void
-     */
-    public function __construct($expression)
-    {
-        $this->_expression = (string) $expression;
-    }
+  /**
+   * Constructor
+   *
+   * @param  string $expression the expression to hold.
+   * @return void
+   */
+  public function __construct($expression)
+  {
+    $this->_expression = (string) $expression;
+  }
 
-    /**
-     * Cast to string
-     *
-     * @return string holded javascript expression.
-     */
-    public function __toString()
-    {
-        return $this->_expression;
-    }
+  /**
+   * Cast to string
+   *
+   * @return string holded javascript expression.
+   */
+  public function __toString()
+  {
+    return $this->_expression;
+  }
 }

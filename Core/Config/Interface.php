@@ -22,4 +22,4 @@ interface Core_Config_Interface {
   // regurlar expressions.
   public function getUris();
 
-  }
+}

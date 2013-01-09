@@ -33,7 +33,7 @@ class Assembla_API_V1_Response  extends Core_API_Response_Json {
 
         $message = new Core_Object;
         $message->setSuccess(1)
-                ->setBody($response);
+          ->setBody($response);
 
         return $message;
         break;
@@ -55,18 +55,18 @@ class Assembla_API_V1_Response  extends Core_API_Response_Json {
         }
         break;
       }
-      } else {
-        $error = "Errors were encountered: \n";
+    } else {
+      $error = "Errors were encountered: \n";
 
-        foreach ($data['errors'] as $e) {
-          if ($e == 'HTTP Basic: Access denied.') {
-            throw new Core_Exception_Auth('Authentication credentials failed.');
-          } else {
-            $error .= ' ' . $e . ' ';
-          }
+      foreach ($data['errors'] as $e) {
+        if ($e == 'HTTP Basic: Access denied.') {
+          throw new Core_Exception_Auth('Authentication credentials failed.');
+        } else {
+          $error .= ' ' . $e . ' ';
         }
-
-        throw new Assembla_Exception($error);
       }
+
+      throw new Assembla_Exception($error);
     }
   }
+}
