@@ -11,7 +11,8 @@
                                          "        \"api_key_secrete\" : \"\"\n"
                                          "    },\n"
                                          "    \"defaults\" : {\n"
-                                         "        \"url\" : \"https://api.assembla.com\"\n"
+                                         "        \"url\" : \"https://api.assembla.com\",\n"
+                                         "        \"service_object\" : \"Assembla_API_Service\"\n"
                                          "    },\n"
                                          "    \"services\" : {\n" )
                                 :tend "}}"

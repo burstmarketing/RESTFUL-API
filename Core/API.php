@@ -79,9 +79,39 @@ abstract class Core_API {
     return $this;
   }
 
+
+  /**
+   * Return an object that inherits from Core_API_Service, this should represent
+   * the service data and have functions for validating arguments and ultimately
+   * generating a request
+   * @param string $key - the key used to identify the service in the config
+   **/
+
   public function getService( $key ){
     if( $this->getConfig( 'services/' . $key ) ){
-      return $this->getConfig( 'services/' . $key );
+      $service_config = $this->getConfig( 'services/' . $key );
+
+      // @todo - maybe we should extend zend_config's __get() method to
+      //         automatically check the 'defaults' section of the config
+      //         if a config key isn't set on service?
+
+      if (isset($service_config->service_object) ) {
+        $service_object_class = $service_config->service_object;
+      } else {
+        $service_object_class = $this->getConfig('defaults/service_object');
+      }
+
+      try {
+        $service = new $service_object_class($this);
+      } catch( Exception $e) {
+        throw new Assembla_Exception(sprintf('Could not locate a Service Object for service %s. Reason: %s', $service->key, $e->getMessage() ));
+      }
+
+      $service->setData( $service_config->toArray() );
+      $service->setKey( $key );
+
+      return $service;
+
     }
 
     return false;
@@ -97,6 +127,26 @@ abstract class Core_API {
     return strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $name));
   }
 
+
+
+  /**
+   * Refactoring Note
+   *
+   *  __call($method, $args){
+   *
+   *   $request = $service->getRequest() :: implement a service object that returns a 'request'
+   *   $response = $request->send() :: needs to return a response object with all the headers etc set on it
+   *   $object = $response->processRequest() :: put switch statement in here so it can actually manage transfering shit
+   *   return $object (Assembla_Collection_Ticket etc)
+   * }
+   *
+   *  request/response objects should inherit from Zend_Http_Reqest/Response objects
+   **/
+
+
+
+
+
   // NOTE: getConfig( 'service' . $key )  should probably be a function
   //       like getService( $key ) which returns a Core_Config_Service object
   //       which we can get all this info from instead of requiring this be
@@ -110,19 +160,10 @@ abstract class Core_API {
 
       // Clone so service doesn't retain values from last call
       // @todo - Shouldn't this check for a service that has a GET/POST/PUT/DELETE value corresponding to $key?
-      if ($service = $this->getService($key)) {
-        $service = clone $service;
-        $service->key = $key;
-      } else {
+      if( ($service = $this->getService($key) ) === false) {
         throw new Assembla_Exception(sprintf('Service for %s could not be found.', $key));
       }
 
-      // If a URL isn't set in the service definition, try to pull
-      // a default from the config, if that fails, throw an exception.
-      if ((!isset($service->url)) &&
-          (!($service->url = $this->getConfig('defaults/url')))) {
-        throw new Assembla_Exception(sprintf('Could not locate a URL for service %s.', $service->key));
-      }
 
       $request = $this->_getRequest()
                       ->setAPI($this);
