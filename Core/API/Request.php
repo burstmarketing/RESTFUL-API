@@ -3,6 +3,7 @@
 abstract class Core_API_Request extends Core_Object {
 
   protected $_use_cache = false;
+  public $outputHeaders = array();
 
   protected function _validateCurlResponse( $str ){
     return true;
@@ -23,6 +24,9 @@ abstract class Core_API_Request extends Core_Object {
   }
   }
 
+  public function headerParse($ch, $header) {
+    $this->outputHeaders[] = $header;
+  }
 
   public function send() {
     if( $this->useCache() && $this->_getCache($this->_getCacheKey()) ) {
@@ -51,17 +55,17 @@ abstract class Core_API_Request extends Core_Object {
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
   }
 
-
-  $out = curl_exec ($ch);
+  $out = curl_exec($ch);
 
   curl_setopt($ch, CURLOPT_HEADER, 1);
+  curl_setopt($ch, CURLOPT_HEADERFUNCTION, array($this, 'headerParse'));
   //Outputs response headers
 
-  $responseWithHeaders = curl_exec($ch);
-  $responseValue = substr($responseWithHeaders, 9, 3);
+  $outputWithHeaders = curl_exec($ch);
+  $responseHeader = $this->outputHeaders[0];
 
-  if($responseValue == '204' || $responseValue == '404') {
-    $out = '{"errors":{"0":"' . $responseValue . '"}}';
+  if(preg_match("/(204|404)/", $responseHeader)) {
+    $out = json_encode(array("errors" => array($responseHeader)));
   }
 
   if( $out !== false && $this->_validateCurlResponse($out) ){
