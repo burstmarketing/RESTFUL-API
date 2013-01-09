@@ -167,7 +167,7 @@
  "type" : "PUT",
  "datatype" : "json",
  "classname" : "Assembla_Model_Space_Tool",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/space_tools/${id_or_name}",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
 "remove_space_tool" : { 
@@ -175,7 +175,7 @@
  "type" : "DELETE",
  "datatype" : "json",
  "classname" : "Assembla_Model_Space_Tool",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/space_tools/${id_or_name}",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "tickets" : { 
@@ -255,7 +255,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Collection_Ticket",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/tickets/milestone/${milestone_id}",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "tickets_no_milestone" : { 
@@ -263,7 +263,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Collection_Ticket",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/tickets/no_milestone",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "space_ticket_statuses" : { 
@@ -329,7 +329,7 @@
  "classname" : "Assembla_Model_Ticket_Customfield",
  "status" : "untested",
   "uri" : "/v1/spaces/${space_id}/tickets/custom_fields",
-  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
 "update_space_ticket_custom_field" : { 
   "category" : "Tickets custom fields",
  "type" : "PUT",
