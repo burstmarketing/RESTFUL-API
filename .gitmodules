@@ -1,0 +1,3 @@
+[submodule "tests/fixtures"]
+	path = tests/fixtures
+	url = git@git.assembla.com:burst-blast.apifixtures.git
