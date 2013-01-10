@@ -161,7 +161,7 @@
  "classname" : "Assembla_Model_Space_Tool",
  "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/space_tools/${tool_id}/add",
-  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
 "update_space_tool" : {
   "category" : "Space tools",
  "type" : "PUT",
@@ -369,7 +369,7 @@
  "classname" : "Assembla_Model_Ticket_Association",
  "status" : "untested",
   "uri" : "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_associations",
-  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
 "update_space_ticket_associaiton" : {
   "category" : "Ticket Associations",
  "type" : "PUT",
@@ -377,7 +377,7 @@
  "classname" : "Assembla_Model_Ticket_Association",
  "status" : "untested",
   "uri" : "/v1/spaces/${space_id}/tickets/${ticket_number}/ticket_associations/${id}",
-  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: applicaiton/json" ] },
 "delete_space_ticket_association" : {
   "category" : "Ticket Associations",
  "type" : "DELETE",
@@ -617,7 +617,7 @@
  "classname" : "Assembla_Model_Standupawayreport",
  "status" : "untested",
   "uri" : "/v1/spaces/${space_id}/away_standup_report",
-  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
 "merge_requests" : {
   "category" : "Merge Requests",
  "type" : "GET",
