@@ -495,7 +495,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Collection_Milestone",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/milestones/release_notes",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "milestone_by_id" : {
@@ -535,7 +535,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Collection_Document",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/documents",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "document_by_id" : {
@@ -543,7 +543,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Model_Document",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/documents/${id}",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "create_document" : {
@@ -553,7 +553,7 @@
  "classname" : "Assembla_Model_Document",
  "status" : "untested",
   "uri" : "/v1/spaces/${space_id}/documents",
-  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: multipart/form-data"] },
 "update_document" : {
   "category" : "Documents",
  "type" : "PUT",
@@ -561,13 +561,13 @@
  "classname" : "Assembla_Model_Document",
  "status" : "untested",
   "uri" : "/v1/spaces/${space_id}/documents/${id}",
-  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: multipart/form-data"] },
 "delete_document" : {
   "category" : "Documents",
  "type" : "DELETE",
  "datatype" : "json",
  "classname" : "Assembla_Model_Document",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/documents/${id}",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "standup_reports" : {
@@ -575,7 +575,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Collection_Standupreport",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/standup_reports",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "standup_report" : {
@@ -583,7 +583,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Model_Standupreport",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/standup_report",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "create_standup_report" : {
@@ -591,9 +591,9 @@
  "type" : "POST",
  "datatype" : "json",
  "classname" : "Assembla_Model_Standupreport",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/standup_report",
-  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
 "away_standup_reports" : {
   "category" : "StandUp Away Reports",
  "type" : "GET",
@@ -623,7 +623,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Collection_Mergerequest",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "merge_request_by_id" : {
@@ -631,7 +631,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Model_Mergerequest",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${id}",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "merge_request_comments" : {
@@ -639,7 +639,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Collection_Mergerequest_Comment",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/comments",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "merge_request_versions" : {
@@ -647,7 +647,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Collection_Mergerequest_Version",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "merge_request_versions_by_version" : {
@@ -655,7 +655,7 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Model_Mergerequest_Version",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "merge_request_versions_comments" : {
@@ -663,9 +663,9 @@
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Collection_Mergerequest_Version_Comment",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/comments",
-  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
 "create_merge_request_versions_comments" : {
   "category" : "Merge Request Version Comments",
  "type" : "POST",
@@ -673,13 +673,13 @@
  "classname" : "Assembla_Model_Mergerequest_Version_Comment",
  "status" : "untested",
   "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/comments",
-  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
 "merge_request_votes" : {
   "category" : "Merge Request Version Votes",
  "type" : "GET",
  "datatype" : "json",
  "classname" : "Assembla_Collection_Mergerequest_Version_Vote",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/votes",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "merge_request_upvote" : {
@@ -687,7 +687,7 @@
  "type" : "POST",
  "datatype" : "json",
  "classname" : "Assembla_Model_Mergerequest_Version_Vote",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/votes/upvote",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "merge_request_downvote" : {
@@ -695,7 +695,7 @@
  "type" : "POST",
  "datatype" : "json",
  "classname" : "Assembla_Model_Mergerequest_Version_Vote",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/votes/downvote",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "delete_vote_from_merge_request" : {
@@ -703,7 +703,7 @@
  "type" : "DELETE",
  "datatype" : "json",
  "classname" : "Assembla_Model_Mergerequest_Version_Vote",
- "status" : "untested",
+ "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/space_tools/${space_tool_id}/merge_requests/${merge_request_id}/versions/${version}/votes/delete",
   "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
 "wiki_pages" : {
@@ -729,5 +729,45 @@
  "classname" : "Assembla_Model_Wikipage",
  "status" : "tested",
   "uri" : "/v1/spaces/${space_id}/wiki_pages",
-  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] }
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
+"update_wiki_page" : {
+  "category" : "Wiki Pages",
+ "type" : "PUT",
+ "datatype" : "json",
+ "classname" : "Assembla_Model_Wikipage",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/wiki_pages/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}","Content-Type: application/json" ] },
+"delete_wiki_page" : {
+  "category" : "Wiki Pages",
+ "type" : "DELETE",
+ "datatype" : "json",
+ "classname" : "Assembla_Model_Wikipage",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/wiki_pages/${id}/all",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"delete_container_wiki_page" : {
+  "category" : "Wiki Pages",
+ "type" : "DELETE",
+ "datatype" : "json",
+ "classname" : "Assembla_Model_Wikipage",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/wiki_pages/${id}/container",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"wiki_page_versions" : {
+  "category" : "Wiki Page Versions",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Assembla_Collection_Wikipageversions",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/wiki_pages/${wiki_page_id}/versions",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] },
+"wiki_page_version_by_id" : {
+  "category" : "Wiki Page Versions",
+ "type" : "GET",
+ "datatype" : "json",
+ "classname" : "Assembla_Model_Wikipageversions",
+ "status" : "untested",
+  "uri" : "/v1/spaces/${space_id}/wiki_pages/${wiki_page_id}/versions/${id}",
+  "headers" : [ "X-Api-Key: ${credentials/api_key}","X-Api-Secret: ${credentials/api_key_secret}" ] }
 }}
