@@ -95,16 +95,17 @@ abstract class Core_API {
       //         automatically check the 'defaults' section of the config
       //         if a config key isn't set on service?
 
+      $service_object_class = "";
       if (isset($service_config->service_object) ) {
         $service_object_class = $service_config->service_object;
       } else {
         $service_object_class = $this->getConfig('defaults/service_object');
       }
 
-      try {
+      if(class_exists( $service_object_class )) {
         $service = new $service_object_class($this);
-      } catch( Exception $e) {
-        throw new Assembla_Exception(sprintf('Could not locate a Service Object for service %s. Reason: %s', $service->key, $e->getMessage() ));
+      } else {
+        throw new Assembla_Exception(sprintf('Could not locate a Service Object for service %s.', $service->key) );
       }
 
       $service->setData( $service_config->toArray() );
@@ -170,6 +171,8 @@ abstract class Core_API {
       $request = $service->validateArgs( $uri_arguments )->getRequest( $uri_arguments );
       $request->setCurlData( isset($args[1]) ? $args[1] : null );
 
+      $response = $request->send();
+
       // this needs to be refactored so that "send" returns a response object which gets filters and then "processesRequest"
 
       return $this->_getResponse()
@@ -183,10 +186,4 @@ abstract class Core_API {
   abstract protected function _getRequest();
   abstract protected function _getResponse();
 
-}
-
-class Assembla_Exception extends Exception {
-  public function __construct($message = null, $code = 0, Exception $previous = null) {
-    parent::__construct($message, $code, $previous);
-  }
 }

@@ -6,6 +6,7 @@
             "datatype" : "json",
             "classname" : "Core_Object",
             "uri" : "/some-uri",
+            "service_object" : "Assembla_API_Service",
             "headers" :[] }
     }
 }

@@ -5,6 +5,13 @@ class Assembla_API_V1_Request extends Core_API_Request_Json {
   protected $_api;
   protected $_service;
 
+  public function getResponseClassName(){
+    if( $this->getService() instanceof Core_API_Service ){
+      return $this->getService()->getResponseClassName();
+    }
+    return parent::getResponseClassName();
+  }
+
   public function getService(){
     return $this->_service;
   }

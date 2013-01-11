@@ -8,7 +8,7 @@ class Assembla_API_Service extends Core_API_Service {
     $args = func_get_args();
 
     if (empty($args[0]) || !( $args[0] instanceof Core_API )) {
-      throw Assembla_Exception( __CLASS__ . " must be instantiated with an object of type Core_API!");
+      throw new Assembla_Exception( __CLASS__ . " must be instantiated with an object of type Core_API!");
     }
 
     $this->_api = &$args[0];
@@ -68,6 +68,7 @@ class Assembla_API_Service extends Core_API_Service {
     $request_class_name = $this->getRequestClassName();
     $request = new $request_class_name();
 
+    $request->setService( $this );
 
     if( $this->getUri() ){
       $request->setUri( $this->processUri( $args ) );
