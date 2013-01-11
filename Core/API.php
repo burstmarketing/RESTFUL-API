@@ -53,7 +53,8 @@ abstract class Core_API {
       // currently just defaults to json.
       switch( $this->_config_base_type ){
       default:
-        $this->_config = new Zend_Config_Json( $file, null, true );
+        $config_reader = new Zend\Config\Reader\Json();
+        $this->_config = new Zend\Config\Config( $config_reader->fromFile( $file ), true );
       }
 
     } else {
@@ -62,21 +63,38 @@ abstract class Core_API {
   }
 
   public function getConfigs() {
-    return $this->_config->getConfigs();
+    return $this->_config->toArray();
   }
 
   // @todo - This will throw  a fatal error if $uri doesn't exist, and has a slash in it
-  public function getConfig( $uri ){
-    if ($config = $this->_config->getConfig($uri)) {
-      return $config;
-    } else {
-      return false;
+
+
+  protected function _getConfig( &$config, $uri){
+    $matches = explode( '/', $uri );
+    if( count($matches) == 1 ) {
+      return $config->$uri;
     }
+    $next = array_shift( $matches );
+    return $this->_getConfig( $config->$next, implode( $matches, "/" ));
+  }
+
+
+  public function getConfig( $uri ){
+    return $this->_getConfig( $this->_config, $uri );
+  }
+
+  protected function _setConfig( &$config, $uri, $value ){
+    $matches = explode( '/', $uri );
+    if( count($matches) == 1 ) {
+      $config->$uri = $value;
+      return $this;
+    }
+    $next = array_shift( $matches );
+    return $this->_setConfig( $config->$next, implode( $matches, "/" ), $value );
   }
 
   public function setConfig( $uri, $value ){
-    $this->_config->setConfig($uri, $value );
-    return $this;
+    return $this->_setConfig( $this->_config, $uri, $value );
   }
 
 

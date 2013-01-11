@@ -1,48 +1,46 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_Config
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Yaml.php 23651 2011-01-21 21:51:00Z mikaelkael $
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_Config
  */
 
-/**
- * @see Zend_Config_Writer
- */
-// require_once 'Zend/Config/Writer/FileAbstract.php';
+namespace Zend\Config\Writer;
 
-/**
- * @see Zend_Config_Yaml
- */
-// require_once 'Zend/Config/Yaml.php';
+use Zend\Config\Exception;
 
 /**
  * @category   Zend
  * @package    Zend_Config
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @subpackage Writer
  */
-class Zend_Config_Writer_Yaml extends Zend_Config_Writer_FileAbstract
+class Yaml extends AbstractWriter
 {
     /**
-     * What to call when we need to decode some YAML?
+     * YAML encoder callback
      *
      * @var callable
      */
-    protected $_yamlEncoder = array('Zend_Config_Writer_Yaml', 'encode');
+    protected $yamlEncoder;
+
+    /**
+     * Constructor
+     *
+     * @param callable|string|null $yamlEncoder
+     */
+    public function __construct($yamlEncoder = null)
+    {
+        if ($yamlEncoder !== null) {
+            $this->setYamlEncoder($yamlEncoder);
+        } else {
+            if (function_exists('yaml_emit')) {
+                $this->setYamlEncoder('yaml_emit');
+            }
+        }
+    }
 
     /**
      * Get callback for decoding YAML
@@ -51,94 +49,43 @@ class Zend_Config_Writer_Yaml extends Zend_Config_Writer_FileAbstract
      */
     public function getYamlEncoder()
     {
-        return $this->_yamlEncoder;
+        return $this->yamlEncoder;
     }
 
     /**
      * Set callback for decoding YAML
      *
      * @param  callable $yamlEncoder the decoder to set
-     * @return Zend_Config_Yaml
+     * @return Yaml
+     * @throws Exception\InvalidArgumentException
      */
     public function setYamlEncoder($yamlEncoder)
     {
         if (!is_callable($yamlEncoder)) {
-            // require_once 'Zend/Config/Exception.php';
-            throw new Zend_Config_Exception('Invalid parameter to setYamlEncoder - must be callable');
+            throw new Exception\InvalidArgumentException('Invalid parameter to setYamlEncoder() - must be callable');
         }
-
-        $this->_yamlEncoder = $yamlEncoder;
+        $this->yamlEncoder = $yamlEncoder;
         return $this;
     }
 
     /**
-     * Render a Zend_Config into a YAML config string.
+     * processConfig(): defined by AbstractWriter.
      *
-     * @since 1.10
+     * @param  array $config
      * @return string
+     * @throws Exception\RuntimeException
      */
-    public function render()
+    public function processConfig(array $config)
     {
-        $data        = $this->_config->toArray();
-        $sectionName = $this->_config->getSectionName();
-        $extends     = $this->_config->getExtends();
-
-        if (is_string($sectionName)) {
-            $data = array($sectionName => $data);
+        if (null === $this->getYamlEncoder()) {
+             throw new Exception\RuntimeException("You didn't specify a Yaml callback encoder");
         }
 
-        foreach ($extends as $section => $parentSection) {
-            $data[$section][Zend_Config_Yaml::EXTENDS_NAME] = $parentSection;
+        $config = call_user_func($this->getYamlEncoder(), $config);
+        if (null === $config) {
+            throw new Exception\RuntimeException("Error generating YAML data");
         }
 
-        // Ensure that each "extends" section actually exists
-        foreach ($data as $section => $sectionData) {
-            if (is_array($sectionData) && isset($sectionData[Zend_Config_Yaml::EXTENDS_NAME])) {
-                $sectionExtends = $sectionData[Zend_Config_Yaml::EXTENDS_NAME];
-                if (!isset($data[$sectionExtends])) {
-                    // Remove "extends" declaration if section does not exist
-                    unset($data[$section][Zend_Config_Yaml::EXTENDS_NAME]);
-                }
-            }
-        }
-
-        return call_user_func($this->getYamlEncoder(), $data);
-    }
-
-    /**
-     * Very dumb YAML encoder
-     *
-     * Until we have Zend_Yaml...
-     *
-     * @param array $data YAML data
-     * @return string
-     */
-    public static function encode($data)
-    {
-        return self::_encodeYaml(0, $data);
-    }
-
-    /**
-     * Service function for encoding YAML
-     *
-     * @param int $indent Current indent level
-     * @param array $data Data to encode
-     * @return string
-     */
-    protected static function _encodeYaml($indent, $data)
-    {
-        reset($data);
-        $result = "";
-        $numeric = is_numeric(key($data));
-
-        foreach($data as $key => $value) {
-            if(is_array($value)) {
-                $encoded = "\n".self::_encodeYaml($indent+1, $value);
-            } else {
-                $encoded = (string)$value."\n";
-            }
-            $result .= str_repeat("  ", $indent).($numeric?"- ":"$key: ").$encoded;
-        }
-        return $result;
+        return $config;
     }
 }
