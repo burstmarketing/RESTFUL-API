@@ -2,10 +2,14 @@
 
 class Core_API_Response_Json extends Core_API_Response {
 
-  public function processRequest(Core_API_Request $http_response, $classname='Core_Object') {
-    $class = new $classname;
-    $class->setData(json_decode((array)$http_response, true));
+  // @todo - this should be the zend decoder probably
+  protected function _processContent( $str ){
+    return json_decode( $str, true );
+  }
 
-    return $class;
+  public function process( Core_API_Service $service ){
+    $obj = new Core_Object();
+    $obj->load($this->processContent( $this->getContent() ) );
+    return $obj;
   }
 }

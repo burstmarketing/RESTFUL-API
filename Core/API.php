@@ -121,8 +121,6 @@ abstract class Core_API {
 
 
 
-  abstract public function processResponse( Zend\Http\Response $response, Core_API_Service $service );
-
   protected function _underscore($name) {
     return strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $name));
   }

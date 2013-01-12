@@ -2,11 +2,6 @@
 
 class Core_API_Request_Json extends Core_API_Request {
 
-  public function setAPI(Core_API &$api) {}
-
-  public function getResponseClassName(){
-    return "Core_API_Response_Json";
-  }
 
   protected function _validateCurlResponse( $str ){
     return ( @json_decode($str) !== false );

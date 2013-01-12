@@ -9,15 +9,13 @@ class Assembla_API_V1_Response  extends Core_API_Response_Json {
 
   public function clearFilters() {
     $this->_filters = array();
-
     return $this;
   }
 
 
   public function process( Core_API_Service $service ){
     $classname = $service->getClassname();
-    // @todo - this should be the zend decoder probably
-    $data = json_decode($this->getContent(), true);
+    $data = $this->_processContent( $this->getContent() );
 
 
     // this whole thing is going to have to be rewritten
