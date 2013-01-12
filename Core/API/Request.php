@@ -8,10 +8,6 @@ abstract class Core_API_Request extends Zend\Http\Request {
     return true;
   }
 
-  abstract public function setAPI(Core_API &$api);
-  abstract public function getResponseClassName();
-
-
   protected function _curlFailure( $ch, $out ){
     throw new Exception( 'curl_exec failed with: ' . curl_error( $ch ) );
   }

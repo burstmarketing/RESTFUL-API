@@ -2,6 +2,9 @@
 
 class Assembla_API_V1_Request extends Core_API_Request_Json {
 
+
+  /*
+
   protected $_api;
   protected $_service;
 

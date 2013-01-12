@@ -4,7 +4,6 @@ class Assembla_API_V1_Response  extends Core_API_Response_Json {
 
   public function setFilters(array $filters) {
     $this->_filters = $filters;
-
     return $this;
   }
 
@@ -14,26 +13,30 @@ class Assembla_API_V1_Response  extends Core_API_Response_Json {
     return $this;
   }
 
-  public function processRequest(Core_API_Request $request, $classname = "Core_Object" ){
-    $http_response = $request->send();
-    $data          = json_decode($http_response, true);
 
+  public function process( Core_API_Service $service ){
+    $classname = $service->getClassname();
+    // @todo - this should be the zend decoder probably
+    $data = json_decode($this->getContent(), true);
+
+
+    // this whole thing is going to have to be rewritten
     if (!isset($data['errors'])) {
-      switch ($request->getType()) {
+      switch ($service->getType()) {
       case 'PUT':
       case 'POST':
       case 'DELETE':
-        $response = new $classname;
+        $obj = new $classname;
 
-        if (method_exists($response, 'load')) {
-          $response->load($data);
+        if (method_exists($obj, 'load')) {
+          $obj->load($data);
         } else {
-          $response->setData($data);
+          $obj->setData($data);
         }
 
         $message = new Core_Object;
         $message->setSuccess(1)
-                ->setBody($response);
+                ->setBody($obj);
 
         return $message;
         break;
@@ -45,7 +48,7 @@ class Assembla_API_V1_Response  extends Core_API_Response_Json {
 
         // Pass filters to the proper collection/model/whatever, they're
         // only on the API object temporarily.
-        $class->setFilters($this->_filters);
+        $class->setFilters($this->getFilters);
         $this->clearFilters();
 
         if (method_exists($class, 'load')) {
@@ -68,5 +71,7 @@ class Assembla_API_V1_Response  extends Core_API_Response_Json {
 
         throw new Assembla_Exception($error);
       }
-    }
+
   }
+
+}

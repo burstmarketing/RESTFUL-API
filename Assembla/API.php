@@ -1,14 +1,11 @@
 <?php
 
 class Assembla_API extends Core_API {
-  protected $_request_class = "Assembla_API_V1_Request";
-  protected $_response_class = "Assembla_API_V1_Response";
-
 
   // a little sneaky if '$file' is already a config object
   // set _config to that,  else load $file as if it were a file
   public function loadConfig( $file ){
-    if( is_object($file) && $file instanceof Zend_Config ){
+    if( is_object($file) && $file instanceof Zend\Config\Config ){
       $this->_config = $file;
     } else {
       parent::loadConfig( $file );
@@ -17,12 +14,14 @@ class Assembla_API extends Core_API {
     return $this;
   }
 
-  // this should be an abstract function up in Core_API
-  public function getClient( $args = false){
+  protected function _getClient( $args = false){
     $client = new Assembla_API_Client($args);
     $client->setOptions( array("sslverifypeer" => false) );
     return $client;
   }
+
+
+
 
 
   public function getUserName(){
