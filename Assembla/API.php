@@ -17,6 +17,14 @@ class Assembla_API extends Core_API {
     return $this;
   }
 
+  // this should be an abstract function up in Core_API
+  public function getClient( $args = false){
+    $client = new Assembla_API_Client($args);
+    $client->setOptions( array("sslverifypeer" => false) );
+    return $client;
+  }
+
+
   public function getUserName(){
     return $this->getConfig('credentials/username');
   }

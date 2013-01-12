@@ -63,7 +63,23 @@ class Assembla_API_Service extends Core_API_Service {
     return $this;
   }
 
+  public function getRequest( $args ) {
+    $request_class_name = $this->getRequestClassName();
+    $request = new $request_class_name();
 
+    if( $this->getUri() ){
+      $request->setUri( $this->getUrl() . $this->processUri( $args ) );
+    } else {
+      throw new Assembla_Exception(sprintf('Can\'t find a URI for %s.', $service->key));
+    }
+    $request->setMethod( $this->getType() );
+    $request->getHeaders()->addHeaders( $this->_setupHeaders() );
+
+    return $request;
+  }
+
+
+  /*
   public function getRequest( $args ){
     $request_class_name = $this->getRequestClassName();
     $request = new $request_class_name();
@@ -84,7 +100,7 @@ class Assembla_API_Service extends Core_API_Service {
 
     return $request;
   }
-
+  */
 
   public function processUri( $args ) {
     return $this->_setupDatatype( $this->_processURI($this->getUri(), $args) );

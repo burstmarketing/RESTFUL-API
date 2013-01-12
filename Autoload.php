@@ -13,6 +13,7 @@ final class RESTFUL_API_LOADER {
     require_once 'Zend/Loader/StandardAutoloader.php';
     self::$loader = new Zend\Loader\StandardAutoloader(array('autoregister_zf' => true));
 
+
     // register Zend as a prefix for backward's compatability
     self::$loader->registerPrefix('Zend', self::getBaseDir() . 'Zend');
 

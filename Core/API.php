@@ -187,9 +187,18 @@ abstract class Core_API {
 
 
       $request = $service->validateArgs( $uri_arguments )->getRequest( $uri_arguments );
-      $request->setCurlData( isset($args[1]) ? $args[1] : null );
+      $request->getPost()->fromArray( isset($args[1]) ? $args[1] : array() );
 
-      $response = $request->send();
+      //      $request->setCurlData( isset($args[1]) ? $args[1] : null );
+
+
+      $client = $this->getClient();
+
+      $response = $client->dispatch($request);
+
+      var_dump($response); die();
+
+      //      $response = $request->send();
 
       // this needs to be refactored so that "send" returns a response object which gets filters and then "processesRequest"
 
