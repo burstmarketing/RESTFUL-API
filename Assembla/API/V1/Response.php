@@ -1,6 +1,6 @@
 <?php
 
-class Assembla_API_V1_Response  extends Core_API_Response_Json {
+class Assembla_API_V1_Response  extends Assembla_API_Response {
 
   public function setFilters(array $filters) {
     $this->_filters = $filters;
@@ -13,9 +13,18 @@ class Assembla_API_V1_Response  extends Core_API_Response_Json {
   }
 
 
-  public function process( Core_API_Service $service ){
+  public function getObject( Core_API_Service $service ){
+
     $classname = $service->getClassname();
-    $data = $this->_processContent( $this->getContent() );
+
+    if( $service->getDatatype() == 'xml' ){
+      $xml_reader = new Zend\Config\Reader\Xml();
+      $data = $xml_reader->fromString( $this->getContent() );
+    } else if( $service->getDatatype() == 'json' )  {
+      $data = json_decode( $this->getContent(), true );
+    } else {
+      throw new Assembla_Exception( "data type for Assembla_API_Service must be either json or xml!");
+    }
 
 
     // this whole thing is going to have to be rewritten

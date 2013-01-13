@@ -182,7 +182,7 @@ abstract class Core_API {
 
         $response = $this->_getClient()->dispatch($request);
 
-        return $response->process( $service );
+        return $response->getObject( $service );
 
       } else {
         throw new Assembla_Exception(sprintf('Service for %s could not be found.', $key));
