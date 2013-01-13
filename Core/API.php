@@ -7,6 +7,8 @@ abstract class Core_API {
   protected $_config;
   protected $_config_base_type;
 
+  protected $_lastResponse;
+
   /**
    * FILTER RELATED FUNCTIONALITY
    **/
@@ -49,10 +51,6 @@ abstract class Core_API {
   }
 
 
-  /**
-   * Deprecated - cache implementations,  if needed,  should be created with
-   *              Zend\Cache objects
-   **
   public function useCache( $use_cache = null ){
     if( $use_cache === null ){
       return $this->_use_cache;
@@ -60,7 +58,7 @@ abstract class Core_API {
     $this->_use_cache = $use_cache;
     return $this;
   }
-  */
+
 
   /**
    * CONFIG RELATED FUNCTIONALITY
@@ -119,8 +117,6 @@ abstract class Core_API {
    * __CALL() RELATED FUNCTIONALITY
    **/
 
-
-
   protected function _underscore($name) {
     return strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $name));
   }
@@ -129,6 +125,9 @@ abstract class Core_API {
     return new Zend\Http\Client();
   }
 
+  public function getLastResponse() {
+    return $this->_lastResponse;
+  }
 
   /**
    * Return an object that inherits from Core_API_Service, this should represent
@@ -168,6 +167,7 @@ abstract class Core_API {
     return false;
   }
 
+
   public function __call($method, $args){
     $matches = array();
 
@@ -178,11 +178,15 @@ abstract class Core_API {
       if( ($service = $this->getService($key) ) !== false) {
 
         $request = $service->validateArgs( $uri_arguments )->getRequest( $uri_arguments );
-        $request->getPost()->fromArray( isset($args[1]) ? $args[1] : array() );
+        $client = $this->_getClient();
 
-        $response = $this->_getClient()->dispatch($request);
+        if( isset($args[1] ) ){
+          $request->manageRequestData( $args[1] );
+        }
 
-        return $response->getObject( $service );
+        $this->_lastResponse = $client->dispatch($request);
+
+        return $this->_lastResponse->getObject( $service, $this->getFilters() );
 
       } else {
         throw new Assembla_Exception(sprintf('Service for %s could not be found.', $key));
@@ -193,10 +197,5 @@ abstract class Core_API {
       throw new Assembla_Exception('Invalid method. Not one of load/post/put/delete.');
     }
   }
-
-
-
-
-
 
 }

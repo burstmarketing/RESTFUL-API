@@ -11,4 +11,8 @@ class Assembla_API_Request extends Core_API_Request {
         return '';
   }
 
+  public function manageRequestData( $data ) {
+    return $this;
+  }
+
 }

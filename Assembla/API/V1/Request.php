@@ -12,4 +12,9 @@ class Assembla_API_V1_Request extends Assembla_API_Request {
         return '';
   }
 
+  public function manageRequestData( $data ) {
+    $this->setContent(json_encode($data));
+    return $this;
+  }
+
 }

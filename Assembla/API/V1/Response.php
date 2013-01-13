@@ -2,82 +2,35 @@
 
 class Assembla_API_V1_Response  extends Assembla_API_Response {
 
-  public function setFilters(array $filters) {
-    $this->_filters = $filters;
-    return $this;
-  }
+  protected function _processContent() {
 
-  public function clearFilters() {
-    $this->_filters = array();
-    return $this;
-  }
-
-
-  public function getObject( Core_API_Service $service ){
-
-    $classname = $service->getClassname();
-
-    if( $service->getDatatype() == 'xml' ){
-      $xml_reader = new Zend\Config\Reader\Xml();
-      $data = $xml_reader->fromString( $this->getContent() );
-    } else if( $service->getDatatype() == 'json' )  {
-      $data = json_decode( $this->getContent(), true );
-    } else {
-      throw new Assembla_Exception( "data type for Assembla_API_Service must be either json or xml!");
+    try {
+      return Zend\Json\Json::decode( $this->getContent(), Zend\Json\Json::TYPE_ARRAY );
+    } catch( Zend\Json\Exception\RuntimeException $e ) {
+      try {
+        $xml_reader = new Zend\Config\Reader\Xml();
+        return $xml_reader->fromString( $this->getContent() );
+      } catch (Exception $e ) {
+        throw new Assembla_Exception( "Server Responded with unformated data: " . substr( $this->getContent(), 0, 50) . strlen($this->getContent()) > 50 ? "..." : "" );
+      }
     }
+  }
 
 
-    // this whole thing is going to have to be rewritten
-    if (!isset($data['errors'])) {
-      switch ($service->getType()) {
-      case 'PUT':
-      case 'POST':
-      case 'DELETE':
-        $obj = new $classname;
+  public function getObject( Core_API_Service $service, $filters = array() ){
 
-        if (method_exists($obj, 'load')) {
-          $obj->load($data);
-        } else {
-          $obj->setData($data);
-        }
+    if( $this->isSuccess() ){
+      $classname = $service->getClassname() ? $service->getClassname() : "Core_Object";
+      $data = $this->_processContent();
 
-        $message = new Core_Object;
-        $message->setSuccess(1)
-                ->setBody($obj);
+      $class = new $classname();
+      $class->setFilters($filters);
 
-        return $message;
-        break;
+      return method_exists($class, 'load') ? $class->load($data) : $class->setData( $data );
 
-      default:
-        // make sure $classname exists
-        $classname = (class_exists($classname)) ? $classname : 'Core_Object';
-        $class = new $classname;
-
-        // Pass filters to the proper collection/model/whatever, they're
-        // only on the API object temporarily.
-        $class->setFilters($this->getFilters);
-        $this->clearFilters();
-
-        if (method_exists($class, 'load')) {
-          return $class->load($data);
-        } else {
-          return $class->setData($data);
-        }
-        break;
-      }
-      } else {
-        $error = "Errors were encountered: \n";
-
-        foreach ($data['errors'] as $e) {
-          if ($e == 'HTTP Basic: Access denied.') {
-            throw new Core_Exception_Auth('Authentication credentials failed.');
-          } else {
-            $error .= ' ' . $e . ' ';
-          }
-        }
-
-        throw new Assembla_Exception($error);
-      }
+    } else {
+      throw new Assembla_Exception( "Request error: " . $this->renderStatusLine() );
+    }
 
   }
 
