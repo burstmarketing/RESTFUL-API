@@ -14,14 +14,11 @@ class Assembla_API extends Core_API {
     return $this;
   }
 
-  protected function _getClient( $args = false){
+  public function getClient( $args = false){
     $client = new Assembla_API_Client($args);
     $client->setOptions( array("sslverifypeer" => false) );
     return $client;
   }
-
-
-
 
 
   public function getUserName(){

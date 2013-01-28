@@ -1,7 +1,7 @@
 <?php
 if (!defined("ASSEMBLA_REST_API_ROOT")) {
   define("ASSEMBLA_REST_API_ROOT", realpath(dirname(__DIR__)));
-}
+ }
 
 require_once ASSEMBLA_REST_API_ROOT . '/../Autoload.php';
 require_once ASSEMBLA_REST_API_ROOT . '/../Assembla/API.php';
@@ -12,85 +12,88 @@ require_once ASSEMBLA_REST_API_ROOT . '/../Assembla/API.php';
  */
 class Assembla_API_ServiceTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @var Assembla_API_Service
-     */
-    protected $object;
+  /**
+   * @var Assembla_API_Service
+   */
+  protected $object;
 
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
-    {
-        $this->object = new Assembla_API_Service;
-    }
 
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
-    {
-    }
+  /**
+   * Sets up the fixture, for example, opens a network connection.
+   * This method is called before a test is executed.
+   */
+  protected function setUp()
+  {
+    $this->api = new Assembla_API;
+    $this->api->loadConfig(ASSEMBLA_REST_API_ROOT . '/../Assembla/etc/config.json');
+    $this->object = new Assembla_API_Service($this->api);
+  }
 
-    /**
-     * @covers Assembla_API_Service::__call
-     * @todo   Implement test__call().
-     */
-    public function test__call()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
+  /**
+   * Tears down the fixture, for example, closes a network connection.
+   * This method is called after a test is executed.
+   */
+  protected function tearDown()
+  {
+  }
 
-    /**
-     * @covers Assembla_API_Service::getAPI
-     * @todo   Implement testGetAPI().
-     */
-    public function testGetAPI()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
+  /**
+   * @covers Assembla_API_Service::__call
+   * @todo   Implement test__call().
+   */
+  public function test__call()
+  {
+    // Remove the following lines when you implement this test.
+    $this->markTestIncomplete(
+      'This test has not been implemented yet.'
+    );
+  }
 
-    /**
-     * @covers Assembla_API_Service::validateArgs
-     * @todo   Implement testValidateArgs().
-     */
-    public function testValidateArgs()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
+  /**
+   * @covers Assembla_API_Service::getAPI
+   * @todo   Implement testGetAPI().
+   */
+  public function testGetAPI()
+  {
+    // Remove the following lines when you implement this test.
+    $this->markTestIncomplete(
+      'This test has not been implemented yet.'
+    );
+  }
 
-    /**
-     * @covers Assembla_API_Service::getRequest
-     * @todo   Implement testGetRequest().
-     */
-    public function testGetRequest()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
+  /**
+   * @covers Assembla_API_Service::validateArgs
+   * @todo   Implement testValidateArgs().
+   */
+  public function testValidateArgs()
+  {
+    // Remove the following lines when you implement this test.
+    $this->markTestIncomplete(
+      'This test has not been implemented yet.'
+    );
+  }
 
-    /**
-     * @covers Assembla_API_Service::processUri
-     * @todo   Implement testProcessUri().
-     */
-    public function testProcessUri()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
+  /**
+   * @covers Assembla_API_Service::getRequest
+   * @todo   Implement testGetRequest().
+   */
+  public function testGetRequest()
+  {
+    // Remove the following lines when you implement this test.
+    $this->markTestIncomplete(
+      'This test has not been implemented yet.'
+    );
+  }
+
+  /**
+   * @covers Assembla_API_Service::processUri
+   * @todo   Implement testProcessUri().
+   */
+  public function testProcessUri()
+  {
+    // Remove the following lines when you implement this test.
+    $this->markTestIncomplete(
+      'This test has not been implemented yet.'
+    );
+  }
 }

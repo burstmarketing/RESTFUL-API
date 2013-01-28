@@ -90,7 +90,11 @@ abstract class Core_API {
       return $config->$uri;
     }
     $next = array_shift( $matches );
-    return $this->_getConfig( $config->$next, implode( $matches, "/" ));
+    if( isset($config->$next) ){
+      return $this->_getConfig( $config->$next, implode( $matches, "/" ));
+    }
+    return null;
+
   }
 
 
@@ -121,7 +125,7 @@ abstract class Core_API {
     return strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $name));
   }
 
-  protected function _getClient( $args = false){
+  public function getClient( $args = false){
     return new Zend\Http\Client();
   }
 
@@ -178,7 +182,7 @@ abstract class Core_API {
       if( ($service = $this->getService($key) ) !== false) {
 
         $request = $service->validateArgs( $uri_arguments )->getRequest( $uri_arguments );
-        $client = $this->_getClient();
+        $client = $this->getClient();
 
         if( isset($args[1] ) ){
           $request->manageRequestData( $args[1] );

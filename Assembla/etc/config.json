@@ -6,7 +6,10 @@
         "api_key_secrete" : ""
     },
     "defaults" : {
-        "url" : "https://api.assembla.com"
+        "url" : "https://api.assembla.com",
+        "service_object" : "Assembla_API_Service",
+        "request_class_name" : "Assembla_API_V1_Request",
+        "response_class_name" : "Assembla_API_V1_Response"
     },
     "services" : {
 
