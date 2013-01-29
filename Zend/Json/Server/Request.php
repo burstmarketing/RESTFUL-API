@@ -1,75 +1,66 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_Json
- * @subpackage Server
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Request.php 23775 2011-03-01 17:25:24Z ralph $
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_Json
  */
 
+namespace Zend\Json\Server;
+
+use Zend\Json;
+
 /**
+ * @todo       Revised method regex to allow NS; however, should SMD be revised to strip PHP NS instead when attaching functions?
  * @category   Zend
  * @package    Zend_Json
  * @subpackage Server
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Json_Server_Request
+class Request
 {
     /**
      * Request ID
      * @var mixed
      */
-    protected $_id;
+    protected $id;
 
     /**
      * Flag
      * @var bool
      */
-    protected $_isMethodError = false;
+    protected $isMethodError = false;
 
     /**
      * Requested method
      * @var string
      */
-    protected $_method;
+    protected $method;
 
     /**
      * Regex for method
      * @var string
      */
-    protected $_methodRegex = '/^[a-z][a-z0-9_.]*$/i';
+    protected $methodRegex = '/^[a-z][a-z0-9\\\\_.]*$/i';
 
     /**
      * Request parameters
      * @var array
      */
-    protected $_params = array();
+    protected $params = array();
 
     /**
      * JSON-RPC version of request
      * @var string
      */
-    protected $_version = '1.0';
+    protected $version = '1.0';
 
     /**
      * Set request state
      *
      * @param  array $options
-     * @return Zend_Json_Server_Request
+     * @return \Zend\Json\Server\Request
      */
     public function setOptions(array $options)
     {
@@ -90,15 +81,15 @@ class Zend_Json_Server_Request
      *
      * @param  mixed $value
      * @param  string $key
-     * @return Zend_Json_Server_Request
+     * @return \Zend\Json\Server\Request
      */
     public function addParam($value, $key = null)
     {
         if ((null === $key) || !is_string($key)) {
-            $index = count($this->_params);
-            $this->_params[$index] = $value;
+            $index = count($this->params);
+            $this->params[$index] = $value;
         } else {
-            $this->_params[$key] = $value;
+            $this->params[$key] = $value;
         }
 
         return $this;
@@ -108,7 +99,7 @@ class Zend_Json_Server_Request
      * Add many params
      *
      * @param  array $params
-     * @return Zend_Json_Server_Request
+     * @return \Zend\Json\Server\Request
      */
     public function addParams(array $params)
     {
@@ -122,11 +113,11 @@ class Zend_Json_Server_Request
      * Overwrite params
      *
      * @param  array $params
-     * @return Zend_Json_Server_Request
+     * @return \Zend\Json\Server\Request
      */
     public function setParams(array $params)
     {
-        $this->_params = array();
+        $this->params = array();
         return $this->addParams($params);
     }
 
@@ -138,8 +129,8 @@ class Zend_Json_Server_Request
      */
     public function getParam($index)
     {
-        if (array_key_exists($index, $this->_params)) {
-            return $this->_params[$index];
+        if (array_key_exists($index, $this->params)) {
+            return $this->params[$index];
         }
 
         return null;
@@ -152,21 +143,21 @@ class Zend_Json_Server_Request
      */
     public function getParams()
     {
-        return $this->_params;
+        return $this->params;
     }
 
     /**
      * Set request method
      *
      * @param  string $name
-     * @return Zend_Json_Server_Request
+     * @return \Zend\Json\Server\Request
      */
     public function setMethod($name)
     {
-        if (!preg_match($this->_methodRegex, $name)) {
-            $this->_isMethodError = true;
+        if (!preg_match($this->methodRegex, $name)) {
+            $this->isMethodError = true;
         } else {
-            $this->_method = $name;
+            $this->method = $name;
         }
         return $this;
     }
@@ -178,7 +169,7 @@ class Zend_Json_Server_Request
      */
     public function getMethod()
     {
-        return $this->_method;
+        return $this->method;
     }
 
     /**
@@ -188,18 +179,18 @@ class Zend_Json_Server_Request
      */
     public function isMethodError()
     {
-        return $this->_isMethodError;
+        return $this->isMethodError;
     }
 
     /**
      * Set request identifier
      *
      * @param  mixed $name
-     * @return Zend_Json_Server_Request
+     * @return \Zend\Json\Server\Request
      */
     public function setId($name)
     {
-        $this->_id = (string) $name;
+        $this->id = (string) $name;
         return $this;
     }
 
@@ -210,21 +201,21 @@ class Zend_Json_Server_Request
      */
     public function getId()
     {
-        return $this->_id;
+        return $this->id;
     }
 
     /**
      * Set JSON-RPC version
      *
      * @param  string $version
-     * @return Zend_Json_Server_Request
+     * @return \Zend\Json\Server\Request
      */
     public function setVersion($version)
     {
         if ('2.0' == $version) {
-            $this->_version = '2.0';
+            $this->version = '2.0';
         } else {
-            $this->_version = '1.0';
+            $this->version = '1.0';
         }
         return $this;
     }
@@ -236,7 +227,7 @@ class Zend_Json_Server_Request
      */
     public function getVersion()
     {
-        return $this->_version;
+        return $this->version;
     }
 
     /**
@@ -247,8 +238,7 @@ class Zend_Json_Server_Request
      */
     public function loadJson($json)
     {
-        // require_once 'Zend/Json.php';
-        $options = Zend_Json::decode($json);
+        $options = Json\Json::decode($json, Json\Json::TYPE_ARRAY);
         $this->setOptions($options);
     }
 
@@ -273,8 +263,7 @@ class Zend_Json_Server_Request
             $jsonArray['jsonrpc'] = '2.0';
         }
 
-        // require_once 'Zend/Json.php';
-        return Zend_Json::encode($jsonArray);
+        return Json\Json::encode($jsonArray);
     }
 
     /**
