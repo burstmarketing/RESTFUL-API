@@ -80,7 +80,11 @@ abstract class Core_API {
   }
 
   public function getConfigs() {
-    return $this->_config->toArray();
+    $ret = array();
+    foreach( $this->_config AS $key => $value ){
+      $ret[$key] = $value;
+    }
+    return $ret;
   }
 
 

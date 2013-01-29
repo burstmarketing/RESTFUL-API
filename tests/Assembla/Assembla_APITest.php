@@ -26,7 +26,11 @@ class Assembla_APITest extends PHPUnit_Framework_TestCase {
   protected $object;
 
   protected function _getMockedAPIClient($path){
-    $client = $this->object->getClient();
+    // first get a 'clean' (non-mocked) api object and call getClient() to
+    // provide a baseline for our adapter change.
+    $api = new Assembla_API;
+    $client = $api->getClient();
+
     $adapter = new Zend\Http\Client\Adapter\Test;
     if ( !is_readable($path) ) {
       $this->markTestSkipped(sprintf('Fixture file unreadable: %s.', $path));
@@ -45,8 +49,8 @@ class Assembla_APITest extends PHPUnit_Framework_TestCase {
 
   public function testLoadActivity() {
     $this->object->expects($this->any())
-      ->method('_getClient')
-      ->will($this->returnValue($this->_getMockedAPIClient(ASSEMBLA_REST_API_ROOT . 'test/fixutures/http/load.activity.response' )));
+      ->method('getClient')
+      ->will($this->returnValue($this->_getMockedAPIClient(ASSEMBLA_REST_API_ROOT . '/fixtures/http/load.activity.response' )));
 
     $activity_collection = $this->object->loadActivity();
     $this->assertInstanceOf('Assembla_Collection_Activity', $activity_collection);

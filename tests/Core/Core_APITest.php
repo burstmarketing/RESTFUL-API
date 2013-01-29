@@ -117,7 +117,7 @@ class Core_APITest extends PHPUnit_Framework_TestCase {
   public function testGetConfigNonExistentUriWithSlashReturnsFalse() {
     $this->object->loadConfig(ASSEMBLA_REST_API_ROOT . '/../Assembla/etc/config.json');
 
-    $this->assertFalse($this->object->getConfig('non-existent-key-with-a-/'));
+    $this->assertNull($this->object->getConfig('non-existent-key-with-a-/'));
   }
 
   public function testSetConfig() {
