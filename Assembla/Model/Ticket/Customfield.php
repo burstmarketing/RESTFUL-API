@@ -1,15 +1,15 @@
 <?php
 
 class Assembla_Model_Ticket_Customfield extends Assembla_Model_Abstract {
-  
+
   static public function getTagName(){
         return "custom-field";
   }
 
   public function toXml($arrAttributes = array(), $addCdata=false){
-    $xml = "<" . $this->getId() . ">";
+    $xml = "<" . str_replace( " ", "_", $this->getName()) . ">";
     $xml .= $this->getValue();
-    $xml .= "</" . $this->getId() . ">";
+    $xml .= "</" . str_replace( " ", "_", $this->getName()) . ">";
     return $xml;
   }
 
@@ -45,7 +45,7 @@ class Assembla_Model_Ticket_Customfield extends Assembla_Model_Abstract {
     }
     return false;
   }
-  
+
   }
 
 
