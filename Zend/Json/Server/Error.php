@@ -1,31 +1,20 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_Json
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Error.php 23775 2011-03-01 17:25:24Z ralph $
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_Json
  */
+
+namespace Zend\Json\Server;
 
 /**
  * @category   Zend
  * @package    Zend_Json
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Json_Server_Error
+class Error
 {
     const ERROR_PARSE           = -32768;
     const ERROR_INVALID_REQUEST = -32600;
@@ -38,7 +27,7 @@ class Zend_Json_Server_Error
      * Allowed error codes
      * @var array
      */
-    protected $_allowedCodes = array(
+    protected $allowedCodes = array(
         self::ERROR_PARSE,
         self::ERROR_INVALID_REQUEST,
         self::ERROR_INVALID_METHOD,
@@ -51,19 +40,19 @@ class Zend_Json_Server_Error
      * Current code
      * @var int
      */
-    protected $_code = -32000;
+    protected $code = -32000;
 
     /**
      * Error data
      * @var mixed
      */
-    protected $_data;
+    protected $data;
 
     /**
      * Error message
      * @var string
      */
-    protected $_message;
+    protected $message;
 
     /**
      * Constructor
@@ -71,7 +60,6 @@ class Zend_Json_Server_Error
      * @param  string $message
      * @param  int $code
      * @param  mixed $data
-     * @return void
      */
     public function __construct($message = null, $code = -32000, $data = null)
     {
@@ -84,7 +72,7 @@ class Zend_Json_Server_Error
      * Set error code
      *
      * @param  int $code
-     * @return Zend_Json_Server_Error
+     * @return \Zend\Json\Server\Error
      */
     public function setCode($code)
     {
@@ -93,10 +81,10 @@ class Zend_Json_Server_Error
         }
 
         $code = (int) $code;
-        if (in_array($code, $this->_allowedCodes)) {
-            $this->_code = $code;
+        if (in_array($code, $this->allowedCodes)) {
+            $this->code = $code;
         } elseif (in_array($code, range(-32099, -32000))) {
-            $this->_code = $code;
+            $this->code = $code;
         }
 
         return $this;
@@ -109,14 +97,14 @@ class Zend_Json_Server_Error
      */
     public function getCode()
     {
-        return $this->_code;
+        return $this->code;
     }
 
     /**
      * Set error message
      *
      * @param  string $message
-     * @return Zend_Json_Server_Error
+     * @return \Zend\Json\Server\Error
      */
     public function setMessage($message)
     {
@@ -124,7 +112,7 @@ class Zend_Json_Server_Error
             return $this;
         }
 
-        $this->_message = (string) $message;
+        $this->message = (string) $message;
         return $this;
     }
 
@@ -135,18 +123,18 @@ class Zend_Json_Server_Error
      */
     public function getMessage()
     {
-        return $this->_message;
+        return $this->message;
     }
 
     /**
      * Set error data
      *
      * @param  mixed $data
-     * @return Zend_Json_Server_Error
+     * @return \Zend\Json\Server\Error
      */
     public function setData($data)
     {
-        $this->_data = $data;
+        $this->data = $data;
         return $this;
     }
 
@@ -157,7 +145,7 @@ class Zend_Json_Server_Error
      */
     public function getData()
     {
-        return $this->_data;
+        return $this->data;
     }
 
     /**
@@ -181,8 +169,7 @@ class Zend_Json_Server_Error
      */
     public function toJson()
     {
-        // require_once 'Zend/Json.php';
-        return Zend_Json::encode($this->toArray());
+        return \Zend\Json\Json::encode($this->toArray());
     }
 
     /**
@@ -195,4 +182,3 @@ class Zend_Json_Server_Error
         return $this->toJson();
     }
 }
-

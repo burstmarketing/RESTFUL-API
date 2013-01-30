@@ -11,7 +11,10 @@
                                          "        \"api_key_secrete\" : \"\"\n"
                                          "    },\n"
                                          "    \"defaults\" : {\n"
-                                         "        \"url\" : \"https://api.assembla.com\"\n"
+                                         "        \"url\" : \"https://api.assembla.com\",\n"
+                                         "        \"service_object\" : \"Assembla_API_Service\",\n"
+                                         "        \"request_class_name\" : \"Assembla_API_V1_Request\",\n"
+                                         "        \"response_class_name\" : \"Assembla_API_V1_Response\"\n"
                                          "    },\n"
                                          "    \"services\" : {\n" )
                                 :tend "}}"

@@ -7,6 +7,12 @@ abstract class Core_API {
   protected $_config;
   protected $_config_base_type;
 
+  protected $_lastResponse;
+
+  /**
+   * FILTER RELATED FUNCTIONALITY
+   **/
+
   protected $_filters = array();
 
   /**
@@ -21,6 +27,11 @@ abstract class Core_API {
       throw new Assembla_Exception('Invalid filter callback; callback is not callable.');
     }
 
+    return $this;
+  }
+
+  public function clearFilters() {
+    $this->_filters = array();
     return $this;
   }
 
@@ -39,6 +50,7 @@ abstract class Core_API {
     return $this->_filters;
   }
 
+
   public function useCache( $use_cache = null ){
     if( $use_cache === null ){
       return $this->_use_cache;
@@ -47,13 +59,19 @@ abstract class Core_API {
     return $this;
   }
 
+
+  /**
+   * CONFIG RELATED FUNCTIONALITY
+   **/
+
   public function loadConfig( $file ){
     if(is_readable( $file ) ){
       // skeleton code to add other config types
       // currently just defaults to json.
       switch( $this->_config_base_type ){
       default:
-        $this->_config = new Zend_Config_Json( $file, null, true );
+        $config_reader = new Zend\Config\Reader\Json();
+        $this->_config = new Zend\Config\Config( $config_reader->fromFile( $file ), true );
       }
 
     } else {
@@ -62,89 +80,130 @@ abstract class Core_API {
   }
 
   public function getConfigs() {
-    return $this->_config->getConfigs();
+    $ret = array();
+    foreach( $this->_config AS $key => $value ){
+      $ret[$key] = $value;
+    }
+    return $ret;
   }
 
-  // @todo - This will throw  a fatal error if $uri doesn't exist, and has a slash in it
-  public function getConfig( $uri ){
-    if ($config = $this->_config->getConfig($uri)) {
-      return $config;
-    } else {
-      return false;
+
+  protected function _getConfig( &$config, $uri){
+    $matches = explode( '/', $uri );
+    if( count($matches) == 1 ) {
+      return $config->$uri;
     }
+    $next = array_shift( $matches );
+    if( isset($config->$next) ){
+      return $this->_getConfig( $config->$next, implode( $matches, "/" ));
+    }
+    return null;
+
+  }
+
+
+  public function getConfig( $uri ){
+    return $this->_getConfig( $this->_config, $uri );
+  }
+
+  protected function _setConfig( &$config, $uri, $value ){
+    $matches = explode( '/', $uri );
+    if( count($matches) == 1 ) {
+      $config->$uri = $value;
+      return $this;
+    }
+    $next = array_shift( $matches );
+    return $this->_setConfig( $config->$next, implode( $matches, "/" ), $value );
   }
 
   public function setConfig( $uri, $value ){
-    $this->_config->setConfig($uri, $value );
-    return $this;
+    return $this->_setConfig( $this->_config, $uri, $value );
   }
 
-  public function getService( $key ){
-    if( $this->getConfig( 'services/' . $key ) ){
-      return $this->getConfig( 'services/' . $key );
-    }
 
-    return false;
-  }
-
-  //NOTE: all of this stuff should probably be refactored into
-  //      a Core_RESTFUL_API class so we can use the rest of the framework
-  //      for stuff like SOAP APIs. __call will have to be changed to call
-  //      an abstract function so we set up the meat of the current function
-  //      in our new Core_RESTFUL_API class.
+  /**
+   * __CALL() RELATED FUNCTIONALITY
+   **/
 
   protected function _underscore($name) {
     return strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $name));
   }
 
-  // NOTE: getConfig( 'service' . $key )  should probably be a function
-  //       like getService( $key ) which returns a Core_Config_Service object
-  //       which we can get all this info from instead of requiring this be
-  //       returned as an array.
+  public function getClient( $args = false){
+    return new Zend\Http\Client();
+  }
+
+  public function getLastResponse() {
+    return $this->_lastResponse;
+  }
+
+  /**
+   * Return an object that inherits from Core_API_Service, this should represent
+   * the service data and have functions for validating arguments and ultimately
+   * generating a request
+   * @param string $key - the key used to identify the service in the config
+   **/
+
+  public function getService( $key ){
+    if( $this->getConfig( 'services/' . $key ) ){
+      $service_config = $this->getConfig( 'services/' . $key );
+
+      // @todo - maybe we should extend zend_config's __get() method to
+      //         automatically check the 'defaults' section of the config
+      //         if a config key isn't set on service?
+
+      $service_object_class = "";
+      if (isset($service_config->service_object) ) {
+        $service_object_class = $service_config->service_object;
+      } else {
+        $service_object_class = $this->getConfig('defaults/service_object');
+      }
+
+      if(class_exists( $service_object_class )) {
+        $service = new $service_object_class($this);
+      } else {
+        throw new Assembla_Exception(sprintf('Could not locate a Service Object for service %s.', $service->key) );
+      }
+
+      $service->setData( $service_config->toArray() );
+      $service->setKey( $key );
+
+      return $service;
+
+    }
+
+    return false;
+  }
+
 
   public function __call($method, $args){
     $matches = array();
 
     if (preg_match('/^(load|post|put|delete)(.*)/', $method, $matches)) {
       $key = $this->_underscore($matches[2]);
+      $uri_arguments = isset($args[0]) ? $args[0] : array();
 
-      // Clone so service doesn't retain values from last call
-      // @todo - Shouldn't this check for a service that has a GET/POST/PUT/DELETE value corresponding to $key?
-      if ($service = $this->getService($key)) {
-        $service = clone $service;
-        $service->key = $key;
+      if( ($service = $this->getService($key) ) !== false) {
+
+        $request = $service->validateArgs( $uri_arguments )->getRequest( $uri_arguments );
+        $client = $this->getClient();
+
+        if( isset($args[1] ) ){
+          $request->manageRequestData( $args[1] );
+        }
+
+        $this->_lastResponse = $client->dispatch($request);
+
+        return $this->_lastResponse->getObject( $service, $this->getFilters() );
+
       } else {
         throw new Assembla_Exception(sprintf('Service for %s could not be found.', $key));
       }
 
-      // If a URL isn't set in the service definition, try to pull
-      // a default from the config, if that fails, throw an exception.
-      if ((!isset($service->url)) &&
-          (!($service->url = $this->getConfig('defaults/url')))) {
-        throw new Assembla_Exception(sprintf('Could not locate a URL for service %s.', $service->key));
-      }
 
-      $request = $this->_getRequest()
-                      ->setAPI($this);
-
-      $request->validateArgs($service, current($args));
-      $request->generateRequest($service, $args);
-
-      return $this->_getResponse()
-                  ->setFilters($this->getFilters())
-                  ->processRequest($request, (isset($service->classname)) ? $service->classname : '');
     } else {
       throw new Assembla_Exception('Invalid method. Not one of load/post/put/delete.');
     }
   }
 
-  abstract protected function _getRequest();
-  abstract protected function _getResponse();
-
-}
-
-class Assembla_Exception extends Exception {
-  public function __construct($message = null, $code = 0, Exception $previous = null) {
-    parent::__construct($message, $code, $previous);
-  }
 }

@@ -12,9 +12,14 @@
     <testsuite name="Assembla_APITest">
       <file>tests/Assembla/Assembla_APITest.php</file>
     </testsuite>
+    <testsuite>
+      <file>tests/Assembla/Assembla_API_ServiceTest.php</file>
+    </testsuite>
+<!--
     <testsuite name="Assembla_API_V1_RequestTest">
       <file>tests/Assembla/Assembla_API_V1_RequestTest.php</file>
     </testsuite>
+-->
     <testsuite name="Assembla_API_V1_ResponseTest">
       <file>tests/Assembla/Assembla_API_V1_ResponseTest.php</file>
     </testsuite>
