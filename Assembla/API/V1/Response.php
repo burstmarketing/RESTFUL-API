@@ -21,7 +21,9 @@ class Assembla_API_V1_Response  extends Assembla_API_Response {
 
     if( $this->isSuccess() ){
       $classname = $service->getClassname() ? $service->getClassname() : "Core_Object";
-      $data = $this->_processContent();
+      $data_pre_array = $this->_processContent();
+      #--
+      $data = (array) $data_pre_array;
 
       $class = new $classname();
       $class->setFilters($filters);
