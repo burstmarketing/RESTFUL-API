@@ -70,8 +70,13 @@ abstract class Core_API {
       // currently just defaults to json.
       switch( $this->_config_base_type ){
       default:
-        $config_reader = new Zend\Config\Reader\Json();
-        $this->_config = new Zend\Config\Config( $config_reader->fromFile( $file ), true );
+        if ($this->_config instanceof Zend\Config\Config) {
+          $config_reader = new Zend\Config\Reader\Json();
+          $this->_config = $this->_config->merge(new Zend\Config\Config( $config_reader->fromFile( $file ), true ));
+        } else {
+          $config_reader = new Zend\Config\Reader\Json();
+          $this->_config = new Zend\Config\Config( $config_reader->fromFile( $file ), true );
+        }
       }
 
     } else {
@@ -162,7 +167,7 @@ abstract class Core_API {
       if(class_exists( $service_object_class )) {
         $service = new $service_object_class($this);
       } else {
-        throw new Assembla_Exception(sprintf('Could not locate a Service Object for service %s.', $service->key) );
+        throw new Assembla_Exception(sprintf('Could not locate a Service Object for service %s.', 'teagdsgsdg') );
       }
 
       $service->setData( $service_config->toArray() );
